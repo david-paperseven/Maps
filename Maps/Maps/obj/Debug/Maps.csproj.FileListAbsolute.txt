@@ -1,0 +1,17 @@
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Debug\ApplicationIcon.png
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Debug\Background.png
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Debug\Maps.dll
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Debug\Maps.pdb
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Debug\AppManifest.xaml
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Debug\Maps.xap
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Debug\Microsoft.Phone.Controls.Maps.dll
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Debug\Microsoft.Phone.Controls.Maps.xml
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\obj\Debug\App.g.i.cs
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\obj\Debug\MainPage.g.i.cs
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\obj\Debug\MenuControl.g.i.cs
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\obj\Debug\Maps.g.resources
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\obj\Debug\Maps.dll
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\obj\Debug\Maps.pdb
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\obj\Debug\XapCacheFile.xml
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Debug\Text\plaques.csv

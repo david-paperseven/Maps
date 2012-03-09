@@ -1,0 +1,17 @@
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Release\ApplicationIcon.png
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Release\Background.png
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Release\Maps.dll
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Release\Maps.pdb
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Release\AppManifest.xaml
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Release\Maps.xap
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Release\Microsoft.Phone.Controls.Maps.dll
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Release\Microsoft.Phone.Controls.Maps.xml
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\obj\Release\ResolveAssemblyReference.cache
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\obj\Release\App.g.i.cs
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\obj\Release\MainPage.g.i.cs
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\obj\Release\MenuControl.g.i.cs
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\obj\Release\Maps.g.resources
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\obj\Release\Maps.dll
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\obj\Release\Maps.pdb
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\obj\Release\XapCacheFile.xml
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Release\Text\plaques.csv
