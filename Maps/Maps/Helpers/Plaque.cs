@@ -7,6 +7,7 @@ using System.Windows.Ink;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Device.Location;
 
@@ -21,6 +22,8 @@ namespace Maps.Helpers
         MainPage myMainPage;
         MapLayer myTextLayer;
         TextBlock text;
+        float OpacitySelected = 0.75f;
+        float OpacityUnselected = 0.40f;
 
         public Plaque(PlaqueInfo info, MainPage page, MapLayer textLayer)
         {
@@ -30,11 +33,15 @@ namespace Maps.Helpers
             myMainPage = page;
             myTextLayer = textLayer;
 
-            Pin = new Ellipse();
-            Pin.Width = 30;
-            Pin.Height = 30;
-            Pin.Fill = new SolidColorBrush(Colors.Blue);
-            Pin.Opacity = 0.30;
+            Pin = new Rectangle();
+            Pin.Width = 33;
+            Pin.Height = 40;
+            ImageBrush brush = new ImageBrush();
+            BitmapImage bi = new BitmapImage();
+            bi.UriSource = new Uri("Marker/MARKER.png", UriKind.Relative);
+            brush.ImageSource = bi;
+            Pin.Fill = brush;
+            Pin.Opacity = OpacityUnselected;
             MapLayer.SetPosition(Pin, Info.location);
             MapLayer.SetPositionOrigin(Pin, PositionOrigin.Center);
 
@@ -73,7 +80,7 @@ namespace Maps.Helpers
                     // if it's in the selection list then just return it to selected
                     if (myMainPage.routeList.GetList().Contains(this))
                     {
-                        Pin.Fill = new SolidColorBrush(Colors.Blue);
+                        Pin.Opacity = OpacityUnselected;
                     }
                     else
                     {
@@ -83,7 +90,7 @@ namespace Maps.Helpers
                 }
                 else
                 {
-                    Pin.Fill = new SolidColorBrush(Colors.Green);
+                    Pin.Opacity = OpacitySelected;
                     SetSelection();
                     myMainPage.routeList.SetEndPoint(this);
                 }
@@ -129,20 +136,20 @@ namespace Maps.Helpers
 
         public GeoCoordinate GetLocation() { return Info.location; }
         public void SetColor(Color color) { /*Pin.Background = new SolidColorBrush(color);*/ }
-        public Ellipse Pin { get; set; }
+        public Shape Pin { get; set; }
         public bool Selected { get; set; }
         public PlaqueInfo Info { get; set; }
         public bool Visible { get; set; }
         public void ClearSelection()
         {
             Pin.Opacity = 0.3;
-            Pin.Fill = new SolidColorBrush(Colors.Blue);
+            Pin.Opacity = OpacityUnselected;
             Selected = false;
             UnshowQuickInfo();
         }
         public void SetSelection()
         {
-            Pin.Opacity = 0.9;
+            Pin.Opacity = OpacitySelected;
             Selected = true;
             ShowQuickInfo();
         }

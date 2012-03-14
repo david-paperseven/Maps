@@ -103,31 +103,30 @@ namespace Maps.Helpers
                 // Add the route line to the new layer.
                 routeLayer.Children.Add(routeLine);
 
-                myMainPage.SummaryLoaded();
-
-/*
-                // Figure the rectangle which encompasses the route. This is used later to set the map view.
-                LocationRect rect = new LocationRect(routeLine.Locations[0], routeLine.Locations[routeLine.Locations.Count - 1]);
-
-                // For each geocode result (which are the waypoints of the route), draw a dot on the map.
-                foreach (GeocodeService.GeocodeResult gr in geocodeResults)
+                double minX = 1000;
+                double minY = 1000;
+                double maxX = -1000;
+                double maxY = -1000;
+                for (int i = 0; i < routeLine.Locations.Count; i++)
                 {
-                    Ellipse point = new Ellipse();
-                    point.Width = 10;
-                    point.Height = 10;
-                    point.Fill = new SolidColorBrush(Colors.Red);
-                    point.Opacity = 0.65;
-                    Location location = new Location(gr.Locations[0].Latitude, gr.Locations[0].Longitude);
-                    MapLayer.SetPosition(point, location);
-                    MapLayer.SetPositionOrigin(point, PositionOrigin.Center);
+                    if (routeLine.Locations[i].Longitude < minX)
+                        minX = routeLine.Locations[i].Longitude;
+                    if (routeLine.Locations[i].Longitude > maxX)
+                        maxX = routeLine.Locations[i].Longitude;
 
-                    // Add the drawn point to the route layer.                    
-                    myRouteLayer.Children.Add(point);
+                    if (routeLine.Locations[i].Latitude < minY)
+                        minY = routeLine.Locations[i].Latitude;
+                    if (routeLine.Locations[i].Latitude > maxY)
+                        maxY = routeLine.Locations[i].Latitude;
                 }
+                // LocationRect(north,west,south,east)
+                LocationRect rect = new LocationRect(maxY,minX,minY,maxX);
 
                 // Set the map view using the rectangle which bounds the rendered route.
                 myMap.SetView(rect);
- * */
+
+                myMainPage.SummaryLoaded();
+
             }
         }
     }

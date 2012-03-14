@@ -68,7 +68,7 @@ namespace Maps.Helpers
         public List<string> CommaSeperatedValueParser()
         {
             List<string> parsedData = new List<string>();
-            uint total_comments = 0;
+            //uint total_comments = 0;
             uint total_blankLines = 0;
             bool tokenInQuotes = false;
             bool tokenContinued = true;
@@ -100,7 +100,7 @@ namespace Maps.Helpers
                 }
 
                 // Check For Any Other Characters (Default Action)
-                else if ((readLine.Trim() != null) && (!readLine.StartsWith(";")))
+                else if ((readLine.Trim() != null))
                 {
                     // Cycle Each Character
                     foreach (char character in readLine)
@@ -148,7 +148,7 @@ namespace Maps.Helpers
                                 continue;
                             }
                         }
-
+                        /*
                         // Check For Internal Comments
                         if (character == ';')
                         {
@@ -158,9 +158,9 @@ namespace Maps.Helpers
                             printLine = temp_println;
                             break;
                         }
-
+                        */
                         // Handle all other characters
-                        if (character != ';' && character != '\"' && character != ',')
+                        if (/*character != ';' && */character != '\"' && character != ',')
                         {
                             printLine += character;
                             continue;

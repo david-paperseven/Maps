@@ -140,6 +140,7 @@ namespace Maps
             //myMap.Center = plaques[0].GetLocation();
             myMap.ZoomLevel = 15;
              */
+            //currentLocation.SetLocation(e.Position.Location);
             myMap.Center = currentLocation.GetLocation();
         }
 
@@ -168,6 +169,7 @@ namespace Maps
             {
                 summary.NumPlaques = waypoints.Count - 1; // don't count the current position 
                 route.CalculateRoute(waypoints,summary);
+                RemoveAllPinsExceptCurrentRoute();
                 VisualStateManager.GoToState(this, "DistanceSummary1", true);
             }
         }
@@ -181,11 +183,22 @@ namespace Maps
 
         private void button1_Click_1(object sender, RoutedEventArgs e)
         {
-            routeState = RouteState.Normal; 
+            routeState = RouteState.Normal;
+            UpdatePlaqueVisibilty();
             VisualStateManager.GoToState(this, "UserSectedRoute", true);
         }
 
         private void ExitFilterMenu_Click(object sender, RoutedEventArgs e)
+        {
+            VisualStateManager.GoToState(this, "MapOnly", true);
+        }
+
+        private void ExitUserSelectedRoute_Click(object sender, RoutedEventArgs e)
+        {
+            VisualStateManager.GoToState(this, "MapOnly", true);
+        }
+
+        private void ExitFullInfo_Click(object sender, RoutedEventArgs e)
         {
             VisualStateManager.GoToState(this, "MapOnly", true);
         }
@@ -228,6 +241,7 @@ namespace Maps
         private void EditRouteButton_Click(object sender, RoutedEventArgs e)
         {
             VisualStateManager.GoToState(this, "SelectRoute3", true);
+            UpdatePlaqueVisibilty();
             routeState = RouteState.SelectRoute;
         }
 
@@ -235,6 +249,8 @@ namespace Maps
         {
             VisualStateManager.GoToState(this, "MapOnly", true);
             routeState = RouteState.Normal;
+            myMap.Center = currentLocation.GetLocation();
+            myMap.ZoomLevel = 17;
         }
 
         private void ArtsButton_Click(object sender, RoutedEventArgs e)
@@ -301,12 +317,32 @@ namespace Maps
             UpdatePlaqueVisibilty();
         }
 
+        private void RemoveAllPinsExceptCurrentRoute()
+        {
+            // remove old pins
+            pinLayer.Children.Clear();
+
+            List<Plaque> route = routeList.GetList();
+            for (int i = 0; i < plaques.Count; i++)
+            {
+                if (route.Contains(plaques[i]))
+                {
+                    pinLayer.Children.Add(plaques[i].Pin);
+                }
+            }
+            if (!route.Contains(routeList.GetEndPoint()))
+            {
+                // and add the end point if its not part of the main list
+                pinLayer.Children.Add(routeList.GetEndPoint().Pin);
+            }
+        }
+
         private void UpdatePlaqueVisibilty()
         {
             // remove old pins
             pinLayer.Children.Clear();
 
-            for (int i = 0; i < plaqueInfoList.Count; i++)
+            for (int i = 0; i < plaques.Count; i++)
             {
                 if (plaques[i].Visible || plaques[i].Selected)
                     pinLayer.Children.Add(plaques[i].Pin);

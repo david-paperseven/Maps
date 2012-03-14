@@ -50,6 +50,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Expression.Interactions" />
     <Reference Include="Microsoft.Phone" />
     <Reference Include="Microsoft.Phone.Controls.Maps" />
     <Reference Include="Microsoft.Phone.Interop" />
@@ -61,6 +62,7 @@
     <Reference Include="system" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net" />
+    <Reference Include="System.Windows.Interactivity" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
@@ -117,6 +119,7 @@
     <None Include="Service References\RouteService\route.wsdl" />
     <None Include="Service References\RouteService\route.xsd" />
     <None Include="Service References\RouteService\service.xsd" />
+    <Resource Include="Marker\MARKER.png" />
     <Content Include="ServiceReferences.ClientConfig" />
     <Content Include="Text\plaques.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -146,6 +149,7 @@
     <Resource Include="Filter_Images\Path + Path.png" />
     <Resource Include="FullInfo_Images\LINE BREAK copy.png" />
     <Resource Include="FullInfo_Images\Path + Path.png" />
+    <Resource Include="MarkerSelect_Images\Layer 2.png" />
     <Resource Include="QuickInfo_Images\LINE BREAK copy.png" />
     <Resource Include="QuickInfo_Images\Path + Path.png" />
     <Resource Include="SelectedRoute_Images\LINE BREAK copy.png" />
