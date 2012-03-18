@@ -52,7 +52,7 @@ namespace Maps
             InitializeWatcher();
             route = new Route(((ApplicationIdCredentialsProvider)myMap.CredentialsProvider).ApplicationId,myMap,this);
             summary = new Summary();
-            currentLocation = new CurrentLocation();
+            currentLocation = new CurrentLocation(myMap);
             routeList = new RouteList();
             plaqueLoader = new PlaqueLoader();
             plaqueInfoList = plaqueLoader.Load();
@@ -140,6 +140,7 @@ namespace Maps
             //myMap.Center = plaques[0].GetLocation();
             myMap.ZoomLevel = 15;
              */
+           // e.Position.Location.HorizontalAccuracy
             //currentLocation.SetLocation(e.Position.Location);
             myMap.Center = currentLocation.GetLocation();
         }
@@ -183,6 +184,7 @@ namespace Maps
 
         private void button1_Click_1(object sender, RoutedEventArgs e)
         {
+            BottomBar.Opacity = 0.0;
             routeState = RouteState.Normal;
             UpdatePlaqueVisibilty();
             VisualStateManager.GoToState(this, "UserSectedRoute", true);
@@ -190,16 +192,19 @@ namespace Maps
 
         private void ExitFilterMenu_Click(object sender, RoutedEventArgs e)
         {
+            BottomBar.Opacity = 1.0;
             VisualStateManager.GoToState(this, "MapOnly", true);
         }
 
         private void ExitUserSelectedRoute_Click(object sender, RoutedEventArgs e)
         {
+            BottomBar.Opacity = 1.0;
             VisualStateManager.GoToState(this, "MapOnly", true);
         }
 
         private void ExitFullInfo_Click(object sender, RoutedEventArgs e)
         {
+            BottomBar.Opacity = 1.0;
             VisualStateManager.GoToState(this, "MapOnly", true);
         }
 
@@ -207,6 +212,7 @@ namespace Maps
         {
             if (routeList.GetEndPoint() != null)
             {
+                BottomBar.Opacity = 0.0;
                 VisualStateManager.GoToState(this, "SelectRoute3", true);
                 DrawRoute();
                 routeState = RouteState.Normal;
@@ -215,6 +221,7 @@ namespace Maps
 
         private void CalcRoute_Click(object sender, RoutedEventArgs e)
         {
+            BottomBar.Opacity = 0.0;
             VisualStateManager.GoToState(this, "SelectRoute3", true);
             ClearSelectedPins();
             routeList.Clear();
@@ -224,22 +231,26 @@ namespace Maps
 
         private void Filter_Click(object sender, RoutedEventArgs e)
         {
+            BottomBar.Opacity = 0.0;
             VisualStateManager.GoToState(this, "Filter1", true);
         }
 
         private void FullInfoButton_Click(object sender, RoutedEventArgs e)
         {
+            BottomBar.Opacity = 0.0;
             VisualStateManager.GoToState(this, "FullInfo1", true);
         }
 
         private void DoneSelectingRoute(object sender, RoutedEventArgs e)
         {
+            BottomBar.Opacity = 0.0;
             routeState = RouteState.SelectEndPoint;
             VisualStateManager.GoToState(this, "DefineEndPoint2", true);
         }
 
         private void EditRouteButton_Click(object sender, RoutedEventArgs e)
         {
+            BottomBar.Opacity = 0.0;
             VisualStateManager.GoToState(this, "SelectRoute3", true);
             UpdatePlaqueVisibilty();
             routeState = RouteState.SelectRoute;
@@ -247,6 +258,7 @@ namespace Maps
 
         private void GoButton_Click(object sender, RoutedEventArgs e)
         {
+            BottomBar.Opacity = 1.0;
             VisualStateManager.GoToState(this, "MapOnly", true);
             routeState = RouteState.Normal;
             myMap.Center = currentLocation.GetLocation();

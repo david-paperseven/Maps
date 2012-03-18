@@ -19,8 +19,8 @@ namespace Maps.Helpers
     public class CurrentLocation
     {
         public GeoCoordinate Location;
-
-        public CurrentLocation()
+        Map myMap;
+        public CurrentLocation(Map map)
         {
             Pin = new Rectangle();
             Pin.Width = 20;
@@ -29,12 +29,32 @@ namespace Maps.Helpers
             Pin.Opacity = 0.80;
             Pin.Tap += new EventHandler<GestureEventArgs>(Pin_Tap);
 
+            myMap = map;
+            Circle = new Ellipse();
+            Circle.Stroke = new SolidColorBrush(Colors.Black);
+            Color grey = new Color();
+            grey.A = 128;
+            grey.R = 128;
+            grey.G = 128;
+            grey.B = 128;
+
+            Circle.Fill = new SolidColorBrush(grey);
+            Circle.HorizontalAlignment = HorizontalAlignment.Left;
+            Circle.VerticalAlignment = VerticalAlignment.Center;
+            Circle.Width = 75;
+            Circle.Height = 75;
+            myMap.Children.Add(Circle);
+
         }
 
         public void SetLocation(GeoCoordinate location)
         {
             MapLayer.SetPosition(Pin, location);
             MapLayer.SetPositionOrigin(Pin, PositionOrigin.Center);
+
+            MapLayer.SetPosition(Circle, location);
+            MapLayer.SetPositionOrigin(Circle, PositionOrigin.Center);
+
             Location = location;
 
         }
@@ -46,5 +66,6 @@ namespace Maps.Helpers
         }
 
         public Shape Pin { get; set; }
+        public Ellipse Circle { get; set; }
     }
 }

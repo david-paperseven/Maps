@@ -72,20 +72,20 @@ namespace Maps.Helpers
             if ((e.Result.ResponseSummary.StatusCode == RouteService.ResponseStatusCode.Success) & (e.Result.Result.Legs.Count != 0))
             {
                 // Set properties of the route line you want to draw.
-                Color routeColor = Colors.Blue;
+                Color routeColor = Colors.Magenta;
                 SolidColorBrush routeBrush = new SolidColorBrush(routeColor);
                 MapPolyline routeLine = new MapPolyline();
                 routeLine.Locations = new LocationCollection();
                 routeLine.Stroke = routeBrush;
-                routeLine.Opacity = 0.65;
+                routeLine.Opacity = 1.0;
                 routeLine.StrokeThickness = 5.0;
-
+/*
                 DoubleCollection collection = new DoubleCollection();
                 collection.Add(0.1);
                 collection.Add(0.4);
                 collection.Add(0.1);
                 routeLine.StrokeDashArray = collection;
-
+*/
                 mySummary.Distance = e.Result.Result.Summary.Distance;
                 mySummary.Time = e.Result.Result.Summary.TimeInSeconds;
 
@@ -97,6 +97,7 @@ namespace Maps.Helpers
                     location.Latitude = p.Latitude;
                     routeLine.Locations.Add(location);
                 }
+
 
                 routeLayer.Children.Clear();
 

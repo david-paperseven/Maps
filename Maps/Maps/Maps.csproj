@@ -105,6 +105,24 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Fonts\NokiaPureHeadlineBd.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Fonts\NokiaPureHeadlineLt.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Fonts\NokiaPureHeadlineRg.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Fonts\NokiaPureText.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Fonts\NokiaPureTextBold.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Fonts\NokiaPureTextLight.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml" />
     <None Include="Service References\RouteService\common.xsd" />
@@ -119,7 +137,28 @@
     <None Include="Service References\RouteService\route.wsdl" />
     <None Include="Service References\RouteService\route.xsd" />
     <None Include="Service References\RouteService\service.xsd" />
+    <Resource Include="BottomBar_Images\Group.png" />
+    <Resource Include="DistanceSummary1_Images\Group.png" />
+    <Resource Include="DistanceSummary1_Images\Path.png" />
+    <Resource Include="EndPoint_Images\Compound Path.png" />
+    <Resource Include="EndPoint_Images\Group.png" />
+    <Resource Include="EndPoint_Images\Group1.png" />
+    <Resource Include="EndPoint_Images\Path.png" />
+    <Resource Include="Filter1_Images\Group.png" />
+    <Resource Include="Filter1_Images\Path.png" />
     <Resource Include="Marker\MARKER.png" />
+    <Resource Include="Marker\MARKER_BLUE.png" />
+    <Resource Include="Marker\MARKER_GREEN.png" />
+    <Resource Include="Marker\MARKER_OUTLINE_BLUE-L.png" />
+    <Resource Include="Marker\MARKER_OUTLINE_BLUE-S.png" />
+    <Resource Include="Marker\MARKER_OUTLINE_GREEN-L.png" />
+    <Resource Include="Marker\MARKER_OUTLINE_GREEN-S.png" />
+    <Resource Include="Marker\MARKER_OUTLINE_RED-L.png" />
+    <Resource Include="Marker\MARKER_OUTLINE_RED-S.png" />
+    <Resource Include="Marker\MARKER_RED.png" />
+    <Resource Include="Marker\MARKER_TRANS_BLUE.png" />
+    <Resource Include="Marker\MARKER_TRANS_GREEN.png" />
+    <Resource Include="Marker\MARKER_TRANS_RED.png" />
     <Content Include="ServiceReferences.ClientConfig" />
     <Content Include="Text\plaques.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -152,6 +191,15 @@
     <Resource Include="MarkerSelect_Images\Layer 2.png" />
     <Resource Include="QuickInfo_Images\LINE BREAK copy.png" />
     <Resource Include="QuickInfo_Images\Path + Path.png" />
+    <Resource Include="RouteSelect_Images\Compound Path.png" />
+    <Resource Include="RouteSelect_Images\Group.png" />
+    <Resource Include="RouteSelect_Images\Group1.png" />
+    <Resource Include="RouteSelect_Images\Path.png" />
+    <Resource Include="RouteSummary_Images\Group.png" />
+    <Resource Include="RouteSummary_Images\Group1.png" />
+    <Resource Include="RouteSummary_Images\Path.png" />
+    <Resource Include="Screen1_Images\Group.png" />
+    <Resource Include="Screen1_Images\Path.png" />
     <Resource Include="SelectedRoute_Images\LINE BREAK copy.png" />
     <Resource Include="SelectedRoute_Images\Path + Path.png" />
     <Resource Include="SelectRoute_Images\LINE BREAK copy.png" />

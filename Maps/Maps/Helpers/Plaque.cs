@@ -22,11 +22,33 @@ namespace Maps.Helpers
         MainPage myMainPage;
         MapLayer myTextLayer;
         TextBlock text;
-        float OpacitySelected = 0.75f;
-        float OpacityUnselected = 0.40f;
+
+        ImageBrush brushMarker;
+        ImageBrush brushSelectedMarker;
+        ImageBrush brushEndOfRouteMarker;
+
+
+        public void InitBrushes()
+        {
+            brushMarker = new ImageBrush();
+            BitmapImage bi = new BitmapImage();
+            bi.UriSource = new Uri("Marker/MARKER_BLUE.png", UriKind.Relative);
+            brushMarker.ImageSource = bi;
+
+            brushSelectedMarker = new ImageBrush();
+            BitmapImage bi2 = new BitmapImage();
+            bi2.UriSource = new Uri("Marker/MARKER_OUTLINE_BLUE-S.png", UriKind.Relative);
+            brushSelectedMarker.ImageSource = bi2;
+
+            brushEndOfRouteMarker = new ImageBrush();
+            BitmapImage bi3 = new BitmapImage();
+            bi3.UriSource = new Uri("Marker/MARKER_OUTLINE_RED-S.png", UriKind.Relative);
+            brushEndOfRouteMarker.ImageSource = bi3;
+        }
 
         public Plaque(PlaqueInfo info, MainPage page, MapLayer textLayer)
         {
+            InitBrushes();
             Selected = false;
             Info = info;
             Visible = true;
@@ -36,12 +58,10 @@ namespace Maps.Helpers
             Pin = new Rectangle();
             Pin.Width = 33;
             Pin.Height = 40;
-            ImageBrush brush = new ImageBrush();
-            BitmapImage bi = new BitmapImage();
-            bi.UriSource = new Uri("Marker/MARKER.png", UriKind.Relative);
-            brush.ImageSource = bi;
-            Pin.Fill = brush;
-            Pin.Opacity = OpacityUnselected;
+
+            Pin.Fill = brushMarker;
+            Pin.Opacity = 0.50;
+
             MapLayer.SetPosition(Pin, Info.location);
             MapLayer.SetPositionOrigin(Pin, PositionOrigin.Center);
 
@@ -80,7 +100,8 @@ namespace Maps.Helpers
                     // if it's in the selection list then just return it to selected
                     if (myMainPage.routeList.GetList().Contains(this))
                     {
-                        Pin.Opacity = OpacityUnselected;
+                        Pin.Fill = brushSelectedMarker;
+                        Pin.Opacity = 1.0;
                     }
                     else
                     {
@@ -90,8 +111,22 @@ namespace Maps.Helpers
                 }
                 else
                 {
-                    Pin.Opacity = OpacitySelected;
-                    SetSelection();
+                    if (myMainPage.routeList.GetEndPoint() != null) // got to clear the existing endpoint
+                    {
+                        if (myMainPage.routeList.GetList().Contains(myMainPage.routeList.GetEndPoint()))
+                        {
+                            myMainPage.routeList.GetEndPoint().Pin.Fill = brushSelectedMarker;
+                            myMainPage.routeList.GetEndPoint().Pin.Opacity = 1.0;
+                        }
+                        else
+                        {
+                            myMainPage.routeList.GetEndPoint().ClearSelection();
+                        }
+
+                    }
+                    ShowQuickInfo();
+                    Pin.Fill = brushEndOfRouteMarker;
+                    Pin.Opacity = 1.0;
                     myMainPage.routeList.SetEndPoint(this);
                 }
             }
@@ -99,6 +134,16 @@ namespace Maps.Helpers
 
         public void ShowQuickInfo()
         {
+            if (myMainPage.routeState == MainPage.RouteState.SelectEndPoint)
+            {
+                myMainPage.EndPointPlaqueName.Text = Info.title + " " + Info.forenames + " " + Info.surname;
+            }
+            else
+            {
+                myMainPage.SelectRoutePlaqueName.Text = Info.title + " " + Info.forenames + " " + Info.surname;
+            }
+
+/*
             if (!myTextLayer.Children.Contains(text))
             {
                 text.Text = Info.title + " " + Info.forenames + " " + Info.surname;
@@ -110,28 +155,20 @@ namespace Maps.Helpers
                 MapLayer.SetPositionOffset(text, new Point(0, -30));
                 myTextLayer.Children.Add(text);
             }
+ * */
         }
 
         public void UnshowQuickInfo()
         {
-            myTextLayer.Children.Remove(text);
-        }
-
-        public void FillInQuickInfo()
-        {
-            if (Info.title != null)
-                myMainPage.Name.Text = Info.title + " " + Info.forenames + " " + Info.surname;
+            if (myMainPage.routeState == MainPage.RouteState.SelectEndPoint)
+            {
+                myMainPage.EndPointPlaqueName.Text = "";
+            }
             else
-                myMainPage.Name.Text = Info.forenames + " " + Info.surname;
-            myMainPage.Date.Text = Info.date;
-            myMainPage.Address.Text = Info.address1;
-        }
-
-        public void FillInFullInfo()
-        {
-            myMainPage.Name1.Text = Info.title + Info.forenames + Info.surname;
-            myMainPage.Birth_Data.Text = "("+Info.date+")";
-            myMainPage.Info.Text = Info.fullinfo + "\n\n" + Info.address1 + "\n" + Info.address2 + "\n\n" + Info.moreinfo;
+            {
+                myMainPage.SelectRoutePlaqueName.Text = "";
+            }
+            //myTextLayer.Children.Remove(text);
         }
 
         public GeoCoordinate GetLocation() { return Info.location; }
@@ -142,14 +179,15 @@ namespace Maps.Helpers
         public bool Visible { get; set; }
         public void ClearSelection()
         {
-            Pin.Opacity = 0.3;
-            Pin.Opacity = OpacityUnselected;
+            Pin.Fill = brushMarker;
+            Pin.Opacity = 0.50;
             Selected = false;
             UnshowQuickInfo();
         }
         public void SetSelection()
         {
-            Pin.Opacity = OpacitySelected;
+            Pin.Fill = brushSelectedMarker;
+            Pin.Opacity = 1.0;
             Selected = true;
             ShowQuickInfo();
         }
