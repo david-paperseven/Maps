@@ -31,7 +31,8 @@ namespace Maps
         {
             Normal,
             SelectRoute,
-            SelectEndPoint
+            SelectEndPoint,
+            Travelling
         }
 
         GeoCoordinateWatcher watcher;
@@ -43,6 +44,7 @@ namespace Maps
         MapLayer pinLayer;
         MapLayer textLayer;
         CurrentLocation currentLocation;
+        Journey journey;
         public RouteList routeList;
         public RouteState routeState;
 
@@ -61,6 +63,21 @@ namespace Maps
 
             myMap.ZoomLevel = 15;
             routeState = RouteState.Normal;
+
+            journey = new Journey(this);
+
+            VisualStateManager.GoToState(this, "MapOnly", true);
+        }
+
+        private void Map_Loaded(object sender, RoutedEventArgs e)
+        {
+            // remove the navigation visibility.  
+            // This control is redundant with the multi-touch capabilities of the phone.
+            //myMap.NavigationVisibility = System.Windows.Visibility.Collapsed;
+            // removes the copyright note
+            myMap.CopyrightVisibility = System.Windows.Visibility.Collapsed;
+            // removes the Bing logo
+            myMap.LogoVisibility = System.Windows.Visibility.Collapsed;
         }
 
         private void InitializePlaques()
@@ -184,27 +201,32 @@ namespace Maps
 
         private void button1_Click_1(object sender, RoutedEventArgs e)
         {
-            BottomBar.Opacity = 0.0;
-            routeState = RouteState.Normal;
+//            routeState = RouteState.Normal;
             UpdatePlaqueVisibilty();
-            VisualStateManager.GoToState(this, "UserSectedRoute", true);
+
+            if (routeState == RouteState.Travelling)
+            {
+                VisualStateManager.GoToState(this, "RouteSummary1", true);
+                journey.FillInDetails();
+            }
+            else
+            {
+                VisualStateManager.GoToState(this, "UserSectedRoute", true);
+            }
         }
 
         private void ExitFilterMenu_Click(object sender, RoutedEventArgs e)
         {
-            BottomBar.Opacity = 1.0;
             VisualStateManager.GoToState(this, "MapOnly", true);
         }
 
         private void ExitUserSelectedRoute_Click(object sender, RoutedEventArgs e)
         {
-            BottomBar.Opacity = 1.0;
             VisualStateManager.GoToState(this, "MapOnly", true);
         }
 
         private void ExitFullInfo_Click(object sender, RoutedEventArgs e)
         {
-            BottomBar.Opacity = 1.0;
             VisualStateManager.GoToState(this, "MapOnly", true);
         }
 
@@ -212,7 +234,6 @@ namespace Maps
         {
             if (routeList.GetEndPoint() != null)
             {
-                BottomBar.Opacity = 0.0;
                 VisualStateManager.GoToState(this, "SelectRoute3", true);
                 DrawRoute();
                 routeState = RouteState.Normal;
@@ -221,7 +242,6 @@ namespace Maps
 
         private void CalcRoute_Click(object sender, RoutedEventArgs e)
         {
-            BottomBar.Opacity = 0.0;
             VisualStateManager.GoToState(this, "SelectRoute3", true);
             ClearSelectedPins();
             routeList.Clear();
@@ -231,26 +251,22 @@ namespace Maps
 
         private void Filter_Click(object sender, RoutedEventArgs e)
         {
-            BottomBar.Opacity = 0.0;
             VisualStateManager.GoToState(this, "Filter1", true);
         }
 
         private void FullInfoButton_Click(object sender, RoutedEventArgs e)
         {
-            BottomBar.Opacity = 0.0;
             VisualStateManager.GoToState(this, "FullInfo1", true);
         }
 
         private void DoneSelectingRoute(object sender, RoutedEventArgs e)
         {
-            BottomBar.Opacity = 0.0;
             routeState = RouteState.SelectEndPoint;
             VisualStateManager.GoToState(this, "DefineEndPoint2", true);
         }
 
         private void EditRouteButton_Click(object sender, RoutedEventArgs e)
         {
-            BottomBar.Opacity = 0.0;
             VisualStateManager.GoToState(this, "SelectRoute3", true);
             UpdatePlaqueVisibilty();
             routeState = RouteState.SelectRoute;
@@ -258,11 +274,25 @@ namespace Maps
 
         private void GoButton_Click(object sender, RoutedEventArgs e)
         {
-            BottomBar.Opacity = 1.0;
             VisualStateManager.GoToState(this, "MapOnly", true);
-            routeState = RouteState.Normal;
+            routeState = RouteState.Travelling;
+            journey.StartJourney(summary);
             myMap.Center = currentLocation.GetLocation();
-            myMap.ZoomLevel = 17;
+            myMap.ZoomLevel = 16;
+        }
+
+        private void RouteSummaryEditRouteButton_Click(object sender, RoutedEventArgs e)
+        {
+            VisualStateManager.GoToState(this, "SelectRoute3", true);
+            UpdatePlaqueVisibilty();
+            routeState = RouteState.SelectRoute;
+        }
+
+        private void RouteSummaryGoButton_Click(object sender, RoutedEventArgs e)
+        {
+            VisualStateManager.GoToState(this, "MapOnly", true);
+            UpdatePlaqueVisibilty();
+            routeState = RouteState.Travelling;
         }
 
         private void ArtsButton_Click(object sender, RoutedEventArgs e)

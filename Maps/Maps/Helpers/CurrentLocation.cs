@@ -7,6 +7,7 @@ using System.Windows.Ink;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Device.Location;
 
@@ -22,10 +23,15 @@ namespace Maps.Helpers
         Map myMap;
         public CurrentLocation(Map map)
         {
+            ImageBrush brush = new ImageBrush();
+            BitmapImage bi = new BitmapImage();
+            bi.UriSource = new Uri("Marker/HOME.png", UriKind.Relative);
+            brush.ImageSource = bi;
+
             Pin = new Rectangle();
-            Pin.Width = 20;
-            Pin.Height = 20;
-            Pin.Fill = new SolidColorBrush(Colors.Red);
+            Pin.Width = 30;
+            Pin.Height = 30;
+            Pin.Fill = brush;
             Pin.Opacity = 0.80;
             Pin.Tap += new EventHandler<GestureEventArgs>(Pin_Tap);
 

@@ -71,6 +71,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CurrentLocation.cs" />
+    <Compile Include="Helpers\Journey.cs" />
     <Compile Include="Helpers\PlaqueInfo.cs" />
     <Compile Include="Helpers\Plaque.cs" />
     <Compile Include="Helpers\PlaqueLoader.cs" />
@@ -137,6 +138,8 @@
     <None Include="Service References\RouteService\route.wsdl" />
     <None Include="Service References\RouteService\route.xsd" />
     <None Include="Service References\RouteService\service.xsd" />
+    <Resource Include="BLD_NK_BLUE-PLAQUE-MAIN-MENU_01_Images\Group.png" />
+    <Resource Include="BLD_NK_BLUE-PLAQUE-MAIN-MENU_01_Images\Group1.png" />
     <Resource Include="BottomBar_Images\Group.png" />
     <Resource Include="DistanceSummary1_Images\Group.png" />
     <Resource Include="DistanceSummary1_Images\Path.png" />
@@ -159,10 +162,16 @@
     <Resource Include="Marker\MARKER_TRANS_BLUE.png" />
     <Resource Include="Marker\MARKER_TRANS_GREEN.png" />
     <Resource Include="Marker\MARKER_TRANS_RED.png" />
+    <Resource Include="Marker\HOME.png" />
     <Content Include="ServiceReferences.ClientConfig" />
     <Content Include="Text\plaques.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="SplashScreen_Images\Balloon.png" />
+    <Resource Include="SplashScreen_Images\Blue.png" />
+    <Resource Include="SplashScreen_Images\Group.png" />
+    <Resource Include="SplashScreen_Images\Maps.png" />
+    <Resource Include="SplashScreen_Images\Nokia.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ApplicationIcon.png">

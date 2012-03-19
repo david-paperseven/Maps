@@ -56,8 +56,8 @@ namespace Maps.Helpers
             myTextLayer = textLayer;
 
             Pin = new Rectangle();
-            Pin.Width = 33;
-            Pin.Height = 40;
+            Pin.Width = 41;
+            Pin.Height = 50;
 
             Pin.Fill = brushMarker;
             Pin.Opacity = 0.50;
