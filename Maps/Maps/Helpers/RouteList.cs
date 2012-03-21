@@ -23,6 +23,8 @@ namespace Maps.Helpers
     {
         List<Plaque> routeList;
         Plaque endPoint;
+        Plaque startPoint;
+        Plaque currentPoint;
         public RouteList()
         {
             routeList = new List<Plaque>();
@@ -53,6 +55,26 @@ namespace Maps.Helpers
             return endPoint;
         }
 
+        public void SetStartPoint(Plaque plaque)
+        {
+            startPoint = plaque;
+        }
+
+        public Plaque GetStartPoint()
+        {
+            return startPoint;
+        }
+
+        public void SetCurrentPoint(Plaque plaque)
+        {
+            currentPoint = plaque;
+        }
+
+        public Plaque GetCurrentPoint()
+        {
+            return currentPoint;
+        }
+
         public List<Plaque> GetList()
         {
             return routeList;
@@ -65,6 +87,10 @@ namespace Maps.Helpers
             Waypoint mywp = new Waypoint();
             mywp.Location = currentLocation;
             waypoints.Add(mywp);
+
+            Waypoint sp = new Waypoint();
+            sp.Location = startPoint.Info.location;
+            waypoints.Add(sp);
 
             foreach (Plaque p in routeList)
             {

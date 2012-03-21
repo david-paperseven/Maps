@@ -10,6 +10,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Device.Location;
+using System.Windows.Threading;
 
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Controls.Maps;
@@ -21,6 +22,13 @@ namespace Maps.Helpers
     {
         public GeoCoordinate Location;
         Map myMap;
+        Ellipse circle;
+
+        double maxsize = 85;
+        double minsize = 70.0;
+        double growshrink = 1.0;
+        double step = 0.3;
+
         public CurrentLocation(Map map)
         {
             ImageBrush brush = new ImageBrush();
@@ -49,8 +57,36 @@ namespace Maps.Helpers
             Circle.VerticalAlignment = VerticalAlignment.Center;
             Circle.Width = 75;
             Circle.Height = 75;
+            circle = Circle;
             myMap.Children.Add(Circle);
+            CircleDispatcherTimer();
+        }
 
+        private void CircleDispatcherTimer()
+        {
+            DispatcherTimer timer = new DispatcherTimer();
+
+            timer.Tick +=
+                delegate(object s, EventArgs args)
+                {
+                    double currentSize = circle.Width;
+                    currentSize += step * growshrink;
+                    if (currentSize > maxsize)
+                    {
+                        currentSize = maxsize;
+                        growshrink *= -1.0;
+                    }
+                    if (currentSize < minsize)
+                    {
+                        currentSize = minsize;
+                        growshrink *= -1.0;
+                    }
+                    circle.Width = currentSize;
+                    circle.Height = currentSize;
+                };
+
+            timer.Interval = new TimeSpan(0, 0, 0);
+            timer.Start();
         }
 
         public void SetLocation(GeoCoordinate location)

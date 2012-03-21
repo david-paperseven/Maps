@@ -149,6 +149,8 @@
     <Resource Include="EndPoint_Images\Path.png" />
     <Resource Include="Filter1_Images\Group.png" />
     <Resource Include="Filter1_Images\Path.png" />
+    <Resource Include="MainMenu_Images\Group.png" />
+    <Resource Include="MainMenu_Images\Path.png" />
     <Resource Include="Marker\MARKER.png" />
     <Resource Include="Marker\MARKER_BLUE.png" />
     <Resource Include="Marker\MARKER_GREEN.png" />

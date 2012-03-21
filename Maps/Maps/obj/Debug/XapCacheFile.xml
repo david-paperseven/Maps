@@ -1,14 +1,26 @@
-﻿<xapCache source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Debug\Maps.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="13/03/2012 10:34:56">
+﻿<xapCache source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Debug\Maps.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="21/03/2012 20:36:28">
   <file source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Debug\WMAppManifest.xml" archivePath="WMAppManifest.xml" lastWriteTime="01/03/2012 10:30:18" />
   <file source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\Background.png" archivePath="Background.png" lastWriteTime="17/01/2011 23:02:00" />
   <file source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\ApplicationIcon.png" archivePath="ApplicationIcon.png" lastWriteTime="17/01/2011 23:02:00" />
-  <file source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\obj\Debug\Maps.dll" archivePath="Maps.dll" lastWriteTime="13/03/2012 10:34:55" />
+  <file source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\obj\Debug\Maps.dll" archivePath="Maps.dll" lastWriteTime="21/03/2012 20:36:28" />
   <file source="c:\Program Files (x86)\Microsoft SDKs\Expression\Blend\Windows Phone\v7.1\Libraries\Microsoft.Expression.Interactions.dll" archivePath="Microsoft.Expression.Interactions.dll" lastWriteTime="17/08/2011 02:48:22" />
   <file source="C:\Program Files (x86)\Microsoft SDKs\Windows Phone\v7.1\Libraries\Silverlight\Microsoft.Phone.Controls.Maps.dll" archivePath="Microsoft.Phone.Controls.Maps.dll" lastWriteTime="15/09/2011 16:36:26" />
   <file source="c:\Program Files (x86)\Microsoft SDKs\Expression\Blend\Windows Phone\v7.1\Libraries\System.Windows.Interactivity.dll" archivePath="System.Windows.Interactivity.dll" lastWriteTime="17/08/2011 02:48:22" />
+  <file source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\Fonts\NokiaPureHeadlineBd.ttf" archivePath="Fonts\NokiaPureHeadlineBd.ttf" lastWriteTime="04/02/2011 14:46:36" />
+  <file source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\Fonts\NokiaPureHeadlineLt.ttf" archivePath="Fonts\NokiaPureHeadlineLt.ttf" lastWriteTime="04/02/2011 14:46:36" />
+  <file source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\Fonts\NokiaPureHeadlineRg.ttf" archivePath="Fonts\NokiaPureHeadlineRg.ttf" lastWriteTime="04/02/2011 14:46:40" />
+  <file source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\Fonts\NokiaPureText.ttf" archivePath="Fonts\NokiaPureText.ttf" lastWriteTime="07/02/2011 12:50:06" />
+  <file source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\Fonts\NokiaPureTextBold.ttf" archivePath="Fonts\NokiaPureTextBold.ttf" lastWriteTime="07/02/2011 13:36:44" />
+  <file source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\Fonts\NokiaPureTextLight.ttf" archivePath="Fonts\NokiaPureTextLight.ttf" lastWriteTime="07/02/2011 12:47:04" />
   <file source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\ServiceReferences.ClientConfig" archivePath="ServiceReferences.ClientConfig" lastWriteTime="01/03/2012 19:52:48" />
   <file source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\Text\plaques.csv" archivePath="Text\plaques.csv" lastWriteTime="12/03/2012 09:26:19" />
   <file source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\SplashScreenImage.jpg" archivePath="SplashScreenImage.jpg" lastWriteTime="17/01/2011 23:02:00" />
   <file source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Debug\AppManifest.xaml" archivePath="AppManifest.xaml" lastWriteTime="13/03/2012 09:45:24" />
+  <file source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Debug\Fonts\NokiaPureHeadlineBd.ttf" archivePath="Fonts\NokiaPureHeadlineBd.ttf" lastWriteTime="04/02/2011 14:46:36" />
+  <file source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Debug\Fonts\NokiaPureHeadlineLt.ttf" archivePath="Fonts\NokiaPureHeadlineLt.ttf" lastWriteTime="04/02/2011 14:46:36" />
+  <file source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Debug\Fonts\NokiaPureHeadlineRg.ttf" archivePath="Fonts\NokiaPureHeadlineRg.ttf" lastWriteTime="04/02/2011 14:46:40" />
+  <file source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Debug\Fonts\NokiaPureText.ttf" archivePath="Fonts\NokiaPureText.ttf" lastWriteTime="07/02/2011 12:50:06" />
+  <file source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Debug\Fonts\NokiaPureTextBold.ttf" archivePath="Fonts\NokiaPureTextBold.ttf" lastWriteTime="07/02/2011 13:36:44" />
+  <file source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Debug\Fonts\NokiaPureTextLight.ttf" archivePath="Fonts\NokiaPureTextLight.ttf" lastWriteTime="07/02/2011 12:47:04" />
   <file source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Debug\Text\plaques.csv" archivePath="Text\plaques.csv" lastWriteTime="12/03/2012 09:26:19" />
 </xapCache>

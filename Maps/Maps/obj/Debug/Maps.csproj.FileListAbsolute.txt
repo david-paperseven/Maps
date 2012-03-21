@@ -37,3 +37,9 @@ C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Debug\ja\System.Windows.Interactivi
 C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Debug\ko\System.Windows.Interactivity.resources.dll
 C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Debug\zh-Hans\System.Windows.Interactivity.resources.dll
 C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Debug\zh-Hant\System.Windows.Interactivity.resources.dll
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Debug\Fonts\NokiaPureHeadlineBd.ttf
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Debug\Fonts\NokiaPureHeadlineLt.ttf
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Debug\Fonts\NokiaPureHeadlineRg.ttf
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Debug\Fonts\NokiaPureText.ttf
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Debug\Fonts\NokiaPureTextBold.ttf
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Debug\Fonts\NokiaPureTextLight.ttf

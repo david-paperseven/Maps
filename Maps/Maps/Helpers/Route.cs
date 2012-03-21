@@ -28,6 +28,7 @@ namespace Maps.Helpers
         MainPage myMainPage;
         Summary mySummary;
         MapLayer routeLayer;
+        MapPolyline currentRouteLine;
 
         public Route(string Id, Map map, MainPage page)
         {
@@ -64,6 +65,11 @@ namespace Maps.Helpers
             routeService.CalculateRouteAsync(routeRequest);
         }
 
+        public void FadeOutRouteLine()
+        {
+            if (currentRouteLine != null)
+                currentRouteLine.Opacity = 0.3;
+        }
         // This is the callback method for the CalculateRoute request.
         private void routeService_CalculateRouteCompleted(object sender, RouteService.CalculateRouteCompletedEventArgs e)
         {
@@ -103,6 +109,7 @@ namespace Maps.Helpers
 
                 // Add the route line to the new layer.
                 routeLayer.Children.Add(routeLine);
+                currentRouteLine = routeLine;
 
                 double minX = 1000;
                 double minY = 1000;

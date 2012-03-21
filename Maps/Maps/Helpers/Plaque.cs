@@ -26,6 +26,7 @@ namespace Maps.Helpers
         ImageBrush brushMarker;
         ImageBrush brushSelectedMarker;
         ImageBrush brushEndOfRouteMarker;
+        ImageBrush brushStartOfRouteMarker;
 
 
         public void InitBrushes()
@@ -44,8 +45,17 @@ namespace Maps.Helpers
             BitmapImage bi3 = new BitmapImage();
             bi3.UriSource = new Uri("Marker/MARKER_OUTLINE_RED-S.png", UriKind.Relative);
             brushEndOfRouteMarker.ImageSource = bi3;
+
+            brushStartOfRouteMarker = new ImageBrush();
+            BitmapImage bi4 = new BitmapImage();
+            bi4.UriSource = new Uri("Marker/MARKER_OUTLINE_GREEN-S.png", UriKind.Relative);
+            brushStartOfRouteMarker.ImageSource = bi4;
         }
 
+        static double pinwidth = 41;
+        static double pinheight = 50;
+        static double selectedpinwidth = pinwidth * 1.3;
+        static double selectedpinheight = pinheight * 1.3;
         public Plaque(PlaqueInfo info, MainPage page, MapLayer textLayer)
         {
             InitBrushes();
@@ -56,8 +66,8 @@ namespace Maps.Helpers
             myTextLayer = textLayer;
 
             Pin = new Rectangle();
-            Pin.Width = 41;
-            Pin.Height = 50;
+            Pin.Width = pinwidth;
+            Pin.Height = pinheight;
 
             Pin.Fill = brushMarker;
             Pin.Opacity = 0.50;
@@ -68,6 +78,8 @@ namespace Maps.Helpers
             Pin.Tap += new EventHandler<GestureEventArgs>(Pin_Tap);
 
             text = new TextBlock();
+
+            myMainPage.AddOrRemovePlaque.Opacity = 0.0;
         }
 
         void Pin_Tap(object sender, GestureEventArgs e)
@@ -78,22 +90,58 @@ namespace Maps.Helpers
                 SetSelection();
             }
 
+            if (myMainPage.routeState == MainPage.RouteState.SelectStartPoint)
+            {
+                if (myMainPage.routeList.GetStartPoint() != null)
+                {
+                    myMainPage.routeList.GetStartPoint().ClearSelection();
+                }
+
+                Pin.Fill = brushStartOfRouteMarker;
+                Pin.Opacity = 1.0;
+                myMainPage.routeList.SetStartPoint(this);
+                ShowQuickInfo();
+
+                myMainPage.Done1.Opacity = 1.0;
+                myMainPage.SelectPlaquesButton.IsHitTestVisible = true;
+
+            }
+                
             if (myMainPage.routeState == MainPage.RouteState.SelectRoute)
             {
-                if (Selected == false)
+                ShowQuickInfo();
+
+                myMainPage.AddOrRemovePlaque.Opacity = 1.0;
+                myMainPage.AddOrRemovePlaqueYesNo.Opacity = 1.0;
+                myMainPage.SelectPlaqueYes.IsHitTestVisible = true;
+                myMainPage.SelectPlaqueNo.IsHitTestVisible = true;
+
+                if (myMainPage.routeList.GetList().Contains(this))
                 {
-                    SetSelection();
-                    myMainPage.routeList.Add(this);
+                    myMainPage.AddOrRemovePlaque.Text = "Remove from route";
                 }
                 else
                 {
-                    myMainPage.routeList.Remove(this);
-                    ClearSelection();
+                    myMainPage.AddOrRemovePlaque.Text = "Add to route";
                 }
+
+
+                if (myMainPage.routeList.GetCurrentPoint() != null)
+                {
+                    myMainPage.routeList.GetCurrentPoint().Pin.Width = pinwidth;
+                    myMainPage.routeList.GetCurrentPoint().Pin.Height = pinheight;
+                }
+
+                Pin.Width = selectedpinwidth;
+                Pin.Height = selectedpinheight;
+                myMainPage.routeList.SetCurrentPoint(this);
             }
 
             if (myMainPage.routeState == MainPage.RouteState.SelectEndPoint)
             {
+                myMainPage.Done.Opacity = 1;
+                myMainPage.DoneEndPointButton.IsHitTestVisible = true;
+
                 // it is currently the endpoint
                 if (this == myMainPage.routeList.GetEndPoint())
                 {
@@ -139,23 +187,14 @@ namespace Maps.Helpers
                 myMainPage.EndPointPlaqueName.Text = Info.title + " " + Info.forenames + " " + Info.surname;
             }
             else
+            if (myMainPage.routeState == MainPage.RouteState.SelectStartPoint)
             {
                 myMainPage.SelectRoutePlaqueName.Text = Info.title + " " + Info.forenames + " " + Info.surname;
             }
-
-/*
-            if (!myTextLayer.Children.Contains(text))
+            else
             {
-                text.Text = Info.title + " " + Info.forenames + " " + Info.surname;
-                text.FontSize = 20;
-                text.FontWeight = FontWeights.Bold;
-                text.Foreground = new SolidColorBrush(Colors.Blue);
-                MapLayer.SetPosition(text, Info.location);
-                MapLayer.SetPositionOrigin(text, PositionOrigin.Center);
-                MapLayer.SetPositionOffset(text, new Point(0, -30));
-                myTextLayer.Children.Add(text);
+                myMainPage.SelectRoutePlaqueName1.Text = Info.title + " " + Info.forenames + " " + Info.surname;
             }
- * */
         }
 
         public void UnshowQuickInfo()
@@ -168,7 +207,6 @@ namespace Maps.Helpers
             {
                 myMainPage.SelectRoutePlaqueName.Text = "";
             }
-            //myTextLayer.Children.Remove(text);
         }
 
         public GeoCoordinate GetLocation() { return Info.location; }
@@ -190,6 +228,12 @@ namespace Maps.Helpers
             Pin.Opacity = 1.0;
             Selected = true;
             ShowQuickInfo();
+        }
+
+        public void ResetSize()
+        {
+            Pin.Width = pinwidth;
+            Pin.Height = pinheight;
         }
     }
 }
