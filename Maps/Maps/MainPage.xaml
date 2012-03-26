@@ -248,19 +248,19 @@
         		<Image x:Name="___Group_3" Height="48" Canvas.Left="0" Source="BottomBar_Images/Group.png" Width="480"/>
         	</Canvas>
         </Canvas>
-        <Canvas x:Name="FullInfo" HorizontalAlignment="Left" Height="454" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" Canvas.Top="771" RenderTransformOrigin="0.5,0.5" Opacity="0.85" d:IsHidden="True">
+        <Canvas x:Name="FullInfo" HorizontalAlignment="Left" Height="454" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" Canvas.Top="771" RenderTransformOrigin="0.5,0.5" Opacity="0.85">
         	<Canvas.RenderTransform>
         		<CompositeTransform/>
         	</Canvas.RenderTransform>
-        	<Canvas x:Name="Layer_5" Height="454" Canvas.Left="0" Canvas.Top="1.5" Width="480" RenderTransformOrigin="0.5,0.5" d:IsHidden="True">
+        	<Canvas x:Name="Layer_5" Height="454" Canvas.Left="0" Canvas.Top="1.5" Width="480" RenderTransformOrigin="0.5,0.5">
         		<Canvas.RenderTransform>
         			<CompositeTransform/>
         		</Canvas.RenderTransform>
-        		<Image x:Name="___Path_____Path_4" Height="454" Canvas.Left="0" Source="FullInfo_Images/Path + Path.png" Canvas.Top="0" Width="480" d:IsHidden="True"/>
-        		<Image x:Name="LINE_BREAK_copy4" Height="3" Canvas.Left="47" Source="FullInfo_Images/LINE BREAK copy.png" Canvas.Top="65" Width="388" d:IsHidden="True"/>
-        		<TextBlock x:Name="Name1" Foreground="#FFFFFFFF" FontSize="24" FontFamily="Fonts/NokiaPureHeadlineRg.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="43.5" LineHeight="24" TextAlignment="Left" TextWrapping="Wrap" Text="Name" Canvas.Top="37.38" d:IsHidden="True"/>
-        		<TextBlock x:Name="Birth_Data" Foreground="#FFFFFFFF" FontSize="24" FontFamily="Fonts/NokiaPureHeadlineRg.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="45.5" LineHeight="24" TextAlignment="Left" TextWrapping="Wrap" Text="Birth &amp; Death Date" Canvas.Top="95.38" d:IsHidden="True"/>
-        		<TextBlock x:Name="Info" Foreground="#FFFFFFFF" FontSize="24" FontFamily="Fonts/NokiaPureHeadlineRg.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="45.5" LineHeight="24" TextAlignment="Left" TextWrapping="Wrap" Text="Info&#xa;.&#xa;.&#xa;.&#xa;.&#xa;.&#xa;.&#xa;.&#xa;.&#xa;.&#xa;&#xa;&#xa;&#xa;&#xa;&#xa;&#xa;&#xa;&#xa;" Canvas.Top="142.38" Width="380" d:IsHidden="True" />
+        		<Image x:Name="___Path_____Path_4" Height="454" Canvas.Left="0" Source="FullInfo_Images/Path + Path.png" Canvas.Top="0" Width="480"/>
+        		<Image x:Name="LINE_BREAK_copy4" Height="3" Canvas.Left="47" Source="FullInfo_Images/LINE BREAK copy.png" Canvas.Top="65" Width="388"/>
+        		<TextBlock x:Name="Name1" Foreground="#FFFFFFFF" FontSize="24" FontFamily="Fonts/NokiaPureHeadlineRg.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="43.5" LineHeight="24" TextAlignment="Left" TextWrapping="Wrap" Text="Name" Canvas.Top="37.38"/>
+        		<TextBlock x:Name="Birth_Data" Foreground="#FFFFFFFF" FontSize="24" FontFamily="Fonts/NokiaPureHeadlineRg.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="45.5" LineHeight="24" TextAlignment="Left" TextWrapping="Wrap" Text="Birth &amp; Death Date" Canvas.Top="95.38"/>
+        		<TextBlock x:Name="Info" Foreground="#FFFFFFFF" FontSize="24" FontFamily="Fonts/NokiaPureHeadlineRg.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="45.5" LineHeight="24" TextAlignment="Left" TextWrapping="Wrap" Text="Info&#xa;.&#xa;.&#xa;.&#xa;.&#xa;.&#xa;.&#xa;.&#xa;.&#xa;.&#xa;&#xa;&#xa;&#xa;&#xa;&#xa;&#xa;&#xa;&#xa;" Canvas.Top="142.38" Width="380" />
         	</Canvas>
             <Button x:Name="ExitFullInfoButton" Content="Button" Height="444.4" Width="479.01" Opacity="0" Click="ExitFullInfo_Click" d:IsHidden="True"/>
         </Canvas>
@@ -290,7 +290,7 @@
         		<Button x:Name="SelectPlaquesButton" Content="Button" Height="40.9" Width="104.51" RenderTransformOrigin="7.796,1.588" Canvas.Left="356" Canvas.Top="187.5" Opacity="0" Click="DoneSelectingRouteStartPoint"/>
         	</Canvas>
         </Canvas>
-        <Canvas x:Name="DefineEndPoint" HorizontalAlignment="Left" Height="237" UseLayoutRounding="False" VerticalAlignment="Top" Width="479" Canvas.Top="769" RenderTransformOrigin="0.5,0.5" d:IsHidden="True">
+        <Canvas x:Name="DefineEndPoint" HorizontalAlignment="Left" Height="237" UseLayoutRounding="False" VerticalAlignment="Top" Width="479" Canvas.Top="769" RenderTransformOrigin="0.5,0.5">
         	<Canvas.RenderTransform>
         		<CompositeTransform/>
         	</Canvas.RenderTransform>
@@ -306,7 +306,7 @@
         							<Image x:Name="___Group_10" Height="196" Canvas.Left="0" Source="EndPoint_Images/Group.png" Canvas.Top="0" Width="480"/>
         						</Canvas>
         					</Canvas>
-        					<TextBlock x:Name="Select_Route1" Foreground="#FFFFFFFF" FontSize="30" FontFamily="Fonts/NokiaPureHeadlineRg.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="30" TextAlignment="Left" TextWrapping="Wrap" Text="Next define the endpoint" Canvas.Top="90.1"/>
+        					<TextBlock x:Name="Select_Route1" Foreground="#FFFFFFFF" FontSize="30" FontFamily="Fonts/NokiaPureHeadlineRg.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="30" TextAlignment="Left" TextWrapping="Wrap" Text="Next choose the final plaque" Canvas.Top="90.1"/>
         					<TextBlock x:Name="Help1" Foreground="#FFFFFFFF" FontSize="30" FontFamily="Fonts/NokiaPureHeadlineRg.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="30" TextAlignment="Left" TextWrapping="Wrap" Text="Help" Canvas.Top="198.1"/>
         					<TextBlock x:Name="EndPointPlaqueName" Foreground="#FFFFFFFF" FontSize="30" FontFamily="Fonts/NokiaPureHeadlineRg.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="30" TextAlignment="Left" TextWrapping="Wrap" Canvas.Top="23.1" RenderTransformOrigin="0.5,0.5">
         						<TextBlock.RenderTransform>
@@ -351,7 +351,7 @@
         		</Canvas>
         	</Canvas>
         </Canvas>
-        <Canvas x:Name="SplashScreen" HorizontalAlignment="Left" Height="800" UseLayoutRounding="False" VerticalAlignment="Top" Width="481" d:IsHidden="True">
+        <Canvas x:Name="SplashScreen" HorizontalAlignment="Left" Height="800" UseLayoutRounding="False" VerticalAlignment="Top" Width="481">
         	<Canvas x:Name="Layer_14" Height="800" Canvas.Left="0" Canvas.Top="0" Width="481">
         		<Canvas x:Name="BlueBackground" Height="800" Canvas.Left="0" Canvas.Top="0" Width="481" Opacity="0.845">
         			<Canvas x:Name="___Group_30" Height="800" Canvas.Left="0" Canvas.Top="0" Width="481">

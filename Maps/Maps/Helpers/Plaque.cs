@@ -62,6 +62,7 @@ namespace Maps.Helpers
             Selected = false;
             Info = info;
             Visible = true;
+            Found = false;
             myMainPage = page;
             myTextLayer = textLayer;
 
@@ -215,6 +216,7 @@ namespace Maps.Helpers
         public bool Selected { get; set; }
         public PlaqueInfo Info { get; set; }
         public bool Visible { get; set; }
+        public bool Found { get; set; }
         public void ClearSelection()
         {
             Pin.Fill = brushMarker;

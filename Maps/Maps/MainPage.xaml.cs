@@ -44,10 +44,11 @@ namespace Maps
         List<Plaque> plaques;
         MapLayer pinLayer;
         MapLayer textLayer;
-        CurrentLocation currentLocation;
+        public CurrentLocation currentLocation;
         Journey journey;
         public RouteList routeList;
         public RouteState routeState;
+        bool HaveWeCentred;
 
         public MainPage()
         {
@@ -61,6 +62,8 @@ namespace Maps
             plaqueInfoList = plaqueLoader.Load();
 
             InitializePlaques();
+
+            HaveWeCentred = false;
 
             myMap.ZoomLevel = 15;
             routeState = RouteState.Normal;
@@ -177,8 +180,13 @@ namespace Maps
             myMap.ZoomLevel = 15;
              */
            // e.Position.Location.HorizontalAccuracy
-            //currentLocation.SetLocation(e.Position.Location);
-            myMap.Center = currentLocation.GetLocation();
+           currentLocation.SetLocation(e.Position.Location);
+
+            if (HaveWeCentred == false)
+            {
+                HaveWeCentred = true;
+                myMap.Center = currentLocation.GetLocation();
+            }
         }
 
 
@@ -523,7 +531,13 @@ namespace Maps
                     pinLayer.Children.Add(plaques[i].Pin);
                 }
             }
-            pinLayer.Children.Add(routeList.GetEndPoint().Pin);
+            if (routeList.GetStartPoint() != routeList.GetEndPoint())
+            {
+                if (!route.Contains(routeList.GetEndPoint()))
+                {
+                    pinLayer.Children.Add(routeList.GetEndPoint().Pin);
+                }
+            }
         }
 
         private void UpdatePlaqueVisibilty()
