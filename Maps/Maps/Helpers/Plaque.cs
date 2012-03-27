@@ -185,16 +185,20 @@ namespace Maps.Helpers
         {
             if (myMainPage.routeState == MainPage.RouteState.SelectEndPoint)
             {
-                myMainPage.EndPointPlaqueName.Text = Info.title + " " + Info.forenames + " " + Info.surname;
+                myMainPage.EndPointPlaqueName.Text = Info.GetName();
             }
             else
             if (myMainPage.routeState == MainPage.RouteState.SelectStartPoint)
             {
-                myMainPage.SelectRoutePlaqueName.Text = Info.title + " " + Info.forenames + " " + Info.surname;
+                myMainPage.PlaqueExtraInfo.Opacity = 1.0;
+                myMainPage.SelectRoutePlaqueName.Text = Info.GetName();
+                myMainPage.SelectRoutePlaqueDateAndCategory.Text = "(" + Info.date + ") " + Info.info1;
             }
             else
             {
-                myMainPage.SelectRoutePlaqueName1.Text = Info.title + " " + Info.forenames + " " + Info.surname;
+                myMainPage.PlaqueExtraInfo1.Opacity = 1.0;
+                myMainPage.SelectRoutePlaqueName1.Text = Info.GetName();
+                myMainPage.SelectRoutePlaqueDateAndCategory1.Text = "(" + Info.date + ") " + Info.info1;
             }
         }
 
@@ -206,6 +210,7 @@ namespace Maps.Helpers
             }
             else
             {
+                myMainPage.PlaqueExtraInfo.Opacity = 0.0;
                 myMainPage.SelectRoutePlaqueName.Text = "";
             }
         }

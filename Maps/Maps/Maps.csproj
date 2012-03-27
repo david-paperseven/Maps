@@ -149,6 +149,11 @@
     <Resource Include="EndPoint_Images\Path.png" />
     <Resource Include="Filter1_Images\Group.png" />
     <Resource Include="Filter1_Images\Path.png" />
+    <Resource Include="Filter_Images\Group.png" />
+    <Resource Include="Filter_Images\Path.png" />
+    <Resource Include="FullInfo_Images\Compound Path.png" />
+    <Resource Include="FullInfo_Images\Compound Path1.png" />
+    <Resource Include="FullInfo_Images\Group.png" />
     <Resource Include="MainMenu_Images\Group.png" />
     <Resource Include="MainMenu_Images\Path.png" />
     <Resource Include="Marker\MARKER.png" />
@@ -169,11 +174,20 @@
     <Content Include="Text\plaques.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="SelectPlaques_Images\Group.png" />
+    <Resource Include="SelectPlaques_Images\Group1.png" />
+    <Resource Include="SelectPlaques_Images\Path.png" />
+    <Resource Include="SelectStartPlaque_Images\Group.png" />
+    <Resource Include="SelectStartPlaque_Images\Path.png" />
     <Resource Include="SplashScreen_Images\Balloon.png" />
     <Resource Include="SplashScreen_Images\Blue.png" />
     <Resource Include="SplashScreen_Images\Group.png" />
     <Resource Include="SplashScreen_Images\Maps.png" />
     <Resource Include="SplashScreen_Images\Nokia.png" />
+    <Resource Include="StartPlaqueInfo_Images\Group.png" />
+    <Resource Include="StartPlaqueWithInfo_Images\Group.png" />
+    <Resource Include="StartPlaqueWithInfo_Images\Group1.png" />
+    <Resource Include="StartPlaqueWithInfo_Images\Path.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ApplicationIcon.png">

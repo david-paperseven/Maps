@@ -53,6 +53,14 @@ namespace Maps.Helpers
 
         }
 
+        public string GetName()
+        {
+            if (title!=null)
+                return title + " " + forenames + " " + surname;
+            else
+                return forenames + " " + surname;
+        }
+
         public int number { get; set; }
         public string title { get; set; }
         public string forenames { get; set; }
@@ -70,5 +78,6 @@ namespace Maps.Helpers
         public string fullinfo { get; set; }
         public string moreinfo { get; set; }
         public FilterCategory filter { get; set; }
+
     }
 }

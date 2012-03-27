@@ -75,7 +75,7 @@ namespace Maps
             VisualStateGroup group = FindVisualState(element, "UserSelectedRoutesMenu");
             group.CurrentStateChanged += new EventHandler<VisualStateChangedEventArgs>(CurrentStateChanged);
 
-            VisualStateManager.GoToState(this, "SplashScreen1", true);
+            VisualStateManager.GoToState(this, "SplashScreenState", true);
         }
 
         VisualStateGroup FindVisualState(FrameworkElement element, string name)
@@ -180,7 +180,7 @@ namespace Maps
             myMap.ZoomLevel = 15;
              */
            // e.Position.Location.HorizontalAccuracy
-           currentLocation.SetLocation(e.Position.Location);
+           //currentLocation.SetLocation(e.Position.Location);
 
             if (HaveWeCentred == false)
             {
@@ -215,7 +215,7 @@ namespace Maps
                 summary.NumPlaques = waypoints.Count - 1; // don't count the current position 
                 route.CalculateRoute(waypoints,summary);
                 RemoveAllPinsExceptCurrentRoute();
-                VisualStateManager.GoToState(this, "DistanceSummary1", true);
+                VisualStateManager.GoToState(this, "DistanceSummaryState", true);
             }
         }
 
@@ -233,28 +233,28 @@ namespace Maps
 
             if (routeState == RouteState.Travelling)
             {
-                VisualStateManager.GoToState(this, "RouteSummary1", true);
+                VisualStateManager.GoToState(this, "RouteSummaryState", true);
             }
             else
             {
-                VisualStateManager.GoToState(this, "SelectStartPlaque", true);
+                VisualStateManager.GoToState(this, "SelectStartPlaqueState", true);
                 routeState = RouteState.SelectStartPoint;
             }
         }
 
         private void ExitFilterMenu_Click(object sender, RoutedEventArgs e)
         {
-            VisualStateManager.GoToState(this, "MapOnly", true);
+            VisualStateManager.GoToState(this, "MapOnlyState", true);
         }
 
         private void ExitUserSelectedRoute_Click(object sender, RoutedEventArgs e)
         {
-            VisualStateManager.GoToState(this, "MapOnly", true);
+            VisualStateManager.GoToState(this, "MapOnlyState", true);
         }
 
         private void ExitFullInfo_Click(object sender, RoutedEventArgs e)
         {
-            VisualStateManager.GoToState(this, "MapOnly", true);
+            VisualStateManager.GoToState(this, "MapOnlyState", true);
         }
 
         private void DoneEndPointButton_Click(object sender, RoutedEventArgs e)
@@ -262,7 +262,7 @@ namespace Maps
             if (routeList.GetEndPoint() != null)
             {
                 // DOESN'T LOOK RIGHT??
-                VisualStateManager.GoToState(this, "SelectStartPlaque", true);
+                VisualStateManager.GoToState(this, "SelectStartPlaqueState", true);
                 DrawRoute();
                 routeState = RouteState.Normal;
             }
@@ -270,7 +270,7 @@ namespace Maps
 
         private void SelectStartPlaque_Click(object sender, RoutedEventArgs e)
         {
-            VisualStateManager.GoToState(this, "SelectStartPlaque", true);
+            VisualStateManager.GoToState(this, "SelectStartPlaqueState", true);
             ClearSelectedPins();
         }
 
@@ -298,27 +298,27 @@ namespace Maps
 
         private void Filter_Click(object sender, RoutedEventArgs e)
         {
-            VisualStateManager.GoToState(this, "Filter1", true);
+            VisualStateManager.GoToState(this, "FilterState", true);
         }
 
         private void FullInfoButton_Click(object sender, RoutedEventArgs e)
         {
-            VisualStateManager.GoToState(this, "FullInfo1", true);
+            VisualStateManager.GoToState(this, "FullInfoState", true);
         }
 
         private void DoneSelectingRouteStartPoint(object sender, RoutedEventArgs e)
         {
-            VisualStateManager.GoToState(this, "SelectRoute1", true);
+            VisualStateManager.GoToState(this, "SelectRouteState", true);
         }
 
         private void DoneSelectingRoute(object sender, RoutedEventArgs e)
         {
-            VisualStateManager.GoToState(this, "DefineEndPoint2", true);
+            VisualStateManager.GoToState(this, "DefineEndPointState", true);
         }
 
         private void EditRouteButton_Click(object sender, RoutedEventArgs e)
         {
-            VisualStateManager.GoToState(this, "SelectStartPlaque", true);
+            VisualStateManager.GoToState(this, "SelectStartPlaqueState", true);
             UpdatePlaqueVisibilty();
             route.FadeOutRouteLine();
             routeState = RouteState.SelectStartPoint;
@@ -326,12 +326,12 @@ namespace Maps
 
         private void GoButton_Click(object sender, RoutedEventArgs e)
         {
-            VisualStateManager.GoToState(this, "RouteSummary1", true);
+            VisualStateManager.GoToState(this, "RouteSummaryState", true);
         }
 
         private void RouteSummaryEditRouteButton_Click(object sender, RoutedEventArgs e)
         {
-            VisualStateManager.GoToState(this, "SelectStartPlaque", true);
+            VisualStateManager.GoToState(this, "SelectStartPlaqueState", true);
             UpdatePlaqueVisibilty();
             route.FadeOutRouteLine();
             routeState = RouteState.SelectStartPoint;
@@ -339,7 +339,7 @@ namespace Maps
 
         private void RouteSummaryGoButton_Click(object sender, RoutedEventArgs e)
         {
-            VisualStateManager.GoToState(this, "MapOnly", true);
+            VisualStateManager.GoToState(this, "MapOnlyState", true);
             UpdatePlaqueVisibilty();
             routeState = RouteState.Travelling;
         }
@@ -349,33 +349,33 @@ namespace Maps
             SplashScreen.Opacity = 0.0;
             SplashScreen.IsHitTestVisible = false;
             SplashScreenButton.IsHitTestVisible = false;
-            VisualStateManager.GoToState(this, "MainMenu1", true);
+            VisualStateManager.GoToState(this, "MainMenuState", true);
         }
 
         private void MainMenuButton_Click(object sender, RoutedEventArgs e)
         {
-            VisualStateManager.GoToState(this, "SelectStartPlaque", true);
+            VisualStateManager.GoToState(this, "SelectStartPlaqueState", true);
             routeState = RouteState.SelectStartPoint;
         }
 
         private void MainMenuFilterButton_Click(object sender, RoutedEventArgs e)
         {
-            VisualStateManager.GoToState(this, "Filter1", true);
+            VisualStateManager.GoToState(this, "FilterState", true);
         }
 
         void CurrentStateChanged(object sender, VisualStateChangedEventArgs e)
         {
             switch (e.NewState.Name)
             {
-                case "MainMenu1":
+                case "MainMenuState":
                     {
                         routeState = RouteState.Normal;
                         break;
                     }
-                case "SelectStartPlaque":
+                case "SelectStartPlaqueState":
                     {
                         routeState = RouteState.SelectStartPoint;
-
+                        PlaqueExtraInfo.Opacity = 0;
                         if (routeList.GetStartPoint() == null)
                         {
                             Done1.Opacity = 0.50;
@@ -383,10 +383,11 @@ namespace Maps
                         }
                         break;
                     }
-                case "SelectRoute1":
+                case "SelectRouteState":
                     {
                         routeState = RouteState.SelectRoute;
 
+                        PlaqueExtraInfo1.Opacity = 0;
                         AddOrRemovePlaque.Opacity = 0.0;
                         AddOrRemovePlaqueYesNo.Opacity = 0.0;
                         SelectPlaqueYes.IsHitTestVisible = false;
@@ -394,7 +395,7 @@ namespace Maps
 
                         break;
                     }
-                case "DefineEndPoint2":
+                case "DefineEndPointState":
                     {
                         routeState = RouteState.SelectEndPoint;
 
@@ -405,7 +406,7 @@ namespace Maps
                         }
                         break;
                     }
-                case "RouteSummary1":
+                case "RouteSummaryState":
                     {
                         routeState = RouteState.Travelling;
                         journey.StartJourney(summary);
@@ -423,27 +424,27 @@ namespace Maps
             {
                 case RouteState.SelectStartPoint:
                     {
-                        VisualStateManager.GoToState(this, "MainMenu1", true);
+                        VisualStateManager.GoToState(this, "MainMenuState", true);
                         break;
                     }
                 case RouteState.SelectRoute:
                     {
-                        VisualStateManager.GoToState(this, "SelectStartPlaque", true);
+                        VisualStateManager.GoToState(this, "SelectStartPlaqueState", true);
                         break;
                     }
                 case RouteState.SelectEndPoint:
                     {
-                        VisualStateManager.GoToState(this, "SelectRoute1", true);
+                        VisualStateManager.GoToState(this, "SelectRouteState", true);
                         break;
                     }
                 case RouteState.Travelling:
                     {
-                        VisualStateManager.GoToState(this, "MainMenu1", true);
+                        VisualStateManager.GoToState(this, "MainMenuState", true);
                         break;
                     }
                 default:
                     {
-                        VisualStateManager.GoToState(this, "MainMenu1", true);
+                        VisualStateManager.GoToState(this, "MainMenuState", true);
                         break;
                     }
             }
@@ -552,5 +553,6 @@ namespace Maps
             }
 
         }
+
     }
 }
