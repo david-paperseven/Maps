@@ -143,6 +143,8 @@
     <Resource Include="BottomBar_Images\Group.png" />
     <Resource Include="DistanceSummary1_Images\Group.png" />
     <Resource Include="DistanceSummary1_Images\Path.png" />
+    <Resource Include="DistanceSummary_Images\Group.png" />
+    <Resource Include="DistanceSummary_Images\Path.png" />
     <Resource Include="EndPoint_Images\Compound Path.png" />
     <Resource Include="EndPoint_Images\Group.png" />
     <Resource Include="EndPoint_Images\Group1.png" />
@@ -174,6 +176,9 @@
     <Content Include="Text\plaques.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="SelectEndPlaque_Images\Compound Path.png" />
+    <Resource Include="SelectEndPlaque_Images\Group.png" />
+    <Resource Include="SelectEndPlaque_Images\Path.png" />
     <Resource Include="SelectPlaques_Images\Group.png" />
     <Resource Include="SelectPlaques_Images\Group1.png" />
     <Resource Include="SelectPlaques_Images\Path.png" />
@@ -184,6 +189,7 @@
     <Resource Include="SplashScreen_Images\Group.png" />
     <Resource Include="SplashScreen_Images\Maps.png" />
     <Resource Include="SplashScreen_Images\Nokia.png" />
+    <Resource Include="StartPlaqueInfo_Images1\Group.png" />
     <Resource Include="StartPlaqueInfo_Images\Group.png" />
     <Resource Include="StartPlaqueWithInfo_Images\Group.png" />
     <Resource Include="StartPlaqueWithInfo_Images\Group1.png" />

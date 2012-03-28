@@ -75,6 +75,9 @@ namespace Maps
             VisualStateGroup group = FindVisualState(element, "UserSelectedRoutesMenu");
             group.CurrentStateChanged += new EventHandler<VisualStateChangedEventArgs>(CurrentStateChanged);
 
+            ShowFullInfoButton.Opacity = 0;
+            ShowFullInfoButton.IsHitTestVisible = false; 
+            RouteSummaryGoButton.IsHitTestVisible = false;
             VisualStateManager.GoToState(this, "SplashScreenState", true);
         }
 
@@ -180,7 +183,7 @@ namespace Maps
             myMap.ZoomLevel = 15;
              */
            // e.Position.Location.HorizontalAccuracy
-           //currentLocation.SetLocation(e.Position.Location);
+           // currentLocation.SetLocation(e.Position.Location);
 
             if (HaveWeCentred == false)
             {
@@ -213,17 +216,43 @@ namespace Maps
             if (waypoints.Count > 1)
             {
                 summary.NumPlaques = waypoints.Count - 1; // don't count the current position 
+                CalculatingPage();
                 route.CalculateRoute(waypoints,summary);
                 RemoveAllPinsExceptCurrentRoute();
                 VisualStateManager.GoToState(this, "DistanceSummaryState", true);
             }
         }
 
+        public void CalculatingPage()
+        {
+            User_Selected_Route.Text = "Calculating route...";
+            NumKms.Text = "";
+            ApproxTime.Text = "";
+            NumPlaques.Text = "";
+
+            km.Visibility = System.Windows.Visibility.Collapsed;
+            Approx_time.Visibility = System.Windows.Visibility.Collapsed;
+            plaquestext.Visibility = System.Windows.Visibility.Collapsed;
+            
+            Edit_Route___Go.Visibility = System.Windows.Visibility.Collapsed;
+            EditRouteButton.IsHitTestVisible = false;
+            GoButton.IsHitTestVisible = false;
+        }
+
         public void SummaryLoaded()
         {
-            Distance.Text = summary.Distance.ToString() + " km";
-            Approx_time_xx.Text = "Approx time "+summary.GetTime();
-            NumPlaques.Text = summary.NumPlaques.ToString() + " plaques";
+            User_Selected_Route.Text = "User Selected Route";
+            NumKms.Text = summary.Distance.ToString();
+            ApproxTime.Text = summary.GetTime();
+            NumPlaques.Text = summary.NumPlaques.ToString();
+
+            km.Visibility = System.Windows.Visibility.Visible;
+            Approx_time.Visibility = System.Windows.Visibility.Visible;
+            plaquestext.Visibility = System.Windows.Visibility.Visible;
+            
+            Edit_Route___Go.Visibility = System.Windows.Visibility.Visible;
+            EditRouteButton.IsHitTestVisible = true;
+            GoButton.IsHitTestVisible = true;
         }
 
         private void button1_Click_1(object sender, RoutedEventArgs e)
@@ -334,6 +363,7 @@ namespace Maps
             VisualStateManager.GoToState(this, "SelectStartPlaqueState", true);
             UpdatePlaqueVisibilty();
             route.FadeOutRouteLine();
+            RouteSummaryGoButton.IsHitTestVisible = false;
             routeState = RouteState.SelectStartPoint;
         }
 
@@ -342,6 +372,7 @@ namespace Maps
             VisualStateManager.GoToState(this, "MapOnlyState", true);
             UpdatePlaqueVisibilty();
             routeState = RouteState.Travelling;
+            RouteSummaryGoButton.IsHitTestVisible = false;
         }
 
         private void SplashScreenButton_Click(object sender, RoutedEventArgs e)
@@ -363,13 +394,29 @@ namespace Maps
             VisualStateManager.GoToState(this, "FilterState", true);
         }
 
+        bool fullinfostate;
         void CurrentStateChanged(object sender, VisualStateChangedEventArgs e)
         {
+            fullinfostate = false;
+            ShowFullInfoButton.Opacity = 0;
+            ShowFullInfoButton.IsHitTestVisible = false;
             switch (e.NewState.Name)
             {
+                case "FullInfoState":
+                    {
+                        ShowFullInfoButton.Opacity = 1;
+                        ShowFullInfoButton.IsHitTestVisible = true;
+                        fullinfostate = true;
+                        break;
+                    }
                 case "MainMenuState":
                     {
+                        routeList.Clear();
+                        route.ClearRouteLine();
+                        ClearSelectedPins();
+                        UpdatePlaqueVisibilty();
                         routeState = RouteState.Normal;
+                        RouteSummaryGoButton.IsHitTestVisible = false;
                         break;
                     }
                 case "SelectStartPlaqueState":
@@ -388,7 +435,8 @@ namespace Maps
                         routeState = RouteState.SelectRoute;
 
                         PlaqueExtraInfo1.Opacity = 0;
-                        AddOrRemovePlaque.Opacity = 0.0;
+                        AddOrRemovePlaque.Text = "Select the plaques to visit";
+                        AddOrRemovePlaque.Opacity = 1.0;
                         AddOrRemovePlaqueYesNo.Opacity = 0.0;
                         SelectPlaqueYes.IsHitTestVisible = false;
                         SelectPlaqueNo.IsHitTestVisible = false;
@@ -398,6 +446,7 @@ namespace Maps
                 case "DefineEndPointState":
                     {
                         routeState = RouteState.SelectEndPoint;
+                        EndPlaqueInfo.Opacity = 0.0;
 
                         if (routeList.GetEndPoint() == null)
                         {
@@ -408,6 +457,7 @@ namespace Maps
                     }
                 case "RouteSummaryState":
                     {
+                        RouteSummaryGoButton.IsHitTestVisible = true;
                         routeState = RouteState.Travelling;
                         journey.StartJourney(summary);
                         journey.FillInDetails();
@@ -552,6 +602,14 @@ namespace Maps
                     pinLayer.Children.Add(plaques[i].Pin);
             }
 
+        }
+
+        private void ShowFullInfoButton_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if (!fullinfostate)
+        	    VisualStateManager.GoToState(this, "FullInfoState", true);
+            else
+                VisualStateManager.GoToState(this, "MapOnlyState", true);
         }
 
     }

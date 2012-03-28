@@ -42,6 +42,16 @@ namespace Maps.Helpers
 
         public void Clear()
         {
+            if (startPoint != null)
+            {
+                startPoint.ClearSelection();
+            }
+            if (endPoint != null)
+            {
+                endPoint.ClearSelection();
+            }
+            startPoint = null;
+            endPoint = null;
             routeList.Clear();
         }
 

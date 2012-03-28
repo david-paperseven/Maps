@@ -70,6 +70,11 @@ namespace Maps.Helpers
             if (currentRouteLine != null)
                 currentRouteLine.Opacity = 0.3;
         }
+
+        public void ClearRouteLine()
+        {
+            routeLayer.Children.Clear();
+        }
         // This is the callback method for the CalculateRoute request.
         private void routeService_CalculateRouteCompleted(object sender, RouteService.CalculateRouteCompletedEventArgs e)
         {

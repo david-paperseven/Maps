@@ -41,6 +41,7 @@ namespace Maps.Helpers
             info2 = s[12];
             fullinfo = s[13];
             moreinfo = s[14];
+            fulltext = s[15];
 
             if (cat1 == "Arts")
                 filter = FilterCategory.Arts;
@@ -77,6 +78,7 @@ namespace Maps.Helpers
         public string info2 { get; set; }
         public string fullinfo { get; set; }
         public string moreinfo { get; set; }
+        public string fulltext { get; set; }
         public FilterCategory filter { get; set; }
 
     }

@@ -52,8 +52,8 @@ namespace Maps.Helpers
             brushStartOfRouteMarker.ImageSource = bi4;
         }
 
-        static double pinwidth = 41;
-        static double pinheight = 50;
+        static double pinwidth = 41*1.2;
+        static double pinheight = 50*1.2;
         static double selectedpinwidth = pinwidth * 1.3;
         static double selectedpinheight = pinheight * 1.3;
         public Plaque(PlaqueInfo info, MainPage page, MapLayer textLayer)
@@ -179,13 +179,27 @@ namespace Maps.Helpers
                     myMainPage.routeList.SetEndPoint(this);
                 }
             }
+
+            if (myMainPage.routeState == MainPage.RouteState.Travelling)
+            {
+                myMainPage.FullInfoName.Text = Info.GetName() +"\n";
+                myMainPage.FullInfoDateAndCategory.Text = "(" + Info.date + ") " + Info.info1 + "\n\n";
+                myMainPage.FullInfoPlaqueInfo.Text = Info.fullinfo + "\n\n";
+                myMainPage.FullInfoPlaqueFullInfo.Text = Info.fulltext;
+
+                myMainPage.ShowFullInfoButton.Opacity = 1;
+                myMainPage.ShowFullInfoButton.IsHitTestVisible = true;
+                //VisualStateManager.GoToState(myMainPage, "FullInfoState", true);
+            }
         }
 
         public void ShowQuickInfo()
         {
             if (myMainPage.routeState == MainPage.RouteState.SelectEndPoint)
             {
+                myMainPage.EndPlaqueInfo.Opacity = 1.0;
                 myMainPage.EndPointPlaqueName.Text = Info.GetName();
+                myMainPage.EndPointPlaqueDateAndCategory.Text = "(" + Info.date + ") " + Info.info1;
             }
             else
             if (myMainPage.routeState == MainPage.RouteState.SelectStartPoint)
