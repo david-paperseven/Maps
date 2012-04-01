@@ -13,11 +13,13 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Controls.Maps;
 using Microsoft.Phone.Controls.Maps.Core;
 
+using Microsoft.Phone.Shell;
 
 using Maps.Helpers;
 
@@ -36,39 +38,27 @@ namespace Maps
             Travelling
         }
 
-        GeoCoordinateWatcher watcher;
-        Route route;
-        Summary summary;
-        PlaqueLoader plaqueLoader;
-        List<PlaqueInfo> plaqueInfoList;
-        List<Plaque> plaques;
-        MapLayer pinLayer;
-        MapLayer textLayer;
-        public CurrentLocation currentLocation;
-        Journey journey;
-        public RouteList routeList;
-        public RouteState routeState;
-        bool HaveWeCentred;
-
         public MainPage()
         {
             InitializeComponent();
             InitializeWatcher();
-            route = new Route(((ApplicationIdCredentialsProvider)myMap.CredentialsProvider).ApplicationId,myMap,this);
-            summary = new Summary();
-            currentLocation = new CurrentLocation(myMap);
-            routeList = new RouteList();
-            plaqueLoader = new PlaqueLoader();
-            plaqueInfoList = plaqueLoader.Load();
-
-            InitializePlaques();
-
-            HaveWeCentred = false;
-
+            SaveState.Instance.route = new Route(((ApplicationIdCredentialsProvider)myMap.CredentialsProvider).ApplicationId, myMap, this);
+            SaveState.Instance.summary = new Summary();
+            SaveState.Instance.currentLocation = new CurrentLocation(myMap);
+            SaveState.Instance.routeList = new RouteList();
+            SaveState.Instance.plaqueLoader = new PlaqueLoader();
+            SaveState.Instance.plaqueInfoList = SaveState.Instance.plaqueLoader.Load();
+            SaveState.Instance.HaveWeCentred = false;
             myMap.ZoomLevel = 15;
-            routeState = RouteState.Normal;
+            SaveState.Instance.journey = new Journey(this);
 
-            journey = new Journey(this);
+            SaveState.Instance.routeState = MainPage.RouteState.Normal;//DEBUG!
+            SaveState.Instance.CurrentVisualState = "SplashScreenState";
+
+            Initializeplaques();
+            DebugRouteTimer();
+            PlaqueFlashTimer();
+
 
             // Visual States are always on the first child of the control template  
             FrameworkElement element = VisualTreeHelper.GetChild(MainPageElement, 0) as FrameworkElement;
@@ -78,7 +68,9 @@ namespace Maps
             ShowFullInfoButton.Opacity = 0;
             ShowFullInfoButton.IsHitTestVisible = false; 
             RouteSummaryGoButton.IsHitTestVisible = false;
-            VisualStateManager.GoToState(this, "SplashScreenState", true);
+            VisualStateManager.GoToState(this, SaveState.Instance.CurrentVisualState, true);
+
+            PhoneApplicationService.Current.ApplicationIdleDetectionMode = IdleDetectionMode.Disabled;
         }
 
         VisualStateGroup FindVisualState(FrameworkElement element, string name)
@@ -105,36 +97,36 @@ namespace Maps
             myMap.LogoVisibility = System.Windows.Visibility.Collapsed;
         }
 
-        private void InitializePlaques()
+        private void Initializeplaques()
         {
-            pinLayer = new MapLayer();
-            myMap.Children.Add(pinLayer);
+            SaveState.Instance.pinlayer = new MapLayer();
+            myMap.Children.Add(SaveState.Instance.pinlayer);
 
-            textLayer = new MapLayer();
-            myMap.Children.Add(textLayer);
+            SaveState.Instance.textLayer = new MapLayer();
+            myMap.Children.Add(SaveState.Instance.textLayer);
 
-            plaques = new List<Plaque>();
-            for (int i = 0; i < plaqueInfoList.Count; i++)
+            SaveState.Instance.plaques = new List<Plaque>();
+            for (int i = 0; i < SaveState.Instance.plaqueInfoList.Count; i++)
             {
-                Plaque plaque = new Plaque(plaqueInfoList[i], this, textLayer);
-                plaques.Add(plaque);
-                pinLayer.Children.Add(plaque.Pin);
+                Plaque plaque = new Plaque(SaveState.Instance.plaqueInfoList[i], this, SaveState.Instance.textLayer);
+                SaveState.Instance.plaques.Add(plaque);
+                SaveState.Instance.pinlayer.Children.Add(plaque.Pin);
             }
 
             GeoCoordinate location = new GeoCoordinate(51.511397, -0.128263);
-            currentLocation.SetLocation(location);
-            myMap.Children.Add(currentLocation.Pin);
+            SaveState.Instance.currentLocation.SetLocation(location);
+            myMap.Children.Add(SaveState.Instance.currentLocation.Pin);
 
         }
 
         private void InitializeWatcher()
         {
-            watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.High); // using high accuracy;
-            watcher.MovementThreshold = 10.0f; // meters of change before "PositionChanged"
+            SaveState.Instance.watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.High); // using high accuracy;
+            SaveState.Instance.watcher.MovementThreshold = 5.0f; // meters of change before "PositionChanged"
             // wire up event handlers
-            watcher.StatusChanged += new
+            SaveState.Instance.watcher.StatusChanged += new
             EventHandler<GeoPositionStatusChangedEventArgs>(watcher_StatusChanged);
-            watcher.PositionChanged += new
+            SaveState.Instance.watcher.PositionChanged += new
             EventHandler<GeoPositionChangedEventArgs<GeoCoordinate>>(watcher_PositionChanged);
             // start up LocServ in bg; watcher_StatusChanged will be called when complete.
             new Thread(startLocServInBackground).Start();
@@ -148,7 +140,7 @@ namespace Maps
                 case GeoPositionStatus.Disabled:
                     // The Location Service is disabled or unsupported.
                     // Check to see if the user has disabled the Location Service.
-                    if (watcher.Permission == GeoPositionPermission.Denied)
+                    if (SaveState.Instance.watcher.Permission == GeoPositionPermission.Denied)
                     {
                         // The user has disabled the Location Service on their device.
                          System.Diagnostics.Debug.WriteLine("You have disabled Location Service.");
@@ -174,33 +166,69 @@ namespace Maps
             
         }
 
+        int counter = 0;
+        private void DebugRouteTimer()
+        {
+            DispatcherTimer timer = new DispatcherTimer();
+
+            timer.Tick +=
+                delegate(object s, EventArgs args)
+                {
+                    if (SaveState.Instance.routeState == RouteState.Travelling)
+                    {
+                        if (counter < SaveState.Instance.journeysaver.journeypoints.Count)
+                        {
+                            JourneyPoint point = SaveState.Instance.journeysaver.journeypoints[counter++];
+                            ChangedLocation(point.coord);
+                        }
+                    }
+
+                };
+
+
+            timer.Interval = new TimeSpan(0, 0, 1);
+            timer.Start();
+        }
+
         void watcher_PositionChanged(object sender, GeoPositionChangedEventArgs<GeoCoordinate> e)
         {
-            /*
-            myMap.Center = e.Position.Location;
-            plaques[0].SetLocation(e.Position.Location);
-            //myMap.Center = plaques[0].GetLocation();
-            myMap.ZoomLevel = 15;
-             */
-           // e.Position.Location.HorizontalAccuracy
-           // currentLocation.SetLocation(e.Position.Location);
+            ChangedLocation(e.Position.Location);
+        }
 
-            if (HaveWeCentred == false)
+        void ChangedLocation(GeoCoordinate location)
+        {
+            if (SaveState.Instance.routeState == RouteState.Travelling)
             {
-                HaveWeCentred = true;
-                myMap.Center = currentLocation.GetLocation();
+                GeoCoordinate currentLocation = SaveState.Instance.currentLocation.GetLocation();
+                double distance = currentLocation.GetDistanceTo(location);
+                SaveState.Instance.journey.DistanceTravelled += distance / 1000.0;
+            }
+
+            SaveState.Instance.currentLocation.SetLocation(location);
+            //SaveState.Instance.journeysaver.Add(location); not recording right now
+
+            if (SaveState.Instance.routeState == RouteState.Travelling)
+            {
+                SaveState.Instance.journey.PlaqueUnlock();
+                SaveState.Instance.journey.FillInDetails();
+            }
+
+            if (SaveState.Instance.HaveWeCentred == false)
+            {
+                SaveState.Instance.HaveWeCentred = true;
+                myMap.Center = SaveState.Instance.currentLocation.GetLocation();
             }
         }
 
 
         void startLocServInBackground()
         {
-            watcher.TryStart(true, TimeSpan.FromMilliseconds(60000));
+            SaveState.Instance.watcher.TryStart(true, TimeSpan.FromMilliseconds(60000));
         }
 
         public void ClearSelectedPins()
         {
-            foreach (Plaque p in plaques)
+            foreach (Plaque p in SaveState.Instance.plaques)
             {
                 if (p.Selected == true)
                 {
@@ -211,13 +239,13 @@ namespace Maps
 
         void DrawRoute()
         {
-            System.Collections.ObjectModel.ObservableCollection<Waypoint> waypoints = routeList.GetFinalList(currentLocation.GetLocation());
+            System.Collections.ObjectModel.ObservableCollection<Waypoint> waypoints = SaveState.Instance.routeList.GetFinalList(SaveState.Instance.currentLocation.GetLocation());
 
             if (waypoints.Count > 1)
             {
-                summary.NumPlaques = waypoints.Count - 1; // don't count the current position 
+                SaveState.Instance.summary.NumPlaques = waypoints.Count - 1; // don't count the current position 
                 CalculatingPage();
-                route.CalculateRoute(waypoints,summary);
+                SaveState.Instance.route.CalculateRoute(waypoints,SaveState.Instance.summary);
                 RemoveAllPinsExceptCurrentRoute();
                 VisualStateManager.GoToState(this, "DistanceSummaryState", true);
             }
@@ -242,9 +270,9 @@ namespace Maps
         public void SummaryLoaded()
         {
             User_Selected_Route.Text = "User Selected Route";
-            NumKms.Text = summary.Distance.ToString();
-            ApproxTime.Text = summary.GetTime();
-            NumPlaques.Text = summary.NumPlaques.ToString();
+            NumKms.Text = SaveState.Instance.summary.Distance.ToString();
+            ApproxTime.Text = SaveState.Instance.summary.GetTime();
+            NumPlaques.Text = SaveState.Instance.summary.NumPlaques.ToString();
 
             km.Visibility = System.Windows.Visibility.Visible;
             Approx_time.Visibility = System.Windows.Visibility.Visible;
@@ -257,17 +285,17 @@ namespace Maps
 
         private void button1_Click_1(object sender, RoutedEventArgs e)
         {
-//            routeState = RouteState.Normal;
+//            SaveState.Instance.routeState = RouteState.Normal;
             UpdatePlaqueVisibilty();
 
-            if (routeState == RouteState.Travelling)
+            if (SaveState.Instance.routeState == RouteState.Travelling)
             {
                 VisualStateManager.GoToState(this, "RouteSummaryState", true);
             }
             else
             {
                 VisualStateManager.GoToState(this, "SelectStartPlaqueState", true);
-                routeState = RouteState.SelectStartPoint;
+                SaveState.Instance.routeState = RouteState.SelectStartPoint;
             }
         }
 
@@ -288,12 +316,12 @@ namespace Maps
 
         private void DoneEndPointButton_Click(object sender, RoutedEventArgs e)
         {
-            if (routeList.GetEndPoint() != null)
+            if (SaveState.Instance.routeList.GetEndPoint() != null)
             {
                 // DOESN'T LOOK RIGHT??
                 VisualStateManager.GoToState(this, "SelectStartPlaqueState", true);
                 DrawRoute();
-                routeState = RouteState.Normal;
+                SaveState.Instance.routeState = RouteState.Normal;
             }
         }
 
@@ -305,20 +333,26 @@ namespace Maps
 
         private void AddRemovePlaqueFromListYes_Click(object sender, RoutedEventArgs e)
         {
-            Plaque pl = routeList.GetCurrentPoint();
-            if (routeList.GetList().Contains(pl))
+            Plaque pl = SaveState.Instance.routeList.GetCurrentPoint();
+            if (SaveState.Instance.routeList.GetList().Contains(pl))
             {
-                routeList.GetList().Remove(pl);
+                SaveState.Instance.routeList.GetList().Remove(pl);
                 pl.ClearSelection();
                 pl.ResetSize();
             }
             else
             {
-                routeList.GetList().Add(pl);
-                pl.SetSelection();
+                SaveState.Instance.routeList.GetList().Add(pl);
+                pl.SetGreen();
+                //pl.SetSelection();
                 pl.ResetSize();
+                SaveState.Instance.flashplaque = pl;
+                SaveState.Instance.flashtimer = DateTime.Now;
+                AddOrRemovePlaqueYesNo.Opacity = 0.4;
+
             }
 
+            //VisualStateManager.GoToState(RoutePlaqueNameInfo, "Start", true);
         }
 
         private void AddRemovePlaqueFromListNo_Click(object sender, RoutedEventArgs e)
@@ -337,11 +371,13 @@ namespace Maps
 
         private void DoneSelectingRouteStartPoint(object sender, RoutedEventArgs e)
         {
+            VisualStateManager.GoToState(StartPlaqueNameInfo, "Start", true);
             VisualStateManager.GoToState(this, "SelectRouteState", true);
         }
 
         private void DoneSelectingRoute(object sender, RoutedEventArgs e)
         {
+           // VisualStateManager.GoToState(RoutePlaqueNameInfo, "Start", true);
             VisualStateManager.GoToState(this, "DefineEndPointState", true);
         }
 
@@ -349,12 +385,13 @@ namespace Maps
         {
             VisualStateManager.GoToState(this, "SelectStartPlaqueState", true);
             UpdatePlaqueVisibilty();
-            route.FadeOutRouteLine();
-            routeState = RouteState.SelectStartPoint;
+            SaveState.Instance.route.FadeOutRouteLine();
+            SaveState.Instance.routeState = RouteState.SelectStartPoint;
         }
 
         private void GoButton_Click(object sender, RoutedEventArgs e)
         {
+            //VisualStateManager.GoToState(EndPlaqueNameInfo, "Start", true);
             VisualStateManager.GoToState(this, "RouteSummaryState", true);
         }
 
@@ -362,31 +399,36 @@ namespace Maps
         {
             VisualStateManager.GoToState(this, "SelectStartPlaqueState", true);
             UpdatePlaqueVisibilty();
-            route.FadeOutRouteLine();
+            SaveState.Instance.route.FadeOutRouteLine();
             RouteSummaryGoButton.IsHitTestVisible = false;
-            routeState = RouteState.SelectStartPoint;
+            SaveState.Instance.routeState = RouteState.SelectStartPoint;
         }
+
+        private void RouteSummaryClearRouteButton_Click(object sender, RoutedEventArgs e)
+        {
+            VisualStateManager.GoToState(this, "SelectStartPlaqueState", true);
+            ClearRoute();
+            RouteSummaryGoButton.IsHitTestVisible = false;
+            SaveState.Instance.routeState = RouteState.SelectStartPoint;
+        }
+        
 
         private void RouteSummaryGoButton_Click(object sender, RoutedEventArgs e)
         {
             VisualStateManager.GoToState(this, "MapOnlyState", true);
             UpdatePlaqueVisibilty();
-            routeState = RouteState.Travelling;
             RouteSummaryGoButton.IsHitTestVisible = false;
         }
 
         private void SplashScreenButton_Click(object sender, RoutedEventArgs e)
         {
-            SplashScreen.Opacity = 0.0;
-            SplashScreen.IsHitTestVisible = false;
-            SplashScreenButton.IsHitTestVisible = false;
             VisualStateManager.GoToState(this, "MainMenuState", true);
         }
 
         private void MainMenuButton_Click(object sender, RoutedEventArgs e)
         {
             VisualStateManager.GoToState(this, "SelectStartPlaqueState", true);
-            routeState = RouteState.SelectStartPoint;
+            SaveState.Instance.routeState = RouteState.SelectStartPoint;
         }
 
         private void MainMenuFilterButton_Click(object sender, RoutedEventArgs e)
@@ -394,9 +436,19 @@ namespace Maps
             VisualStateManager.GoToState(this, "FilterState", true);
         }
 
+        void ClearRoute()
+        {
+            SaveState.Instance.routeList.Clear();
+            SaveState.Instance.route.ClearRouteLine();
+            ClearSelectedPins();
+            UpdatePlaqueVisibilty();
+        }
+
         bool fullinfostate;
         void CurrentStateChanged(object sender, VisualStateChangedEventArgs e)
         {
+            SaveState.Instance.CurrentVisualState = e.NewState.Name;
+
             fullinfostate = false;
             ShowFullInfoButton.Opacity = 0;
             ShowFullInfoButton.IsHitTestVisible = false;
@@ -411,19 +463,15 @@ namespace Maps
                     }
                 case "MainMenuState":
                     {
-                        routeList.Clear();
-                        route.ClearRouteLine();
-                        ClearSelectedPins();
-                        UpdatePlaqueVisibilty();
-                        routeState = RouteState.Normal;
+                        ClearRoute();
+                        SaveState.Instance.routeState = RouteState.Normal;
                         RouteSummaryGoButton.IsHitTestVisible = false;
                         break;
                     }
                 case "SelectStartPlaqueState":
                     {
-                        routeState = RouteState.SelectStartPoint;
-                        PlaqueExtraInfo.Opacity = 0;
-                        if (routeList.GetStartPoint() == null)
+                        SaveState.Instance.routeState = RouteState.SelectStartPoint;
+                        if (SaveState.Instance.routeList.GetStartPoint() == null)
                         {
                             Done1.Opacity = 0.50;
                             SelectPlaquesButton.IsHitTestVisible = false;
@@ -432,23 +480,22 @@ namespace Maps
                     }
                 case "SelectRouteState":
                     {
-                        routeState = RouteState.SelectRoute;
+                        SaveState.Instance.routeState = RouteState.SelectRoute;
 
-                        PlaqueExtraInfo1.Opacity = 0;
                         AddOrRemovePlaque.Text = "Select the plaques to visit";
                         AddOrRemovePlaque.Opacity = 1.0;
                         AddOrRemovePlaqueYesNo.Opacity = 0.0;
                         SelectPlaqueYes.IsHitTestVisible = false;
                         SelectPlaqueNo.IsHitTestVisible = false;
 
+                        //VisualStateManager.GoToState(EndPlaqueNameInfo, "Start", true); 
                         break;
                     }
                 case "DefineEndPointState":
                     {
-                        routeState = RouteState.SelectEndPoint;
-                        EndPlaqueInfo.Opacity = 0.0;
+                        SaveState.Instance.routeState = RouteState.SelectEndPoint;
 
-                        if (routeList.GetEndPoint() == null)
+                        if (SaveState.Instance.routeList.GetEndPoint() == null)
                         {
                             Done.Opacity = 0.50;
                             DoneEndPointButton.IsHitTestVisible = false;
@@ -458,19 +505,60 @@ namespace Maps
                 case "RouteSummaryState":
                     {
                         RouteSummaryGoButton.IsHitTestVisible = true;
-                        routeState = RouteState.Travelling;
-                        journey.StartJourney(summary);
-                        journey.FillInDetails();
-                        myMap.Center = currentLocation.GetLocation();
+                        SaveState.Instance.routeState = RouteState.Travelling;
+                        SaveState.Instance.journey.FillInDetails();
+                        SaveState.Instance.journey.StartJourney(SaveState.Instance.summary);
+                        myMap.Center = SaveState.Instance.currentLocation.GetLocation();
                         myMap.ZoomLevel = 16;
                         break;
                     }
             }
+
+            if (e.NewState.Name != "SplashScreenState")
+            {
+                SplashScreen.Opacity = 0.0;
+                SplashScreen.IsHitTestVisible = false;
+                SplashScreenButton.IsHitTestVisible = false;            
+            }
         }
+
+        private void PlaqueFlashTimer()
+        {
+            DispatcherTimer timer = new DispatcherTimer();
+
+            timer.Tick +=
+                delegate(object s, EventArgs args)
+                {
+                    if (SaveState.Instance.flashplaque != null)
+                    {
+                        TimeSpan elapsedTime = DateTime.Now - SaveState.Instance.flashtimer;
+                        if (elapsedTime.TotalMilliseconds > 150)
+                        {
+                            SaveState.Instance.flashplaque.SetSelection();
+                            SaveState.Instance.flashplaque = null;
+                            AddOrRemovePlaque.Text = "Select the plaques to visit";
+                            AddOrRemovePlaque.Opacity = 1.0;
+                            AddOrRemovePlaqueYesNo.Opacity = 0.0;
+
+                            //AddOrRemovePlaqueYesNo.Opacity = 1.0;
+                        }
+
+                    }
+                };
+
+
+            timer.Interval = new TimeSpan(0, 0, 0, 0, 200);
+            timer.Start();
+        }
+
 
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
         {
-            switch (routeState)
+            base.OnBackKeyPress(e);
+/*
+            e.Cancel = true;
+
+            switch (SaveState.Instance.routeState)
             {
                 case RouteState.SelectStartPoint:
                     {
@@ -494,13 +582,13 @@ namespace Maps
                     }
                 default:
                     {
-                        VisualStateManager.GoToState(this, "MainMenuState", true);
+                        e.Cancel = false;
                         break;
                     }
             }
-            e.Cancel = true;
-            base.OnBackKeyPress(e);
 
+            base.OnBackKeyPress(e);
+            */
         }
 
         private void ArtsButton_Click(object sender, RoutedEventArgs e)
@@ -545,23 +633,23 @@ namespace Maps
 
         private void UpdateFilter(bool arts, bool politics, bool science, bool exploration)
         {
-            for (int i = 0; i < plaques.Count; i++)
+            for (int i = 0; i < SaveState.Instance.plaques.Count; i++)
             {
-                if (plaques[i].Info.filter == PlaqueInfo.FilterCategory.Arts)
+                if (SaveState.Instance.plaques[i].Info.filter == PlaqueInfo.FilterCategory.Arts)
                 {
-                    plaques[i].Visible = arts;
+                    SaveState.Instance.plaques[i].Visible = arts;
                 }
-                if (plaques[i].Info.filter == PlaqueInfo.FilterCategory.Politics)
+                if (SaveState.Instance.plaques[i].Info.filter == PlaqueInfo.FilterCategory.Politics)
                 {
-                    plaques[i].Visible = politics;
+                    SaveState.Instance.plaques[i].Visible = politics;
                 }
-                if (plaques[i].Info.filter == PlaqueInfo.FilterCategory.Science)
+                if (SaveState.Instance.plaques[i].Info.filter == PlaqueInfo.FilterCategory.Science)
                 {
-                    plaques[i].Visible = science;
+                    SaveState.Instance.plaques[i].Visible = science;
                 }
-                if (plaques[i].Info.filter == PlaqueInfo.FilterCategory.Exploration)
+                if (SaveState.Instance.plaques[i].Info.filter == PlaqueInfo.FilterCategory.Exploration)
                 {
-                    plaques[i].Visible = exploration;
+                    SaveState.Instance.plaques[i].Visible = exploration;
                 }
             }
             UpdatePlaqueVisibilty();
@@ -570,23 +658,23 @@ namespace Maps
         private void RemoveAllPinsExceptCurrentRoute()
         {
             // remove old pins
-            pinLayer.Children.Clear();
+            SaveState.Instance.pinlayer.Children.Clear();
 
-            List<Plaque> route = routeList.GetList();
+            List<Plaque> route = SaveState.Instance.routeList.GetList();
 
-            pinLayer.Children.Add(routeList.GetStartPoint().Pin);
-            for (int i = 0; i < plaques.Count; i++)
+            SaveState.Instance.pinlayer.Children.Add(SaveState.Instance.routeList.GetStartPoint().Pin);
+            for (int i = 0; i < SaveState.Instance.plaques.Count; i++)
             {
-                if (route.Contains(plaques[i]))
+                if (route.Contains(SaveState.Instance.plaques[i]))
                 {
-                    pinLayer.Children.Add(plaques[i].Pin);
+                    SaveState.Instance.pinlayer.Children.Add(SaveState.Instance.plaques[i].Pin);
                 }
             }
-            if (routeList.GetStartPoint() != routeList.GetEndPoint())
+            if (SaveState.Instance.routeList.GetStartPoint() != SaveState.Instance.routeList.GetEndPoint())
             {
-                if (!route.Contains(routeList.GetEndPoint()))
+                if (!route.Contains(SaveState.Instance.routeList.GetEndPoint()))
                 {
-                    pinLayer.Children.Add(routeList.GetEndPoint().Pin);
+                    SaveState.Instance.pinlayer.Children.Add(SaveState.Instance.routeList.GetEndPoint().Pin);
                 }
             }
         }
@@ -594,12 +682,12 @@ namespace Maps
         private void UpdatePlaqueVisibilty()
         {
             // remove old pins
-            pinLayer.Children.Clear();
+            SaveState.Instance.pinlayer.Children.Clear();
 
-            for (int i = 0; i < plaques.Count; i++)
+            for (int i = 0; i < SaveState.Instance.plaques.Count; i++)
             {
-                if (plaques[i].Visible || plaques[i].Selected)
-                    pinLayer.Children.Add(plaques[i].Pin);
+                if (SaveState.Instance.plaques[i].Visible || SaveState.Instance.plaques[i].Selected)
+                    SaveState.Instance.pinlayer.Children.Add(SaveState.Instance.plaques[i].Pin);
             }
 
         }

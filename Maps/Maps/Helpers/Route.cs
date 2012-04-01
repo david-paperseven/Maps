@@ -30,6 +30,10 @@ namespace Maps.Helpers
         MapLayer routeLayer;
         MapPolyline currentRouteLine;
 
+        public Route()
+        {
+        }
+
         public Route(string Id, Map map, MainPage page)
         {
             credentialsId = Id;

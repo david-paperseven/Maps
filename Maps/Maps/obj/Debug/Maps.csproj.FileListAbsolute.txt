@@ -43,3 +43,4 @@ C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Debug\Fonts\NokiaPureHeadlineRg.ttf
 C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Debug\Fonts\NokiaPureText.ttf
 C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Debug\Fonts\NokiaPureTextBold.ttf
 C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Debug\Fonts\NokiaPureTextLight.ttf
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\obj\Debug\NameInfo.g.i.cs

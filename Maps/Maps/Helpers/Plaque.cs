@@ -85,30 +85,30 @@ namespace Maps.Helpers
 
         void Pin_Tap(object sender, GestureEventArgs e)
         {
-            if (myMainPage.routeState == MainPage.RouteState.Normal)
+            if (SaveState.Instance.routeState == MainPage.RouteState.Normal)
             {
                 myMainPage.ClearSelectedPins();
                 SetSelection();
             }
 
-            if (myMainPage.routeState == MainPage.RouteState.SelectStartPoint)
+            if (SaveState.Instance.routeState == MainPage.RouteState.SelectStartPoint)
             {
-                if (myMainPage.routeList.GetStartPoint() != null)
+                if (SaveState.Instance.routeList.GetStartPoint() != null)
                 {
-                    myMainPage.routeList.GetStartPoint().ClearSelection();
+                    SaveState.Instance.routeList.GetStartPoint().ClearSelection();
                 }
 
                 Pin.Fill = brushStartOfRouteMarker;
                 Pin.Opacity = 1.0;
-                myMainPage.routeList.SetStartPoint(this);
+                SaveState.Instance.routeList.SetStartPoint(this);
                 ShowQuickInfo();
 
                 myMainPage.Done1.Opacity = 1.0;
                 myMainPage.SelectPlaquesButton.IsHitTestVisible = true;
 
             }
-                
-            if (myMainPage.routeState == MainPage.RouteState.SelectRoute)
+
+            if (SaveState.Instance.routeState == MainPage.RouteState.SelectRoute)
             {
                 ShowQuickInfo();
 
@@ -117,7 +117,7 @@ namespace Maps.Helpers
                 myMainPage.SelectPlaqueYes.IsHitTestVisible = true;
                 myMainPage.SelectPlaqueNo.IsHitTestVisible = true;
 
-                if (myMainPage.routeList.GetList().Contains(this))
+                if (SaveState.Instance.routeList.GetList().Contains(this))
                 {
                     myMainPage.AddOrRemovePlaque.Text = "Remove from route";
                 }
@@ -127,27 +127,27 @@ namespace Maps.Helpers
                 }
 
 
-                if (myMainPage.routeList.GetCurrentPoint() != null)
+                if (SaveState.Instance.routeList.GetCurrentPoint() != null)
                 {
-                    myMainPage.routeList.GetCurrentPoint().Pin.Width = pinwidth;
-                    myMainPage.routeList.GetCurrentPoint().Pin.Height = pinheight;
+                    SaveState.Instance.routeList.GetCurrentPoint().Pin.Width = pinwidth;
+                    SaveState.Instance.routeList.GetCurrentPoint().Pin.Height = pinheight;
                 }
 
                 Pin.Width = selectedpinwidth;
                 Pin.Height = selectedpinheight;
-                myMainPage.routeList.SetCurrentPoint(this);
+                SaveState.Instance.routeList.SetCurrentPoint(this);
             }
 
-            if (myMainPage.routeState == MainPage.RouteState.SelectEndPoint)
+            if (SaveState.Instance.routeState == MainPage.RouteState.SelectEndPoint)
             {
                 myMainPage.Done.Opacity = 1;
                 myMainPage.DoneEndPointButton.IsHitTestVisible = true;
 
                 // it is currently the endpoint
-                if (this == myMainPage.routeList.GetEndPoint())
+                if (this == SaveState.Instance.routeList.GetEndPoint())
                 {
                     // if it's in the selection list then just return it to selected
-                    if (myMainPage.routeList.GetList().Contains(this))
+                    if (SaveState.Instance.routeList.GetList().Contains(this))
                     {
                         Pin.Fill = brushSelectedMarker;
                         Pin.Opacity = 1.0;
@@ -156,30 +156,30 @@ namespace Maps.Helpers
                     {
                         ClearSelection();
                     }
-                    myMainPage.routeList.SetEndPoint(null);
+                    SaveState.Instance.routeList.SetEndPoint(null);
                 }
                 else
                 {
-                    if (myMainPage.routeList.GetEndPoint() != null) // got to clear the existing endpoint
+                    if (SaveState.Instance.routeList.GetEndPoint() != null) // got to clear the existing endpoint
                     {
-                        if (myMainPage.routeList.GetList().Contains(myMainPage.routeList.GetEndPoint()))
+                        if (SaveState.Instance.routeList.GetList().Contains(SaveState.Instance.routeList.GetEndPoint()))
                         {
-                            myMainPage.routeList.GetEndPoint().Pin.Fill = brushSelectedMarker;
-                            myMainPage.routeList.GetEndPoint().Pin.Opacity = 1.0;
+                            SaveState.Instance.routeList.GetEndPoint().Pin.Fill = brushSelectedMarker;
+                            SaveState.Instance.routeList.GetEndPoint().Pin.Opacity = 1.0;
                         }
                         else
                         {
-                            myMainPage.routeList.GetEndPoint().ClearSelection();
+                            SaveState.Instance.routeList.GetEndPoint().ClearSelection();
                         }
 
                     }
                     ShowQuickInfo();
                     Pin.Fill = brushEndOfRouteMarker;
                     Pin.Opacity = 1.0;
-                    myMainPage.routeList.SetEndPoint(this);
+                    SaveState.Instance.routeList.SetEndPoint(this);
                 }
             }
-
+            /*
             if (myMainPage.routeState == MainPage.RouteState.Travelling)
             {
                 myMainPage.FullInfoName.Text = Info.GetName() +"\n";
@@ -191,42 +191,52 @@ namespace Maps.Helpers
                 myMainPage.ShowFullInfoButton.IsHitTestVisible = true;
                 //VisualStateManager.GoToState(myMainPage, "FullInfoState", true);
             }
+             * */
+        }
+
+        public void ShowFullInfo()
+        {
+            myMainPage.FullInfoName.Text = Info.GetName() + "\n";
+            myMainPage.FullInfoDateAndCategory.Text = "(" + Info.date + ") " + Info.info1 + "\n\n";
+            myMainPage.FullInfoPlaqueInfo.Text = Info.fullinfo + "\n\n";
+            myMainPage.FullInfoPlaqueFullInfo.Text = Info.fulltext;
+
+            myMainPage.ShowFullInfoButton.Opacity = 1;
+            myMainPage.ShowFullInfoButton.IsHitTestVisible = true;
+            VisualStateManager.GoToState(myMainPage, "FullInfoState", true);
         }
 
         public void ShowQuickInfo()
         {
-            if (myMainPage.routeState == MainPage.RouteState.SelectEndPoint)
+            switch (SaveState.Instance.routeState)
             {
-                myMainPage.EndPlaqueInfo.Opacity = 1.0;
-                myMainPage.EndPointPlaqueName.Text = Info.GetName();
-                myMainPage.EndPointPlaqueDateAndCategory.Text = "(" + Info.date + ") " + Info.info1;
+                case MainPage.RouteState.SelectStartPoint:
+                    {
+                        VisualStateManager.GoToState(myMainPage.StartPlaqueNameInfo, "SlideUp", true);
+                        myMainPage.StartPlaqueNameInfo.SelectRoutePlaqueName.Text = Info.GetName();
+                        myMainPage.StartPlaqueNameInfo.SelectRoutePlaqueDateAndCategory.Text = "(" + Info.date + ") " + Info.info1;
+                        break;
+                    }
+                case MainPage.RouteState.SelectEndPoint:
+                    {
+                        VisualStateManager.GoToState(myMainPage.EndPlaqueNameInfo, "SlideUp", true);
+                        myMainPage.EndPlaqueNameInfo.SelectRoutePlaqueName.Text = Info.GetName();
+                        myMainPage.EndPlaqueNameInfo.SelectRoutePlaqueDateAndCategory.Text = "(" + Info.date + ") " + Info.info1;
+                        break;
+                    }
+                case MainPage.RouteState.SelectRoute:
+                    {
+                        VisualStateManager.GoToState(myMainPage.RoutePlaqueNameInfo, "SlideUp", true);
+                        myMainPage.RoutePlaqueNameInfo.SelectRoutePlaqueName.Text = Info.GetName();
+                        myMainPage.RoutePlaqueNameInfo.SelectRoutePlaqueDateAndCategory.Text = "(" + Info.date + ") " + Info.info1;
+                        break;
+                    }
             }
-            else
-            if (myMainPage.routeState == MainPage.RouteState.SelectStartPoint)
-            {
-                myMainPage.PlaqueExtraInfo.Opacity = 1.0;
-                myMainPage.SelectRoutePlaqueName.Text = Info.GetName();
-                myMainPage.SelectRoutePlaqueDateAndCategory.Text = "(" + Info.date + ") " + Info.info1;
-            }
-            else
-            {
-                myMainPage.PlaqueExtraInfo1.Opacity = 1.0;
-                myMainPage.SelectRoutePlaqueName1.Text = Info.GetName();
-                myMainPage.SelectRoutePlaqueDateAndCategory1.Text = "(" + Info.date + ") " + Info.info1;
-            }
+         
         }
 
         public void UnshowQuickInfo()
         {
-            if (myMainPage.routeState == MainPage.RouteState.SelectEndPoint)
-            {
-                myMainPage.EndPointPlaqueName.Text = "";
-            }
-            else
-            {
-                myMainPage.PlaqueExtraInfo.Opacity = 0.0;
-                myMainPage.SelectRoutePlaqueName.Text = "";
-            }
         }
 
         public GeoCoordinate GetLocation() { return Info.location; }
@@ -241,14 +251,20 @@ namespace Maps.Helpers
             Pin.Fill = brushMarker;
             Pin.Opacity = 0.50;
             Selected = false;
-            UnshowQuickInfo();
+            //UnshowQuickInfo();
         }
         public void SetSelection()
         {
             Pin.Fill = brushSelectedMarker;
             Pin.Opacity = 1.0;
             Selected = true;
-            ShowQuickInfo();
+            //ShowQuickInfo();
+        }
+
+        public void SetGreen()
+        {
+            Pin.Fill = brushStartOfRouteMarker;
+            Pin.Opacity = 1.0;
         }
 
         public void ResetSize()

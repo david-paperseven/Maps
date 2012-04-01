@@ -23,6 +23,10 @@ namespace Maps.Helpers
             Exploration
         }
 
+        public PlaqueInfo()
+        {
+        }
+
         public PlaqueInfo(List<string> s)
         {
             number = Convert.ToInt32(s[0]);

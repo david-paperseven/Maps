@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.IO.IsolatedStorage;
 using System.Linq;
 using System.Net;
 using System.Windows;
@@ -10,8 +12,12 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml;
+using System.Xml.Serialization;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+
+using Maps.Helpers;
 
 namespace Maps
 {
@@ -57,6 +63,19 @@ namespace Maps
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
+            SaveState.Init();
+            
+            using (var store = IsolatedStorageFile.GetUserStoreForApplication())
+            using (var stream = new IsolatedStorageFileStream("data.txt", FileMode.OpenOrCreate, FileAccess.Read, store))
+            using (var reader = new StreamReader(stream))
+            {
+                if (!reader.EndOfStream)
+                {
+                    var serializer = new XmlSerializer(typeof(SaveState));
+                    SaveState.Instance.SetState((SaveState)serializer.Deserialize(reader));
+                }
+            }
+             
         }
 
         // Code to execute when the application is activated (brought to foreground)
@@ -75,6 +94,18 @@ namespace Maps
         // This code will not execute when the application is deactivated
         private void Application_Closing(object sender, ClosingEventArgs e)
         {
+            /*
+            // persist the data using isolated storage
+            using (var store = IsolatedStorageFile.GetUserStoreForApplication())
+            using (var stream = new IsolatedStorageFileStream("data.txt",
+                                                            FileMode.Create,
+                                                            FileAccess.Write,
+                                                            store))
+            {
+                var serializer = new XmlSerializer(typeof(SaveState));
+                serializer.Serialize(stream, SaveState.Instance);
+            }
+             * */
         }
 
         // Code to execute if a navigation fails
