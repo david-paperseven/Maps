@@ -70,6 +70,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Bounds.cs" />
     <Compile Include="Helpers\JourneySaver.cs" />
     <Compile Include="Helpers\SaveState.cs" />
     <Compile Include="Helpers\CurrentLocation.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="Helpers\Route.cs" />
     <Compile Include="Helpers\RouteList.cs" />
     <Compile Include="Helpers\Summary.cs" />
+    <Compile Include="Helpers\TileSystem.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -185,6 +187,8 @@
     <Content Include="Text\plaques.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="QUICK-START_Images\Group.png" />
+    <Resource Include="QUICK-START_Images\Path.png" />
     <Resource Include="SelectEndPlaque_Images\Compound Path.png" />
     <Resource Include="SelectEndPlaque_Images\Group.png" />
     <Resource Include="SelectEndPlaque_Images\Path.png" />

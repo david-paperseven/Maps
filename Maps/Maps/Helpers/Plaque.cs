@@ -85,12 +85,13 @@ namespace Maps.Helpers
 
         void Pin_Tap(object sender, GestureEventArgs e)
         {
+            /*
             if (SaveState.Instance.routeState == MainPage.RouteState.Normal)
             {
                 myMainPage.ClearSelectedPins();
                 SetSelection();
             }
-
+            */
             if (SaveState.Instance.routeState == MainPage.RouteState.SelectStartPoint)
             {
                 if (SaveState.Instance.routeList.GetStartPoint() != null)

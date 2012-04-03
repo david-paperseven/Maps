@@ -39,6 +39,15 @@ namespace Maps
             Travelling
         }
 
+        public enum RouteMode
+        {
+            None,
+            QuickStart,
+            UserSelected,
+        }
+
+        bool onMainMenu = true;
+
         public MainPage()
         {
             InitializeComponent();
@@ -219,7 +228,7 @@ namespace Maps
             if (SaveState.Instance.HaveWeCentred == false)
             {
                 SaveState.Instance.HaveWeCentred = true;
-                myMap.Center = SaveState.Instance.currentLocation.GetLocation();
+                myMap.Center = Bounds.GetCentreWithOffset(SaveState.Instance.currentLocation.GetLocation(),(int)myMap.ZoomLevel);
             }
         }
 
@@ -258,12 +267,14 @@ namespace Maps
         {
             User_Selected_Route.Text = "Calculating route...";
             NumKms.Text = "";
+            km.Text = "";
             ApproxTime.Text = "";
             NumPlaques.Text = "";
+            plaquestext.Text = "";
 
-            km.Visibility = System.Windows.Visibility.Collapsed;
+            DistanceKMS.Visibility = System.Windows.Visibility.Collapsed;
             Approx_time.Visibility = System.Windows.Visibility.Collapsed;
-            plaquestext.Visibility = System.Windows.Visibility.Collapsed;
+            NumPlaquesText.Visibility = System.Windows.Visibility.Collapsed;
             
             Edit_Route___Go.Visibility = System.Windows.Visibility.Collapsed;
             EditRouteButton.IsHitTestVisible = false;
@@ -274,12 +285,14 @@ namespace Maps
         {
             User_Selected_Route.Text = "User Selected Route";
             NumKms.Text = SaveState.Instance.summary.Distance.ToString();
+            km.Text = "km";
             ApproxTime.Text = SaveState.Instance.summary.GetTime();
             NumPlaques.Text = SaveState.Instance.summary.NumPlaques.ToString();
+            plaquestext.Text = "plaques";
 
-            km.Visibility = System.Windows.Visibility.Visible;
+            DistanceKMS.Visibility = System.Windows.Visibility.Visible;
             Approx_time.Visibility = System.Windows.Visibility.Visible;
-            plaquestext.Visibility = System.Windows.Visibility.Visible;
+            NumPlaquesText.Visibility = System.Windows.Visibility.Visible;
             
             Edit_Route___Go.Visibility = System.Windows.Visibility.Visible;
             EditRouteButton.IsHitTestVisible = true;
@@ -355,7 +368,7 @@ namespace Maps
 
             }
 
-            //VisualStateManager.GoToState(RoutePlaqueNameInfo, "Start", true);
+            VisualStateManager.GoToState(RoutePlaqueNameInfo, "Start", true);
         }
 
         private void AddRemovePlaqueFromListNo_Click(object sender, RoutedEventArgs e)
@@ -375,7 +388,12 @@ namespace Maps
 
         private void DoneSelectingRoute(object sender, RoutedEventArgs e)
         {
-           // VisualStateManager.GoToState(RoutePlaqueNameInfo, "Start", true);
+            Plaque pl = SaveState.Instance.routeList.GetCurrentPoint();
+            if (pl != null)
+            {
+                pl.ResetSize();
+            }
+            VisualStateManager.GoToState(RoutePlaqueNameInfo, "Start", true);
             VisualStateManager.GoToState(this, "DefineEndPointState", true);
         }
 
@@ -389,7 +407,7 @@ namespace Maps
 
         private void GoButton_Click(object sender, RoutedEventArgs e)
         {
-            //VisualStateManager.GoToState(EndPlaqueNameInfo, "Start", true);
+            VisualStateManager.GoToState(EndPlaqueNameInfo, "Start", true);
             VisualStateManager.GoToState(this, "RouteSummaryState", true);
         }
 
@@ -439,6 +457,58 @@ namespace Maps
             VisualStateManager.GoToState(this, "FullInfoState", true);
         }
 
+        private void QuickStartPlotRouteButton_Click(object sender, RoutedEventArgs e)
+        {
+            SaveState.Instance.summary.NumPlaques = 1; 
+            CalculatingPage();
+            System.Collections.ObjectModel.ObservableCollection<Waypoint> waypoints = new System.Collections.ObjectModel.ObservableCollection<Waypoint>();
+
+            Waypoint mywp = new Waypoint();
+            mywp.Location = SaveState.Instance.currentLocation.Location;
+            waypoints.Add(mywp);
+
+            Waypoint sp = new Waypoint();
+            sp.Location = SaveState.Instance.routeList.GetStartPoint().Info.location;
+            waypoints.Add(sp);
+
+            SaveState.Instance.route.CalculateRoute(waypoints, SaveState.Instance.summary);
+            //RemoveAllPinsExceptCurrentRoute();
+            VisualStateManager.GoToState(QuickStartNameInfo, "Start", true);
+            VisualStateManager.GoToState(this, "DistanceSummaryState", true);
+        }
+
+        private void QuickStartButton_Click(object sender, RoutedEventArgs e)
+        {
+            Plaque nearest = FindNearestPlaque(SaveState.Instance.currentLocation.Location);
+            SaveState.Instance.routeList.SetStartPoint(nearest);
+            nearest.SetGreen();
+
+            LocationRect rect = Bounds.GetRect(nearest.GetLocation(), SaveState.Instance.currentLocation.Location);
+            // Set the map view using the rectangle which bounds the rendered route.
+            myMap.SetView(rect);
+
+            QuickStartNameInfo.SelectRoutePlaqueName.Text = nearest.Info.GetName();
+            QuickStartNameInfo.SelectRoutePlaqueDateAndCategory.Text = "(" + nearest.Info.date + ") " + nearest.Info.info1;
+            VisualStateManager.GoToState(this, "QuickStartState", true);
+        }
+
+        public Plaque FindNearestPlaque(GeoCoordinate currentLocation)
+        {
+            double closestdistance = 1000000000.0;
+            Plaque nearestplaque=null;
+            foreach (Plaque p in SaveState.Instance.plaques)
+            {
+                double distance = currentLocation.GetDistanceTo(p.GetLocation());
+                if (distance < closestdistance)
+                {
+                    closestdistance = distance;
+                    nearestplaque = p;
+                }
+            }
+            return nearestplaque;
+        }
+
+
         void ClearRoute()
         {
             SaveState.Instance.routeList.Clear();
@@ -449,6 +519,7 @@ namespace Maps
 
         void CurrentStateChanged(object sender, VisualStateChangedEventArgs e)
         {
+            onMainMenu = false;
             SaveState.Instance.CurrentVisualState = e.NewState.Name;
 
             switch (e.NewState.Name)
@@ -467,11 +538,13 @@ namespace Maps
                         ClearRoute();
                         SaveState.Instance.routeState = RouteState.Normal;
                         RouteSummaryGoButton.IsHitTestVisible = false;
+                        onMainMenu = true;
                         break;
                     }
                 case "SelectStartPlaqueState":
                     {
                         SaveState.Instance.routeState = RouteState.SelectStartPoint;
+                        SaveState.Instance.routeMode = RouteMode.UserSelected;
                         if (SaveState.Instance.routeList.GetStartPoint() == null)
                         {
                             Done1.Opacity = 0.50;
@@ -489,7 +562,7 @@ namespace Maps
                         SelectPlaqueYes.IsHitTestVisible = false;
                         SelectPlaqueNo.IsHitTestVisible = false;
 
-                        //VisualStateManager.GoToState(EndPlaqueNameInfo, "Start", true); 
+                        VisualStateManager.GoToState(EndPlaqueNameInfo, "Start", true); 
                         break;
                     }
                 case "DefineEndPointState":
@@ -509,8 +582,13 @@ namespace Maps
                         SaveState.Instance.routeState = RouteState.Travelling;
                         SaveState.Instance.journey.FillInDetails();
                         SaveState.Instance.journey.StartJourney(SaveState.Instance.summary);
-                        myMap.Center = SaveState.Instance.currentLocation.GetLocation();
-                        myMap.ZoomLevel = 16;
+                        myMap.Center = Bounds.GetCentreWithOffset(SaveState.Instance.currentLocation.GetLocation(), (int)myMap.ZoomLevel);
+                        break;
+                    }
+                case "QuickStartState":
+                    {
+                        SaveState.Instance.routeMode = RouteMode.QuickStart;
+                        VisualStateManager.GoToState(QuickStartNameInfo, "SlideUp", true);
                         break;
                     }
             }
@@ -557,33 +635,57 @@ namespace Maps
         {
             //base.OnBackKeyPress(e);
 
+            if (onMainMenu) // time to exit
+            {
+                base.OnBackKeyPress(e);
+                return;
+            }
+
             e.Cancel = true;
 
-            switch (SaveState.Instance.routeState)
+            switch (SaveState.Instance.routeMode)
             {
-                case RouteState.SelectStartPoint:
+                case RouteMode.QuickStart:
                     {
+                        VisualStateManager.GoToState(QuickStartNameInfo, "Start", true); 
                         VisualStateManager.GoToState(this, "MainMenuState", true);
                         break;
                     }
-                case RouteState.SelectRoute:
+                case RouteMode.UserSelected:
                     {
-                        VisualStateManager.GoToState(this, "SelectStartPlaqueState", true);
-                        break;
-                    }
-                case RouteState.SelectEndPoint:
-                    {
-                        VisualStateManager.GoToState(this, "SelectRouteState", true);
-                        break;
-                    }
-                case RouteState.Travelling:
-                    {
-                        VisualStateManager.GoToState(this, "MainMenuState", true);
+                        switch (SaveState.Instance.routeState)
+                        {
+                            case RouteState.SelectStartPoint:
+                                {
+                                    VisualStateManager.GoToState(this, "MainMenuState", true);
+                                    break;
+                                }
+                            case RouteState.SelectRoute:
+                                {
+                                    VisualStateManager.GoToState(this, "SelectStartPlaqueState", true);
+                                    break;
+                                }
+                            case RouteState.SelectEndPoint:
+                                {
+                                    VisualStateManager.GoToState(this, "SelectRouteState", true);
+                                    break;
+                                }
+                            case RouteState.Travelling:
+                                {
+                                    VisualStateManager.GoToState(this, "MainMenuState", true);
+                                    break;
+                                }
+                            default:
+                                {
+                                    VisualStateManager.GoToState(this, "MainMenuState", true);
+                                    break;
+                                }
+                        }
                         break;
                     }
                 default:
                     {
-                        e.Cancel = false;
+                        VisualStateManager.GoToState(this, "MainMenuState", true);
                         break;
                     }
             }
