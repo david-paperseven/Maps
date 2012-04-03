@@ -196,14 +196,92 @@ namespace Maps.Helpers
 
         public void ShowFullInfo()
         {
+            myMainPage.FullInfoRichTextBox.Blocks.Clear();
+
+            Run nameRun = new Run();
+            Run dateRun = new Run();
+            Run infoRun = new Run();
+            Run fullInfoRun = new Run();
+            Run exitRun = new Run();
+
+            FontFamily headline = new FontFamily("/Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline");
+            FontFamily light = new FontFamily("/Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light");
+            nameRun.Text = Info.GetName() + "\n";
+            nameRun.FontFamily = headline;
+            nameRun.FontSize = 37;
+            dateRun.Text = "(" + Info.date + ") " + Info.info1 + "\n";
+            dateRun.FontFamily = light;
+            dateRun.FontSize = 37;
+            infoRun.Text = Info.fullinfo + "\n";
+            infoRun.FontFamily = headline;
+            infoRun.FontSize = 30;
+            fullInfoRun.Text = Info.fulltext + "\n\n";
+            fullInfoRun.FontFamily = light;
+            fullInfoRun.FontSize = 30;
+            exitRun.Text = "\n\nExit\n";
+            exitRun.FontFamily = headline;
+            exitRun.FontSize = 37;
+
+                    		//<Image x:Name="LINE_BREAK_copy3" Height="3" Canvas.Left="46" Source="QuickInfo_Images/LINE BREAK copy.png" Canvas.Top="65" Width="388" d:IsHidden="True"/>
+
+            Image LineBreak = new Image();
+            LineBreak.Source = new BitmapImage(new Uri("QuickInfo_Images/LINE BREAK copy.png",UriKind.RelativeOrAbsolute));
+            LineBreak.Height = 3;
+            LineBreak.Width = 388;
+            InlineUIContainer LBUI = new InlineUIContainer();
+            LBUI.Child = LineBreak;
+
+            Image LineBreak2 = new Image();
+            LineBreak2.Source = new BitmapImage(new Uri("QuickInfo_Images/LINE BREAK copy.png", UriKind.RelativeOrAbsolute));
+            LineBreak2.Height = 3;
+            LineBreak2.Width = 388;
+            InlineUIContainer LBUI2 = new InlineUIContainer();
+            LBUI2.Child = LineBreak2;
+
+            Paragraph p1 = new Paragraph();
+            p1.Inlines.Add(nameRun);
+            p1.Inlines.Add(dateRun);
+            p1.Inlines.Add(LBUI);
+            p1.Inlines.Add(infoRun);
+            p1.Inlines.Add(LBUI2);
+            p1.Inlines.Add(fullInfoRun);
+
+            Hyperlink link = new Hyperlink();
+            link.FontFamily = light;
+            link.FontSize = 30;
+            link.Inlines.Add("More Info");
+            link.NavigateUri = new Uri(Info.moreinfo);
+            link.TargetName = "_blank";
+            p1.Inlines.Add(link);
+
+            p1.Inlines.Add(exitRun);
+
+            Button button = new Button();
+            button.Width = 200;
+            button.Height = 150;
+            button.Click += exitFullInfoClick;
+            button.FontFamily = headline;
+            button.FontSize = 37;
+            button.Content = "Exit";
+            InlineUIContainer buttonUI = new InlineUIContainer();
+            buttonUI.Child = button;
+            p1.Inlines.Add(buttonUI);
+
+            myMainPage.FullInfoRichTextBox.Blocks.Add(p1);
+
+            
+            /*
             myMainPage.FullInfoName.Text = Info.GetName() + "\n";
             myMainPage.FullInfoDateAndCategory.Text = "(" + Info.date + ") " + Info.info1 + "\n\n";
             myMainPage.FullInfoPlaqueInfo.Text = Info.fullinfo + "\n\n";
             myMainPage.FullInfoPlaqueFullInfo.Text = Info.fulltext;
+            */
+            VisualStateManager.GoToState(myMainPage, "UnlockedPlaqueState", true);
+        }
 
-            myMainPage.ShowFullInfoButton.Opacity = 1;
-            myMainPage.ShowFullInfoButton.IsHitTestVisible = true;
-            VisualStateManager.GoToState(myMainPage, "FullInfoState", true);
+        void exitFullInfoClick(object sender, RoutedEventArgs e)
+        {
+            VisualStateManager.GoToState(myMainPage, "MapOnlyState", true);
         }
 
         public void ShowQuickInfo()

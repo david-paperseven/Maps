@@ -203,6 +203,8 @@
     <Resource Include="StartPlaqueWithInfo_Images\Group.png" />
     <Resource Include="StartPlaqueWithInfo_Images\Group1.png" />
     <Resource Include="StartPlaqueWithInfo_Images\Path.png" />
+    <Resource Include="UnlockedPlaque_Images\Group.png" />
+    <Resource Include="UnlockedPlaque_Images\Path.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ApplicationIcon.png">

@@ -64,7 +64,7 @@ namespace Maps
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
             SaveState.Init();
-            
+            /*
             using (var store = IsolatedStorageFile.GetUserStoreForApplication())
             using (var stream = new IsolatedStorageFileStream("data.txt", FileMode.OpenOrCreate, FileAccess.Read, store))
             using (var reader = new StreamReader(stream))
@@ -75,7 +75,7 @@ namespace Maps
                     SaveState.Instance.SetState((SaveState)serializer.Deserialize(reader));
                 }
             }
-             
+             */
         }
 
         // Code to execute when the application is activated (brought to foreground)

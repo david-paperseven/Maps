@@ -12,6 +12,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 
@@ -56,7 +57,7 @@ namespace Maps
             SaveState.Instance.CurrentVisualState = "SplashScreenState";
 
             Initializeplaques();
-            DebugRouteTimer();
+            //DebugRouteTimer();
             PlaqueFlashTimer();
 
 
@@ -65,12 +66,14 @@ namespace Maps
             VisualStateGroup group = FindVisualState(element, "UserSelectedRoutesMenu");
             group.CurrentStateChanged += new EventHandler<VisualStateChangedEventArgs>(CurrentStateChanged);
 
-            ShowFullInfoButton.Opacity = 0;
-            ShowFullInfoButton.IsHitTestVisible = false; 
             RouteSummaryGoButton.IsHitTestVisible = false;
-            VisualStateManager.GoToState(this, SaveState.Instance.CurrentVisualState, true);
 
             PhoneApplicationService.Current.ApplicationIdleDetectionMode = IdleDetectionMode.Disabled;
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            VisualStateManager.GoToState(this, SaveState.Instance.CurrentVisualState, true);
         }
 
         VisualStateGroup FindVisualState(FrameworkElement element, string name)
@@ -186,7 +189,7 @@ namespace Maps
                 };
 
 
-            timer.Interval = new TimeSpan(0, 0, 1);
+            timer.Interval = new TimeSpan(0, 0, 0,0,900);
             timer.Start();
         }
 
@@ -364,11 +367,6 @@ namespace Maps
             VisualStateManager.GoToState(this, "FilterState", true);
         }
 
-        private void FullInfoButton_Click(object sender, RoutedEventArgs e)
-        {
-            VisualStateManager.GoToState(this, "FullInfoState", true);
-        }
-
         private void DoneSelectingRouteStartPoint(object sender, RoutedEventArgs e)
         {
             VisualStateManager.GoToState(StartPlaqueNameInfo, "Start", true);
@@ -436,6 +434,11 @@ namespace Maps
             VisualStateManager.GoToState(this, "FilterState", true);
         }
 
+        private void UnlockedPlaqueButton_Click(object sender, RoutedEventArgs e)
+        {
+            VisualStateManager.GoToState(this, "FullInfoState", true);
+        }
+
         void ClearRoute()
         {
             SaveState.Instance.routeList.Clear();
@@ -444,21 +447,19 @@ namespace Maps
             UpdatePlaqueVisibilty();
         }
 
-        bool fullinfostate;
         void CurrentStateChanged(object sender, VisualStateChangedEventArgs e)
         {
             SaveState.Instance.CurrentVisualState = e.NewState.Name;
 
-            fullinfostate = false;
-            ShowFullInfoButton.Opacity = 0;
-            ShowFullInfoButton.IsHitTestVisible = false;
             switch (e.NewState.Name)
             {
                 case "FullInfoState":
                     {
-                        ShowFullInfoButton.Opacity = 1;
-                        ShowFullInfoButton.IsHitTestVisible = true;
-                        fullinfostate = true;
+                        break;
+                    }
+                case "UnlockedPlaqueState":
+                    {
+                        RouteSummaryGoButton.IsHitTestVisible = false;
                         break;
                     }
                 case "MainMenuState":
@@ -554,8 +555,8 @@ namespace Maps
 
         protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
         {
-            base.OnBackKeyPress(e);
-/*
+            //base.OnBackKeyPress(e);
+
             e.Cancel = true;
 
             switch (SaveState.Instance.routeState)
@@ -588,7 +589,7 @@ namespace Maps
             }
 
             base.OnBackKeyPress(e);
-            */
+            
         }
 
         private void ArtsButton_Click(object sender, RoutedEventArgs e)
@@ -690,14 +691,6 @@ namespace Maps
                     SaveState.Instance.pinlayer.Children.Add(SaveState.Instance.plaques[i].Pin);
             }
 
-        }
-
-        private void ShowFullInfoButton_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-            if (!fullinfostate)
-        	    VisualStateManager.GoToState(this, "FullInfoState", true);
-            else
-                VisualStateManager.GoToState(this, "MapOnlyState", true);
         }
 
     }
