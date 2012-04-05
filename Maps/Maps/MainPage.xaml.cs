@@ -66,7 +66,7 @@ namespace Maps
             SaveState.Instance.CurrentVisualState = "SplashScreenState";
 
             Initializeplaques();
-            //DebugRouteTimer();
+            DebugRouteTimer();
             PlaqueFlashTimer();
 
 
@@ -204,6 +204,9 @@ namespace Maps
 
         void watcher_PositionChanged(object sender, GeoPositionChangedEventArgs<GeoCoordinate> e)
         {
+           // GeoCoordinate location = new GeoCoordinate(51.511397, -0.128263);
+           // ChangedLocation(location);
+
             ChangedLocation(e.Position.Location);
         }
 
@@ -422,10 +425,20 @@ namespace Maps
 
         private void RouteSummaryClearRouteButton_Click(object sender, RoutedEventArgs e)
         {
-            VisualStateManager.GoToState(this, "SelectStartPlaqueState", true);
-            ClearRoute();
-            RouteSummaryGoButton.IsHitTestVisible = false;
-            SaveState.Instance.routeState = RouteState.SelectStartPoint;
+            if (SaveState.Instance.routeMode == RouteMode.QuickStart)
+            {
+                VisualStateManager.GoToState(this, "MainMenuState", true);
+                RouteSummaryGoButton.IsHitTestVisible = false;
+                SaveState.Instance.routeState = MainPage.RouteState.Normal;
+                ClearRoute();
+            }
+            else
+            {
+                VisualStateManager.GoToState(this, "SelectStartPlaqueState", true);
+                ClearRoute();
+                RouteSummaryGoButton.IsHitTestVisible = false;
+                SaveState.Instance.routeState = RouteState.SelectStartPoint;
+            }
         }
         
 
@@ -667,6 +680,12 @@ namespace Maps
                                 }
                             case RouteState.SelectEndPoint:
                                 {
+                                    if (SaveState.Instance.routeList.GetEndPoint() != null)
+                                    {
+                                        SaveState.Instance.routeList.GetEndPoint().ClearSelection();
+                                    }
+                                    
+
                                     VisualStateManager.GoToState(this, "SelectRouteState", true);
                                     break;
                                 }

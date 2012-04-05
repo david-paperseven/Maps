@@ -17,6 +17,18 @@
 	<phone:PhoneApplicationPage.Resources>
 		<ControlTemplate x:Key="PushpinControlTemplate1" TargetType="Microsoft_Phone_Controls_Maps:Pushpin"/>
 		<Storyboard x:Name="Storyboard1"/>
+		<ControlTemplate x:Key="PhoneSimpleRepeatButton" TargetType="RepeatButton">
+			<Rectangle Fill="Transparent"/>
+		</ControlTemplate>
+		<Style x:Key="MapSlider" TargetType="Slider">
+			<Setter Property="BorderThickness" Value="0"/>
+			<Setter Property="BorderBrush" Value="Transparent"/>
+			<Setter Property="Maximum" Value="10"/>
+			<Setter Property="Minimum" Value="0"/>
+			<Setter Property="Value" Value="0"/>
+			<Setter Property="Background" Value="{StaticResource PhoneContrastBackgroundBrush}"/>
+			<Setter Property="Foreground" Value="{StaticResource PhoneAccentBrush}"/>
+		</Style>
 	</phone:PhoneApplicationPage.Resources>
     
 	<phone:PhoneApplicationPage.FontFamily>
