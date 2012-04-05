@@ -3,10 +3,87 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
 	xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+	xmlns:DataStore="clr-namespace:Expression.Blend.DataStore.BuildSliderStore" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
 	x:Class="Maps.App">
 
 	<!--Application Resources-->
 	<Application.Resources>
+		<DataStore:BuildSliderStore x:Key="BuildSliderStore" d:IsDataSource="True"/>
+		<ControlTemplate x:Key="PhoneSimpleRepeatButton" TargetType="RepeatButton">
+			<Rectangle Fill="Transparent"/>
+		</ControlTemplate>
+		<Style x:Key="BuildMapSlider" TargetType="Slider">
+			<Setter Property="BorderThickness" Value="0"/>
+			<Setter Property="BorderBrush" Value="Transparent"/>
+			<Setter Property="Maximum" Value="10"/>
+			<Setter Property="Minimum" Value="1"/>
+			<Setter Property="Value" Value="4"/>
+			<Setter Property="Background" Value="{StaticResource PhoneContrastBackgroundBrush}"/>
+			<Setter Property="Foreground" Value="{StaticResource PhoneAccentBrush}"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="Slider">
+						<Grid Background="Transparent">
+							<VisualStateManager.VisualStateGroups>
+								<VisualStateGroup x:Name="CommonStates">
+									<VisualState x:Name="Normal"/>
+									<VisualState x:Name="MouseOver"/>
+									<VisualState x:Name="Disabled">
+										<Storyboard>
+											<DoubleAnimation Duration="0" To="0.1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="VerticalTrack"/>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill" Storyboard.TargetName="VerticalFill">
+												<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PhoneDisabledBrush}"/>
+											</ObjectAnimationUsingKeyFrames>
+										</Storyboard>
+									</VisualState>
+								</VisualStateGroup>
+							</VisualStateManager.VisualStateGroups>
+							<Grid x:Name="HorizontalTemplate" Margin="{StaticResource PhoneHorizontalMargin}">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto"/>
+									<ColumnDefinition Width="12"/>
+									<ColumnDefinition Width="*"/>
+								</Grid.ColumnDefinitions>
+								<RepeatButton x:Name="HorizontalTrackLargeChangeDecreaseRepeatButton" IsTabStop="False" Template="{StaticResource PhoneSimpleRepeatButton}"/>
+								<RepeatButton x:Name="HorizontalTrackLargeChangeIncreaseRepeatButton" Grid.Column="2" IsTabStop="False" Template="{StaticResource PhoneSimpleRepeatButton}"/>
+								<Thumb x:Name="HorizontalThumb" Grid.Column="1" Height="12" Margin="0,22,0,50" Width="12" DragDelta="Slider_DragDelta">
+									<Thumb.Template>
+										<ControlTemplate>
+											<Canvas Height="12" Width="12" DataContext="{Binding Source={StaticResource BuildSliderStore}}">
+												<Rectangle Fill="Transparent" Height="84" IsHitTestVisible="True" Canvas.Left="-24" Canvas.Top="-22" Width="60"/>
+												<TextBlock x:Name="SliderValue" TextWrapping="Wrap" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" FontSize="40" Text="{Binding SliderStore}" Foreground="White" Canvas.Left="-14.25" Canvas.Top="1.5"/>
+												<Image Height="44" Source="WhiteMARKER.png" Stretch="Fill" Width="36" Canvas.Left="-19" Canvas.Top="-44"/>
+											</Canvas>
+										</ControlTemplate>
+									</Thumb.Template>
+								</Thumb>
+							</Grid>
+							<Grid x:Name="VerticalTemplate" Margin="{StaticResource PhoneVerticalMargin}">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="*"/>
+									<RowDefinition Height="12"/>
+									<RowDefinition Height="Auto"/>
+								</Grid.RowDefinitions>
+								<Rectangle x:Name="VerticalFill" Fill="{TemplateBinding Foreground}" IsHitTestVisible="False" Margin="18,0,18,0" Grid.Row="2" Width="12"/>
+								<Rectangle x:Name="VerticalTrack" Fill="{TemplateBinding Background}" IsHitTestVisible="False" Margin="18,0,18,0" Opacity="0.2" Width="12"/>
+								<RepeatButton x:Name="VerticalTrackLargeChangeIncreaseRepeatButton" IsTabStop="False" Grid.Row="2" Template="{StaticResource PhoneSimpleRepeatButton}"/>
+								<RepeatButton x:Name="VerticalTrackLargeChangeDecreaseRepeatButton" IsTabStop="False" Template="{StaticResource PhoneSimpleRepeatButton}"/>
+								<Thumb x:Name="VerticalThumb" Height="12" Margin="18,0" Grid.Row="1" Width="12">
+									<Thumb.Template>
+										<ControlTemplate>
+											<Canvas Background="{StaticResource PhoneForegroundBrush}" Height="12" Width="12">
+												<Rectangle Fill="Transparent" Height="72" IsHitTestVisible="True" Canvas.Left="-18" Canvas.Top="-30" Width="48"/>
+											</Canvas>
+										</ControlTemplate>
+									</Thumb.Template>
+								</Thumb>
+							</Grid>
+							<Image Height="3" Margin="1.333,27.333,24.667,0" Source="FullInfo_Images/LINE BREAK copy.png" Stretch="Fill" VerticalAlignment="Top"/>
+						</Grid>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
 	</Application.Resources>
 
 	<Application.ApplicationLifetimeObjects>

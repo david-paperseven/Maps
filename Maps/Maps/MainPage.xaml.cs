@@ -44,6 +44,8 @@ namespace Maps
             None,
             QuickStart,
             UserSelected,
+            AppGenRoute,
+            Discovery
         }
 
         bool onMainMenu = true;
@@ -64,6 +66,7 @@ namespace Maps
 
             SaveState.Instance.routeState = MainPage.RouteState.Normal;//DEBUG!
             SaveState.Instance.CurrentVisualState = "SplashScreenState";
+            SaveState.Instance.mainpage = this;
 
             Initializeplaques();
             DebugRouteTimer();
@@ -204,10 +207,10 @@ namespace Maps
 
         void watcher_PositionChanged(object sender, GeoPositionChangedEventArgs<GeoCoordinate> e)
         {
-           // GeoCoordinate location = new GeoCoordinate(51.511397, -0.128263);
-           // ChangedLocation(location);
+            GeoCoordinate location = new GeoCoordinate(51.511397, -0.128263);
+            ChangedLocation(location);
 
-            ChangedLocation(e.Position.Location);
+            //ChangedLocation(e.Position.Location);
         }
 
         void ChangedLocation(GeoCoordinate location)
@@ -268,7 +271,7 @@ namespace Maps
 
         public void CalculatingPage()
         {
-            User_Selected_Route.Text = "Calculating route...";
+            RouteMode2.Text = "Calculating route...";
             NumKms.Text = "";
             km.Text = "";
             ApproxTime.Text = "";
@@ -286,7 +289,7 @@ namespace Maps
 
         public void SummaryLoaded()
         {
-            User_Selected_Route.Text = "User Selected Route";
+            SetRouteModeText();
             NumKms.Text = SaveState.Instance.summary.Distance.ToString();
             km.Text = "km";
             ApproxTime.Text = SaveState.Instance.summary.GetTime();
@@ -304,17 +307,9 @@ namespace Maps
 
         private void button1_Click_1(object sender, RoutedEventArgs e)
         {
-//            SaveState.Instance.routeState = RouteState.Normal;
-            UpdatePlaqueVisibilty();
-
             if (SaveState.Instance.routeState == RouteState.Travelling)
             {
                 VisualStateManager.GoToState(this, "RouteSummaryState", true);
-            }
-            else
-            {
-                VisualStateManager.GoToState(this, "SelectStartPlaqueState", true);
-                SaveState.Instance.routeState = RouteState.SelectStartPoint;
             }
         }
 
@@ -399,7 +394,7 @@ namespace Maps
             VisualStateManager.GoToState(RoutePlaqueNameInfo, "Start", true);
             VisualStateManager.GoToState(this, "DefineEndPointState", true);
         }
-
+        /*
         private void EditRouteButton_Click(object sender, RoutedEventArgs e)
         {
             VisualStateManager.GoToState(this, "SelectStartPlaqueState", true);
@@ -407,45 +402,100 @@ namespace Maps
             SaveState.Instance.route.FadeOutRouteLine();
             SaveState.Instance.routeState = RouteState.SelectStartPoint;
         }
-
+        */
         private void GoButton_Click(object sender, RoutedEventArgs e)
         {
             VisualStateManager.GoToState(EndPlaqueNameInfo, "Start", true);
             VisualStateManager.GoToState(this, "RouteSummaryState", true);
+
+            RouteSummaryGoButton.IsHitTestVisible = true;
+            SaveState.Instance.routeState = RouteState.Travelling;
+            SaveState.Instance.journey.FillInDetails();
+            SaveState.Instance.journey.StartJourney(SaveState.Instance.summary);
+            myMap.Center = Bounds.GetCentreWithOffset(SaveState.Instance.currentLocation.GetLocation(), (int)myMap.ZoomLevel);
+
         }
 
         private void RouteSummaryEditRouteButton_Click(object sender, RoutedEventArgs e)
         {
+            /*
             VisualStateManager.GoToState(this, "SelectStartPlaqueState", true);
             UpdatePlaqueVisibilty();
             SaveState.Instance.route.FadeOutRouteLine();
             RouteSummaryGoButton.IsHitTestVisible = false;
             SaveState.Instance.routeState = RouteState.SelectStartPoint;
+             */
+        }
+
+        bool clearrouteoption = false;
+        public void ClearRouteYes()
+        {
+            if (clearrouteoption)
+            {
+                clearrouteoption = false;
+                VisualStateManager.GoToState(ClearRouteYesNo, "Start", true);
+
+                ClearRoute();
+
+                switch (SaveState.Instance.routeMode)
+                {
+                    case RouteMode.QuickStart:
+                        {
+                            VisualStateManager.GoToState(this, "QuickStartState", true);
+                            SaveState.Instance.routeState = MainPage.RouteState.Normal;
+                            break;
+                        }
+                    case RouteMode.UserSelected:
+                        {
+                            VisualStateManager.GoToState(this, "SelectStartPlaqueState", true);
+                            SaveState.Instance.routeState = MainPage.RouteState.SelectStartPoint;
+                            break;
+                        }
+                    case RouteMode.AppGenRoute:
+                        {
+                            VisualStateManager.GoToState(this, "AppGenEndPointState", true);
+                            SaveState.Instance.routeState = MainPage.RouteState.SelectEndPoint;
+                            break;
+                        }
+                    case RouteMode.Discovery:
+                        {
+                            VisualStateManager.GoToState(this, "AppGenEndPointState", true);
+                            SaveState.Instance.routeState = MainPage.RouteState.SelectEndPoint;
+                            break;
+                        }
+                }
+            }
+        }
+
+        public void ClearRouteNo()
+        {
+            clearrouteoption = false;
+            VisualStateManager.GoToState(ClearRouteYesNo, "Start", true);
+            RouteSummaryGoButton.IsHitTestVisible = true;
+        }
+
+        private void DistanceSummaryBackButton_Click(object sender, RoutedEventArgs e)
+        {
+            clearrouteoption = true;
+            ClearRouteYes();
         }
 
         private void RouteSummaryClearRouteButton_Click(object sender, RoutedEventArgs e)
         {
-            if (SaveState.Instance.routeMode == RouteMode.QuickStart)
-            {
-                VisualStateManager.GoToState(this, "MainMenuState", true);
-                RouteSummaryGoButton.IsHitTestVisible = false;
-                SaveState.Instance.routeState = MainPage.RouteState.Normal;
-                ClearRoute();
-            }
-            else
-            {
-                VisualStateManager.GoToState(this, "SelectStartPlaqueState", true);
-                ClearRoute();
-                RouteSummaryGoButton.IsHitTestVisible = false;
-                SaveState.Instance.routeState = RouteState.SelectStartPoint;
-            }
+            clearrouteoption = true;
+            RouteSummaryGoButton.IsHitTestVisible = false;
+            ClearRouteYesNo.SelectRoutePlaqueName.Text = "Are you sure?";
+            ClearRouteYesNo.SelectRoutePlaqueDateAndCategory.Text = "Yes / No";
+
+            VisualStateManager.GoToState(ClearRouteYesNo, "SlideUp", true);
+            ClearRouteYesNo.PlaqueExtraInfo.IsHitTestVisible = true;
         }
         
 
         private void RouteSummaryGoButton_Click(object sender, RoutedEventArgs e)
         {
             VisualStateManager.GoToState(this, "MapOnlyState", true);
-            UpdatePlaqueVisibilty();
+            //UpdatePlaqueVisibilty();
             RouteSummaryGoButton.IsHitTestVisible = false;
         }
 
@@ -492,16 +542,6 @@ namespace Maps
 
         private void QuickStartButton_Click(object sender, RoutedEventArgs e)
         {
-            Plaque nearest = FindNearestPlaque(SaveState.Instance.currentLocation.Location);
-            SaveState.Instance.routeList.SetStartPoint(nearest);
-            nearest.SetGreen();
-
-            LocationRect rect = Bounds.GetRect(nearest.GetLocation(), SaveState.Instance.currentLocation.Location);
-            // Set the map view using the rectangle which bounds the rendered route.
-            myMap.SetView(rect);
-
-            QuickStartNameInfo.SelectRoutePlaqueName.Text = nearest.Info.GetName();
-            QuickStartNameInfo.SelectRoutePlaqueDateAndCategory.Text = "(" + nearest.Info.date + ") " + nearest.Info.info1;
             VisualStateManager.GoToState(this, "QuickStartState", true);
         }
 
@@ -521,6 +561,71 @@ namespace Maps
             return nearestplaque;
         }
 
+        private void DiscoveryModeButton_Click(object sender, RoutedEventArgs e)
+        {
+            SaveState.Instance.routeMode = RouteMode.Discovery;
+            RouteMode3.Text = "Discovery Mode";
+            VisualStateManager.GoToState(this, "AppGenEndPointState", true);
+        }
+
+        private void AppGeneratedRouteButton_Click(object sender, RoutedEventArgs e)
+        {
+            RouteMode3.Text = "App Generated Route";
+            SaveState.Instance.routeMode = RouteMode.AppGenRoute;
+            VisualStateManager.GoToState(this, "AppGenEndPointState", true);
+        }
+
+        private void AppGenRouteEndPointDone_Click(object sender, RoutedEventArgs e)
+        {
+            VisualStateManager.GoToState(AppGenEndPlaqueNameInfo, "Start", true);
+            VisualStateManager.GoToState(this, "AppGenParametersState", true);
+        }
+
+        private void ParametersDoneButton_Click(object sender, RoutedEventArgs e)
+        {
+            SaveState.Instance.plaquedistance.SortPlaques();
+
+            SaveState.Instance.summary.NumPlaques = SaveState.Instance.appgenparameters.NumPlaques;
+           
+            CalculatingPage();
+            
+            System.Collections.ObjectModel.ObservableCollection<Waypoint> waypoints = new System.Collections.ObjectModel.ObservableCollection<Waypoint>();
+
+            Waypoint mywp = new Waypoint();
+            mywp.Location = SaveState.Instance.currentLocation.Location;
+            waypoints.Add(mywp);
+
+            SaveState.Instance.routeList.Clear();
+            int count = 0;
+            foreach (PD pd in SaveState.Instance.plaquedistance.GetList())
+            {
+                if (pd.plaque != SaveState.Instance.routeList.GetEndPoint())
+                {
+                    Waypoint sp = new Waypoint();
+                    sp.Location = pd.plaque.GetLocation();
+                    waypoints.Add(sp);
+                    SaveState.Instance.routeList.Add(pd.plaque); // add them to the routlist so that when we clear the pins it leaves the route left
+                    count++;
+                    if (count == SaveState.Instance.appgenparameters.NumPlaques)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            if (SaveState.Instance.routeList.GetEndPoint()!=null)
+            {
+                Waypoint sp = new Waypoint();
+                sp.Location = SaveState.Instance.routeList.GetEndPoint().Info.location;
+                waypoints.Add(sp);
+            }
+
+            SaveState.Instance.route.CalculateRoute(waypoints, SaveState.Instance.summary);
+            RemoveAllPinsExceptCurrentRoute();
+            VisualStateManager.GoToState(this, "DistanceSummaryState", true); 
+            
+
+        }
 
         void ClearRoute()
         {
@@ -558,6 +663,7 @@ namespace Maps
                     {
                         SaveState.Instance.routeState = RouteState.SelectStartPoint;
                         SaveState.Instance.routeMode = RouteMode.UserSelected;
+                        SetRouteModeText();
                         if (SaveState.Instance.routeList.GetStartPoint() == null)
                         {
                             Done1.Opacity = 0.50;
@@ -573,9 +679,14 @@ namespace Maps
                         AddOrRemovePlaque.Opacity = 1.0;
                         AddOrRemovePlaqueYesNo.Opacity = 0.0;
                         SelectPlaqueYes.IsHitTestVisible = false;
-                        SelectPlaqueNo.IsHitTestVisible = false;
 
                         VisualStateManager.GoToState(EndPlaqueNameInfo, "Start", true); 
+                        break;
+                    }
+                case "AppGenEndPointState":
+                    {
+                        SaveState.Instance.routeState = RouteState.SelectEndPoint;
+                        SetRouteModeText();
                         break;
                     }
                 case "DefineEndPointState":
@@ -591,16 +702,23 @@ namespace Maps
                     }
                 case "RouteSummaryState":
                     {
-                        RouteSummaryGoButton.IsHitTestVisible = true;
-                        SaveState.Instance.routeState = RouteState.Travelling;
-                        SaveState.Instance.journey.FillInDetails();
-                        SaveState.Instance.journey.StartJourney(SaveState.Instance.summary);
-                        myMap.Center = Bounds.GetCentreWithOffset(SaveState.Instance.currentLocation.GetLocation(), (int)myMap.ZoomLevel);
                         break;
                     }
                 case "QuickStartState":
                     {
+                        Plaque nearest = FindNearestPlaque(SaveState.Instance.currentLocation.Location);
+                        SaveState.Instance.routeList.SetStartPoint(nearest);
+                        nearest.SetGreen();
+
+                        LocationRect rect = Bounds.GetRect(nearest.GetLocation(), SaveState.Instance.currentLocation.Location);
+                        // Set the map view using the rectangle which bounds the rendered route.
+                        myMap.SetView(rect);
+
+                        QuickStartNameInfo.SelectRoutePlaqueName.Text = nearest.Info.GetName();
+                        QuickStartNameInfo.SelectRoutePlaqueDateAndCategory.Text = "(" + nearest.Info.date + ") " + nearest.Info.info1;
+
                         SaveState.Instance.routeMode = RouteMode.QuickStart;
+                        SetRouteModeText();
                         VisualStateManager.GoToState(QuickStartNameInfo, "SlideUp", true);
                         break;
                     }
@@ -611,6 +729,37 @@ namespace Maps
                 SplashScreen.Opacity = 0.0;
                 SplashScreen.IsHitTestVisible = false;
                 SplashScreenButton.IsHitTestVisible = false;            
+            }
+        }
+        
+        private void SetRouteModeText()
+        {
+            switch (SaveState.Instance.routeMode)
+            {
+                case RouteMode.QuickStart:
+                    {
+                        RouteMode1.Text = "Quick Start";
+                        RouteMode2.Text = "Quick Start";
+                        break;
+                    }
+                case RouteMode.UserSelected:
+                    {
+                        RouteMode1.Text = "User Selected Route";
+                        RouteMode2.Text = "User Selected Route";
+                        break;
+                    }
+                case RouteMode.AppGenRoute:
+                    {
+                        RouteMode1.Text = "App Generated Route";
+                        RouteMode2.Text = "App Generated Route";
+                        break;
+                    }
+                case RouteMode.Discovery:
+                    {
+                        RouteMode1.Text = "Discovery Mode";
+                        RouteMode2.Text = "Discovery Mode";
+                        break;
+                    }
             }
         }
 
@@ -704,6 +853,8 @@ namespace Maps
                     }
                 default:
                     {
+                        VisualStateManager.GoToState(AppGenEndPlaqueNameInfo, "Start", true);
+
                         VisualStateManager.GoToState(this, "MainMenuState", true);
                         break;
                     }
@@ -784,7 +935,10 @@ namespace Maps
 
             List<Plaque> route = SaveState.Instance.routeList.GetList();
 
-            SaveState.Instance.pinlayer.Children.Add(SaveState.Instance.routeList.GetStartPoint().Pin);
+            if (SaveState.Instance.routeList.GetStartPoint() != null)
+            {
+                SaveState.Instance.pinlayer.Children.Add(SaveState.Instance.routeList.GetStartPoint().Pin);
+            }
             for (int i = 0; i < SaveState.Instance.plaques.Count; i++)
             {
                 if (route.Contains(SaveState.Instance.plaques[i]))

@@ -63,7 +63,9 @@
 						<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="BottomBar">
 							<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
 							<EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="-49.5"/>
+							<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="-66.836"/>
 						</DoubleAnimationUsingKeyFrames>
+						<DoubleAnimation Duration="0:0:0.3" To="0" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="___Group_3" d:IsOptimized="True"/>
 					</Storyboard>
 				</VisualState>
                 <VisualState x:Name="UserSectedRouteState">
@@ -229,10 +231,26 @@
                 		</DoubleAnimationUsingKeyFrames>
                 	</Storyboard>
                 </VisualState>
+                <VisualState x:Name="AppGenEndPointState">
+                	<Storyboard>
+                		<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="AppGenEndPoint">
+                			<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                			<EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="-297"/>
+                		</DoubleAnimationUsingKeyFrames>
+                	</Storyboard>
+                </VisualState>
+                <VisualState x:Name="AppGenParametersState">
+                	<Storyboard>
+                		<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="Parameters">
+                			<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                			<EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="-541.552"/>
+                		</DoubleAnimationUsingKeyFrames>
+                	</Storyboard>
+                </VisualState>
 			</VisualStateGroup>
 		</VisualStateManager.VisualStateGroups>
 
-        <Microsoft_Phone_Controls_Maps:Map x:Name="myMap" Height="768" Width="480" CredentialsProvider="ApqLs-TVJBe6Dq0IZwlyGR5MZHK7iUzK43Tn7YdmWLga0KBqqIx1TiJHR6Mopqd6" Loaded="Map_Loaded" d:IsHidden="True" Visibility="Visible" />
+        <Microsoft_Phone_Controls_Maps:Map x:Name="myMap" Height="768" Width="480" CredentialsProvider="ApqLs-TVJBe6Dq0IZwlyGR5MZHK7iUzK43Tn7YdmWLga0KBqqIx1TiJHR6Mopqd6" Loaded="Map_Loaded" Visibility="Visible" d:IsHidden="True" />
         <Canvas x:Name="SelectedRoute" HorizontalAlignment="Left" Height="217" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" Canvas.Top="780.5" RenderTransformOrigin="0.5,0.5" Canvas.ZIndex="10" Opacity="0.85" d:IsHidden="True">
         	<Canvas.RenderTransform>
         		<CompositeTransform/>
@@ -304,7 +322,7 @@
         						<Image x:Name="___Group_16" Height="323" Canvas.Left="0" Source="DistanceSummary_Images/Group.png" Canvas.Top="0" Width="480"/>
         					</Canvas>
         				</Canvas>
-        				<TextBlock x:Name="User_Selected_Route" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="User Selected Route" Canvas.Top="31.94"/>
+        				<TextBlock x:Name="RouteMode2" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="User Selected Route" Canvas.Top="31.94"/>
                         <TextBlock 
                                 x:Name="NumPlaquesText" 
                                 Foreground="#FFFFFFFF" 
@@ -341,17 +359,17 @@
         				<TextBlock x:Name="km" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" LineStackingStrategy="BlockLineHeight" Canvas.Left="126.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="km" Canvas.Top="121.94"/>-->
         				<TextBlock x:Name="Approx_time" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Approx. time:" Canvas.Top="164.94"/>
         				<TextBlock x:Name="ApproxTime" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="240.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text=" 1:06" Canvas.Top="164.94"/>
-        				<TextBlock x:Name="Edit_Route___Go" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Edit Route / Go" Canvas.Top="249.94"/>
+        				<TextBlock x:Name="Edit_Route___Go" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Back / Go" Canvas.Top="249.94"/>
         				<Image x:Name="___Path_2" Height="2" Canvas.Left="36" Source="DistanceSummary_Images/Path.png" Canvas.Top="68" Width="408"/>
         			</Canvas>
         		</Canvas>
         	</Canvas>
-        	<Button x:Name="EditRouteButton" Content="Button" Canvas.Left="36" Canvas.Top="244" Width="167.01" Opacity="0" Click="EditRouteButton_Click" Height="38.4" RenderTransformOrigin="0.5,0.5">
+            <Button x:Name="EditRouteButton" Content="Button" Canvas.Left="36" Canvas.Top="244" Width="77.01" Opacity="0" Click="DistanceSummaryBackButton_Click" Height="38.4" RenderTransformOrigin="0.5,0.5">
         		<Button.RenderTransform>
         			<CompositeTransform/>
         		</Button.RenderTransform>
         	</Button>
-        	<Button x:Name="GoButton" Content="Button" RenderTransformOrigin="0.604,0.804" Canvas.Left="231" Canvas.Top="239.5" Opacity="0" Click="GoButton_Click" Height="45.9" Width="89.01"/>
+        	<Button x:Name="GoButton" Content="Button" RenderTransformOrigin="0.604,0.804" Canvas.Left="139.5" Canvas.Top="239.5" Opacity="0" Click="GoButton_Click" Height="45.9" Width="89.01"/>
         </Canvas>
         <Canvas x:Name="QuickInfo" HorizontalAlignment="Left" Height="237" UseLayoutRounding="False" VerticalAlignment="Top" Width="479" Canvas.Top="771" RenderTransformOrigin="0.5,0.5" Canvas.ZIndex="10" Opacity="0.85" d:IsHidden="True">
         	<Canvas.RenderTransform>
@@ -366,17 +384,21 @@
         		<TextBlock x:Name="NamesOnPlaques" Foreground="#FFFFFFFF" FontSize="24" FontFamily="Fonts/NokiaPureHeadlineRg.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="44" LineHeight="24" TextAlignment="Left" TextWrapping="Wrap" Text="Names on plaques: On" Canvas.Top="154.88" d:IsHidden="True"/>
         	</Canvas>
         </Canvas>
-        <Canvas x:Name="MainMenuButton" Height="56" Canvas.Top="713" Width="486" d:IsHidden="True">
-        	<Button Canvas.Left="1" Content="Menu" Height="55" x:Name="button1" Width="481" Click="button1_Click_1" Canvas.ZIndex="20" RenderTransformOrigin="0.5,0.5" BorderBrush="#FF23518D" Foreground="#FF2B54A3" Background="#00565878" Opacity="0" Canvas.Top="56" >
+        <Canvas x:Name="MainMenuButton" Height="56" Canvas.Top="717" Width="486" d:IsHidden="True">
+        	<Button Canvas.Left="1" Content="Menu" Height="55" x:Name="button1" Width="481" Click="button1_Click_1" Canvas.ZIndex="20" RenderTransformOrigin="0.5,0.5" BorderBrush="#FF23518D" Foreground="#FF2B54A3" Background="#00565878" Opacity="0" Canvas.Top="56" d:IsHidden="True" >
         		<Button.RenderTransform>
         			<CompositeTransform/>
         		</Button.RenderTransform>
         	</Button>
-        	<Canvas x:Name="BottomBar" HorizontalAlignment="Left" Height="48" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" Canvas.Top="56.5" RenderTransformOrigin="0.5,0.5">
+        	<Canvas x:Name="BottomBar" HorizontalAlignment="Left" Height="48" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" Canvas.Top="56.5" RenderTransformOrigin="0.5,0.5" d:IsHidden="True">
         		<Canvas.RenderTransform>
         			<CompositeTransform/>
         		</Canvas.RenderTransform>
-        		<Image x:Name="___Group_3" Height="48" Canvas.Left="0" Source="BottomBar_Images/Group.png" Width="480"/>
+        		<Image x:Name="___Group_3" Height="62.667" Canvas.Left="0" Source="BottomBar_Images/Group.png" Width="480" Stretch="Fill" Canvas.Top="-0.667" RenderTransformOrigin="0.5,0.5" d:IsHidden="True">
+        			<Image.RenderTransform>
+        				<CompositeTransform/>
+        			</Image.RenderTransform>
+        		</Image>
         	</Canvas>
         </Canvas>
         <Canvas x:Name="FullInfo" HorizontalAlignment="Left" Height="1600" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" Canvas.Top="771" RenderTransformOrigin="0.5,0.5" d:IsHidden="True">
@@ -449,7 +471,7 @@
         			</Canvas>
         		</Canvas>
         		<Canvas x:Name="DefineEndPoint1" Height="37" Canvas.Left="37" Canvas.Top="79" Width="351">
-        			<TextBlock x:Name="Choose_the_last_plaque" Canvas.Left="-1.5" TextWrapping="Wrap" Canvas.Top="-4.5" FontFamily="Nokia Pure Headline IN Light" FontSize="37" Text="Choose the last plaque" Height="45.153" Width="416.507"/>
+        			<TextBlock x:Name="Choose_the_last_plaque" Canvas.Left="-1.5" TextWrapping="Wrap" Canvas.Top="-4.5" FontFamily="Nokia Pure Headline IN Light" FontSize="37" Text="Select the final plaque" Height="45.153" Width="416.507"/>
         			<TextBlock x:Name="to_visit" TextWrapping="Wrap" Canvas.Top="31.5" FontFamily="Nokia Pure Headline IN Light" FontSize="37" Text="to visit" Height="45.153" Width="356.507"/>
         		</Canvas>
         	</Canvas>
@@ -464,6 +486,7 @@
         			<CompositeTransform/>
         		</Canvas.RenderTransform>
         		<Canvas x:Name="RouteSummary1" HorizontalAlignment="Left" Height="366" UseLayoutRounding="False" VerticalAlignment="Top" Width="480">
+        			<local:NameInfo x:Name="ClearRouteYesNo" Height="138" Width="480" Canvas.Top="1.5"/>
         			<Canvas x:Name="Layer_10" Height="366" Canvas.Left="0" Canvas.Top="0" Width="480">
         				<Canvas x:Name="___Group_25" Height="366" Canvas.Left="0" Canvas.Top="0" Width="480">
         					<Canvas x:Name="___Group_27" Height="366" Canvas.Left="0" Canvas.Top="0" Width="480">
@@ -471,7 +494,7 @@
         							<Image x:Name="___Group_29" Height="366" Canvas.Left="0" Source="RouteSummary_Images/Group1.png" Canvas.Top="0" Width="480"/>
         						</Canvas>
         					</Canvas>
-        					<TextBlock x:Name="User_Selected_Route2" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="User Selected Route" Canvas.Top="31.94"/>
+        					<TextBlock x:Name="RouteMode1" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="User Selected Route" Canvas.Top="31.94"/>
         					<TextBlock x:Name="PlaquesFound" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="0 / 11" Canvas.Top="79.94"/>
         					<TextBlock x:Name="plaques_found_" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" LineStackingStrategy="BlockLineHeight" Canvas.Left="120.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text=" plaques found " Canvas.Top="79.94"/>
                             <TextBlock 
@@ -485,23 +508,19 @@
                                 TextAlignment="Left" 
                                 TextWrapping="Wrap" 
                                 Canvas.Top="121.94"
-                            >
-                                <Run x:Name="DistanceRun" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline"> </Run>
-                                <Run x:Name="KMRun" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light"> </Run>
-                            </TextBlock>
+                            ><Run x:Name="DistanceRun" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline"/><Run Text=" "/><Run x:Name="KMRun" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light"/></TextBlock>
         					<TextBlock x:Name="TimeElapsed" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="0:00 " Canvas.Top="164.94"/>
         					<TextBlock x:Name="elapsed" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" LineStackingStrategy="BlockLineHeight" Canvas.Left="117.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="elapsed" Canvas.Top="164.94"/>
         					<TextBlock x:Name="Names__" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Names: " Canvas.Top="206.94"/>
         					<TextBlock x:Name="NamesOnPlaques1" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="159.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="On" Canvas.Top="206.94"/>
-        					<TextBlock x:Name="Edit_Route___Clear_Route" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Edit Route / Clear Route" Canvas.Top="291.94"/>
+        					<TextBlock x:Name="Edit_Route___Clear_Route" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Clear Route" Canvas.Top="291.94"/>
         					<Image x:Name="___Path_5" Height="2" Canvas.Left="36" Source="RouteSummary_Images/Path.png" Canvas.Top="68" Width="408"/>
         					<Image x:Name="___Group_26" Height="30" Canvas.Left="364" Source="RouteSummary_Images/Group.png" Canvas.Top="207" Width="80"/>
         				</Canvas>
         			</Canvas>
         		</Canvas>
-        		<Button x:Name="RouteSummaryEditRouteButton" Content="Button" RenderTransformOrigin="0.704,2.522" Canvas.Left="28.5" Canvas.Top="282" Opacity="0" Click="RouteSummaryEditRouteButton_Click" Canvas.ZIndex="20" Width="181.51" Height="50.4"/>
-        		<Button x:Name="RouteSummaryGoButton" Content="Button" RenderTransformOrigin="0.704,2.522" Canvas.Left="1" Width="481.01" Opacity="0" Click="RouteSummaryGoButton_Click" Canvas.ZIndex="20" Height="504.4" Canvas.Top="-436"/>
-        		<Button x:Name="RouteSummaryClearRouteButton" Content="Button" RenderTransformOrigin="0.704,2.522" Canvas.Left="240.5" Canvas.Top="284" Opacity="0" Click="RouteSummaryClearRouteButton_Click" Canvas.ZIndex="20" Width="181.51" Height="50.4"/>
+        		<Button x:Name="RouteSummaryGoButton" Content="Button" RenderTransformOrigin="0.704,2.522" Canvas.Left="1" Width="481.01" Opacity="0" Click="RouteSummaryGoButton_Click" Canvas.ZIndex="20" Height="253.9" Canvas.Top="-2.5"/>
+        		<Button x:Name="RouteSummaryClearRouteButton" Content="Button" RenderTransformOrigin="0.704,2.522" Canvas.Left="25.5" Canvas.Top="282" Opacity="0" Click="RouteSummaryClearRouteButton_Click" Canvas.ZIndex="20" Width="210.51" Height="50.4"/>
         	</Canvas>
         </Canvas>
         <Canvas x:Name="SplashScreen" HorizontalAlignment="Left" Height="800" UseLayoutRounding="False" VerticalAlignment="Top" Width="481" Visibility="Collapsed" d:IsHidden="True">
@@ -529,7 +548,7 @@
         	</Canvas>
         	<Button x:Name="SplashScreenButton" Content="Button" Height="756.4" Width="479.01" Opacity="0" Click="SplashScreenButton_Click"/>
         </Canvas>
-        <Canvas x:Name="MainMenu" HorizontalAlignment="Left" Height="343" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" Canvas.Top="770" RenderTransformOrigin="0.5,0.5" d:IsHidden="True">
+        <Canvas x:Name="MainMenu" HorizontalAlignment="Left" Height="343" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" Canvas.Top="770" RenderTransformOrigin="0.5,0.5">
         	<Canvas.RenderTransform>
         		<CompositeTransform/>
         	</Canvas.RenderTransform>
@@ -558,6 +577,8 @@
         					<TextBlock x:Name="Filter5" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Filter" Canvas.Top="321.94"/>
         					<TextBlock x:Name="Help2" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Help" Canvas.Top="369.94"/>
         					<Image x:Name="___Path_" Height="2" Canvas.Left="37" Source="MainMenu_Images/Path.png" Canvas.Top="68" Width="408"/>
+        					<Button x:Name="AppGeneratedRouteButton" Content="Button" Canvas.Left="36.5" Canvas.Top="173" Height="47.4" Width="386.01" Opacity="0" Click="AppGeneratedRouteButton_Click"/>
+        					<Button x:Name="DiscoveryModeButton" Content="Button" Canvas.Left="37.167" Canvas.Top="223.667" Height="40.067" Width="269.344" Opacity="0" Click="DiscoveryModeButton_Click"/>
         				</Canvas>
         				<Button x:Name="UserSelectedRouteButton" Content="Button" Canvas.Left="37.5" Canvas.Top="120" Height="47.4" Width="386.01" Opacity="0" Click="SelectStartPlaque_Click"/>
         				<Button x:Name="FilterButton1" Content="Button" Canvas.Left="28.5" Canvas.Top="304.5" Opacity="0" Click="Filter_Click"/>
@@ -580,14 +601,13 @@
         		</Canvas>
         		<TextBlock x:Name="User_Selected_Route5" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="User Selected Route" Canvas.Top="156.94"/>
         		<TextBlock x:Name="AddOrRemovePlaque" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Add plaque to route?" Canvas.Top="204.94"/>
-        		<TextBlock x:Name="AddOrRemovePlaqueYesNo" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="OK" Canvas.Top="253.94"/>
+        		<TextBlock x:Name="AddOrRemovePlaqueYesNo" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="373.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="OK" Canvas.Top="209.939"/>
         		<TextBlock x:Name="Help_______________________________1" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Help                               " Canvas.Top="350.94"/>
         		<TextBlock x:Name="___Type_1" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="355.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text=" " Canvas.Top="350.94"/>
         		<TextBlock x:Name="Done2" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="362.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Done" Canvas.Top="350.94"/>
         		<Image x:Name="___Path_6" Height="2" Canvas.Left="36" Source="SelectPlaques_Images/Path.png" Canvas.Top="193" Width="408"/>
         		<Button x:Name="SelectPlaquesButton1" Content="Button" Height="56.9" Width="120.51" RenderTransformOrigin="7.796,1.588" Canvas.Left="348" Canvas.Top="336.5" Opacity="0" Click="DoneSelectingRoute"/>
-        		<Button x:Name="SelectPlaqueYes" Content="Button" Height="67.9" Width="101.51" RenderTransformOrigin="7.796,1.588" Canvas.Left="23" Canvas.Top="239.5" Opacity="0" Click="AddRemovePlaqueFromListYes_Click"/>
-        		<Button x:Name="SelectPlaqueNo" Content="Button" Height="40.9" Width="54.51" RenderTransformOrigin="7.796,1.588" Canvas.Left="153" Canvas.Top="247.5" Opacity="0" Click="AddRemovePlaqueFromListNo_Click"/>
+        		<Button x:Name="SelectPlaqueYes" Content="Button" Height="67.9" Width="101.51" RenderTransformOrigin="7.796,1.588" Canvas.Left="361" Canvas.Top="195.5" Opacity="0" Click="AddRemovePlaqueFromListYes_Click"/>
         	</Canvas>
         </Canvas>
         <Canvas x:Name="UnlockedPlaque" HorizontalAlignment="Left" Height="249" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" Canvas.Top="769.5" RenderTransformOrigin="0.5,0.5" d:IsHidden="True">
@@ -608,7 +628,7 @@
         	</Canvas>
         	<Button x:Name="UnlockedPlaqueButton" Content="Button" Height="162.9" Width="477.51" Opacity="0" Click="UnlockedPlaqueButton_Click"/>
         </Canvas>
-        <Canvas x:Name="QuickStart" HorizontalAlignment="Left" Height="152" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" Canvas.Top="770" RenderTransformOrigin="0.5,0.5">
+        <Canvas x:Name="QuickStart" HorizontalAlignment="Left" Height="152" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" Canvas.Top="770" RenderTransformOrigin="0.5,0.5" d:IsHidden="True">
         	<Canvas.RenderTransform>
         		<CompositeTransform/>
         	</Canvas.RenderTransform>
@@ -625,6 +645,59 @@
         			<Image x:Name="___Path_9" Height="1" Canvas.Left="37" Source="QUICK-START_Images/Path.png" Canvas.Top="68" Width="408"/>
         		</Canvas>
         		<Button x:Name="QuickStartPlotRoute" Content="Button" Canvas.Left="22" Canvas.Top="70" Width="196.01" Height="60.4" Opacity="0" Click="QuickStartPlotRouteButton_Click"/>
+        	</Canvas>
+        </Canvas>
+        <Canvas x:Name="AppGenEndPoint" HorizontalAlignment="Left" Height="297" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" Canvas.Top="769" RenderTransformOrigin="0.5,0.5">
+        	<Canvas.RenderTransform>
+        		<CompositeTransform/>
+        	</Canvas.RenderTransform>
+        	<Canvas x:Name="Layer_16" Height="297" Canvas.Left="0" Canvas.Top="0" Width="480">
+        		<Canvas x:Name="___Group_43" Height="297" Canvas.Left="0" Canvas.Top="0" Width="480">
+        			<Canvas x:Name="___Group_44" Height="297" Canvas.Left="0" Canvas.Top="0" Width="480">
+        				<Canvas x:Name="___Group_45" Height="297" Canvas.Left="0" Opacity="0.929" Canvas.Top="0" Width="480">
+        					<Image x:Name="___Group_46" Height="297" Canvas.Left="0" Source="AppGenEndPoint_Images/Group.png" Canvas.Top="0" Width="480"/>
+        				</Canvas>
+        			</Canvas>
+        			<TextBlock x:Name="RouteMode3" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="36.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="App Generated Route" Canvas.Top="30.94"/>
+        			<Image x:Name="___Compound_Path_" Height="38" Canvas.Left="39" Source="AppGenEndPoint_Images/Compound Path.png" Canvas.Top="78" Width="317"/>
+        			<TextBlock x:Name="___Type_6" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="36.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="           " Canvas.Top="175.94"/>
+        			<TextBlock x:Name="___Type_5" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="376.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text=" " Canvas.Top="175.94"/>
+        			<TextBlock x:Name="Skip" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="380.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Skip" Canvas.Top="175.94"/>
+        			<TextBlock x:Name="Help_______________________________3" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="36.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Help                               " Canvas.Top="224.94"/>
+        			<TextBlock x:Name="___Type_4" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="356.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text=" " Canvas.Top="224.94"/>
+        			<TextBlock x:Name="Done3" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="363.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Done" Canvas.Top="224.94"/>
+        			<Image x:Name="___Path_10" Height="2" Canvas.Left="37" Source="AppGenEndPoint_Images/Path.png" Canvas.Top="67" Width="408"/>
+        		</Canvas>
+        	</Canvas>
+        	<local:NameInfo x:Name="AppGenEndPlaqueNameInfo" Height="138" Width="480" Canvas.Top="1.5"/>
+        	<Button x:Name="AppGenRouteEndPointDonButton" Content="Button" Canvas.Left="361.5" Canvas.Top="217.5" Height="59.693" Width="105.8" Opacity="0" Click="AppGenRouteEndPointDone_Click"/>
+        </Canvas>
+        <Canvas x:Name="Parameters" HorizontalAlignment="Left" Height="540" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" Canvas.Top="769.5" RenderTransformOrigin="0.5,0.5" d:IsHidden="True">
+        	<Canvas.RenderTransform>
+        		<CompositeTransform/>
+        	</Canvas.RenderTransform>
+        	<Canvas x:Name="Layer_17" Height="540" Canvas.Left="0" Canvas.Top="0" Width="480">
+        		<Canvas x:Name="___Group_47" Height="540" Canvas.Left="0" Canvas.Top="0" Width="480">
+        			<Canvas x:Name="___Group_49" Height="540" Canvas.Left="0" Canvas.Top="0" Width="480">
+        				<Canvas x:Name="___Group_50" Height="540" Canvas.Left="0" Opacity="0.929" Canvas.Top="0" Width="480">
+        					<Image x:Name="___Group_51" Height="540" Canvas.Left="0" Source="Parameters_Images/Group1.png" Canvas.Top="0" Width="480"/>
+        				</Canvas>
+        			</Canvas>
+        			<TextBlock x:Name="Parameters1" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="37.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Parameters" Canvas.Top="31.94"/>
+        			<TextBlock x:Name="No__of_Plaques_" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" LineStackingStrategy="BlockLineHeight" Canvas.Left="37.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="No. of Plaques:" Canvas.Top="79.94"/>
+        			<TextBlock x:Name="Walking_Distance__km__" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" LineStackingStrategy="BlockLineHeight" Canvas.Left="37.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Walking Distance (km):" Canvas.Top="273.94"/>
+        			<TextBlock x:Name="___Type_9" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="37.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="                     " Canvas.Top="369.94"/>
+        			<TextBlock x:Name="___Type_8" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="206.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text=" " Canvas.Top="369.94"/>
+        			<TextBlock x:Name="_3" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="218.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="3" Canvas.Top="369.94"/>
+        			<TextBlock x:Name="__" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="234.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="." Canvas.Top="369.94"/>
+        			<TextBlock x:Name="_5" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="243.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="5" Canvas.Top="369.94"/>
+        			<TextBlock x:Name="Help_______________________________4" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="37.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Help                               " Canvas.Top="466.94"/>
+        			<TextBlock x:Name="___Type_7" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="357.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text=" " Canvas.Top="466.94"/>
+        			<TextBlock x:Name="Done4" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="364.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Done" Canvas.Top="466.94"/>
+        			<Image x:Name="___Path_____Path_" Height="104" Canvas.Left="39" Source="Parameters_Images/Path + Path.png" Canvas.Top="68" Width="409"/>
+        			<Slider x:Name="Slider1" Canvas.Left="26.667" Canvas.Top="142.666" Width="432.667" Style="{StaticResource BuildMapSlider}"/>
+        		</Canvas>
+        		<Button x:Name="ParametersDoneButton" Content="Button" Canvas.Left="343.5" Canvas.Top="448.5" Opacity="0" Click="ParametersDoneButton_Click"/>
         	</Canvas>
         </Canvas>
     </Canvas>

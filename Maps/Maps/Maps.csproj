@@ -70,8 +70,13 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DataStore\BuildSliderStore\BuildSliderStore.xaml.cs">
+      <DependentUpon>BuildSliderStore.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\AppGenParameters.cs" />
     <Compile Include="Helpers\Bounds.cs" />
     <Compile Include="Helpers\JourneySaver.cs" />
+    <Compile Include="Helpers\PlaqueDistance.cs" />
     <Compile Include="Helpers\SaveState.cs" />
     <Compile Include="Helpers\CurrentLocation.cs" />
     <Compile Include="Helpers\Journey.cs" />
@@ -103,6 +108,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="DataStore\BuildSliderStore\BuildSliderStore.xaml">
+      <Generator>MSBuild:MarkupCompilePass1</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -135,6 +144,7 @@
     <Content Include="Fonts\NokiaPureTextLight.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <DesignTimeOnly Include="DataStore\BuildSliderStore\BuildSliderStore.xsd" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml" />
     <None Include="Service References\RouteService\common.xsd" />
@@ -149,6 +159,9 @@
     <None Include="Service References\RouteService\route.wsdl" />
     <None Include="Service References\RouteService\route.xsd" />
     <None Include="Service References\RouteService\service.xsd" />
+    <Resource Include="AppGenEndPoint_Images\Compound Path.png" />
+    <Resource Include="AppGenEndPoint_Images\Group.png" />
+    <Resource Include="AppGenEndPoint_Images\Path.png" />
     <Resource Include="BLD_NK_BLUE-PLAQUE-MAIN-MENU_01_Images\Group.png" />
     <Resource Include="BLD_NK_BLUE-PLAQUE-MAIN-MENU_01_Images\Group1.png" />
     <Resource Include="BottomBar_Images\Group.png" />
@@ -187,6 +200,9 @@
     <Content Include="Text\plaques.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Parameters_Images\Group.png" />
+    <Resource Include="Parameters_Images\Group1.png" />
+    <Resource Include="Parameters_Images\Path + Path.png" />
     <Resource Include="QUICK-START_Images\Group.png" />
     <Resource Include="QUICK-START_Images\Path.png" />
     <Resource Include="SelectEndPlaque_Images\Compound Path.png" />
@@ -209,6 +225,7 @@
     <Resource Include="StartPlaqueWithInfo_Images\Path.png" />
     <Resource Include="UnlockedPlaque_Images\Group.png" />
     <Resource Include="UnlockedPlaque_Images\Path.png" />
+    <Resource Include="WhiteMARKER.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ApplicationIcon.png">

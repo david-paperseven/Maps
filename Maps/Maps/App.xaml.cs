@@ -163,5 +163,10 @@ namespace Maps
         }
 
         #endregion
+
+        private void Slider_DragDelta(object sender, System.Windows.Controls.Primitives.DragDeltaEventArgs e)
+        {
+            SaveState.Instance.appgenparameters.SliderDelta(e.HorizontalChange);
+        }
     }
 }

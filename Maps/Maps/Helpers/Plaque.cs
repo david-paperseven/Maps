@@ -116,7 +116,6 @@ namespace Maps.Helpers
                 myMainPage.AddOrRemovePlaque.Opacity = 1.0;
                 myMainPage.AddOrRemovePlaqueYesNo.Opacity = 1.0;
                 myMainPage.SelectPlaqueYes.IsHitTestVisible = true;
-                myMainPage.SelectPlaqueNo.IsHitTestVisible = true;
 
                 if (SaveState.Instance.routeList.GetList().Contains(this))
                 {
@@ -124,7 +123,7 @@ namespace Maps.Helpers
                 }
                 else
                 {
-                    myMainPage.AddOrRemovePlaque.Text = "Add to route";
+                    myMainPage.AddOrRemovePlaque.Text = "Add plaque to route";
                 }
 
 
@@ -298,9 +297,18 @@ namespace Maps.Helpers
                     }
                 case MainPage.RouteState.SelectEndPoint:
                     {
-                        VisualStateManager.GoToState(myMainPage.EndPlaqueNameInfo, "SlideUp", true);
-                        myMainPage.EndPlaqueNameInfo.SelectRoutePlaqueName.Text = Info.GetName();
-                        myMainPage.EndPlaqueNameInfo.SelectRoutePlaqueDateAndCategory.Text = "(" + Info.date + ") " + Info.info1;
+                        if (SaveState.Instance.routeMode == MainPage.RouteMode.UserSelected)
+                        {
+                            VisualStateManager.GoToState(myMainPage.EndPlaqueNameInfo, "SlideUp", true);
+                            myMainPage.EndPlaqueNameInfo.SelectRoutePlaqueName.Text = Info.GetName();
+                            myMainPage.EndPlaqueNameInfo.SelectRoutePlaqueDateAndCategory.Text = "(" + Info.date + ") " + Info.info1;
+                        }
+                        else
+                        {
+                            VisualStateManager.GoToState(myMainPage.AppGenEndPlaqueNameInfo, "SlideUp", true);
+                            myMainPage.AppGenEndPlaqueNameInfo.SelectRoutePlaqueName.Text = Info.GetName();
+                            myMainPage.AppGenEndPlaqueNameInfo.SelectRoutePlaqueDateAndCategory.Text = "(" + Info.date + ") " + Info.info1;
+                        }
                         break;
                     }
                 case MainPage.RouteState.SelectRoute:

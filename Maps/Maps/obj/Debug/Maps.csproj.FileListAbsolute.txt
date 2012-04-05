@@ -7,9 +7,6 @@ C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Debug\Maps.xap
 C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Debug\Microsoft.Phone.Controls.Maps.dll
 C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Debug\Microsoft.Phone.Controls.Maps.xml
 C:\Users\PaperPC\Projects\Maps\Maps\Maps\obj\Debug\ResolveAssemblyReference.cache
-C:\Users\PaperPC\Projects\Maps\Maps\Maps\obj\Debug\App.g.i.cs
-C:\Users\PaperPC\Projects\Maps\Maps\Maps\obj\Debug\MainPage.g.i.cs
-C:\Users\PaperPC\Projects\Maps\Maps\Maps\obj\Debug\MenuControl.g.i.cs
 C:\Users\PaperPC\Projects\Maps\Maps\Maps\obj\Debug\Maps.g.resources
 C:\Users\PaperPC\Projects\Maps\Maps\Maps\obj\Debug\Maps.dll
 C:\Users\PaperPC\Projects\Maps\Maps\Maps\obj\Debug\Maps.pdb
@@ -43,4 +40,7 @@ C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Debug\Fonts\NokiaPureHeadlineRg.ttf
 C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Debug\Fonts\NokiaPureText.ttf
 C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Debug\Fonts\NokiaPureTextBold.ttf
 C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Debug\Fonts\NokiaPureTextLight.ttf
-C:\Users\PaperPC\Projects\Maps\Maps\Maps\obj\Debug\NameInfo.g.i.cs
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\obj\Debug\App.g.cs
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\obj\Debug\MainPage.g.cs
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\obj\Debug\MenuControl.g.cs
+C:\Users\PaperPC\Projects\Maps\Maps\Maps\obj\Debug\NameInfo.g.cs
