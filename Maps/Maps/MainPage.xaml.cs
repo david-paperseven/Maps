@@ -36,6 +36,8 @@ namespace Maps
             SelectStartPoint,
             SelectRoute,
             SelectEndPoint,
+            SelectParameters,
+            DistanceSummary,
             Travelling
         }
 
@@ -67,11 +69,15 @@ namespace Maps
             SaveState.Instance.routeState = MainPage.RouteState.Normal;//DEBUG!
             SaveState.Instance.CurrentVisualState = "SplashScreenState";
             SaveState.Instance.mainpage = this;
+            SaveState.Instance.routedrawer.map = myMap;
+            SaveState.Instance.routedrawer.Init();
 
             Initializeplaques();
-            DebugRouteTimer();
+            //DebugRouteTimer();
             PlaqueFlashTimer();
 
+            //PersistentStorage.Instance.Reset();
+            //PersistentStorage.Instance.SetVisited(22);
 
             // Visual States are always on the first child of the control template  
             FrameworkElement element = VisualTreeHelper.GetChild(MainPageElement, 0) as FrameworkElement;
@@ -515,6 +521,37 @@ namespace Maps
             VisualStateManager.GoToState(this, "FilterState", true);
         }
 
+        private void MainMenuAboutButton_Click(object sender, RoutedEventArgs e)
+        {
+            VisualStateManager.GoToState(this, "AboutState", true);
+        }
+
+        private void AboutButtonDone_Click(object sender, RoutedEventArgs e)
+        {
+            VisualStateManager.GoToState(this, "MainMenuState", true);
+        }
+
+        private void StatsButton_Click(object sender, RoutedEventArgs e)
+        {
+            int num,arts,science,politics,exploration,totalarts,totalscience,totalpolitics,totalexploration;
+            int total = SaveState.Instance.plaques.Count;
+            PersistentStorage.Instance.GetFoundPlaques(out num, out arts, out science, out politics, out exploration, out totalarts, out totalscience, out totalpolitics, out totalexploration);
+
+            NumPlaquesFound.Text = num.ToString() + "/" + total.ToString();
+            NumArts.Text = arts.ToString() + "/" + totalarts.ToString();
+            NumPolitics.Text = politics.ToString() + "/" + totalpolitics.ToString();
+            NumScience.Text = science.ToString() + "/" + totalscience.ToString();
+            NumExploration.Text = exploration.ToString() + "/" + totalexploration.ToString();
+            VisualStateManager.GoToState(this, "StatsScreenState", true);
+        }
+
+        private void StatsScreenDone_Click(object sender, RoutedEventArgs e)
+        {
+            VisualStateManager.GoToState(this, "MainMenuState", true);
+        }
+
+        
+
         private void UnlockedPlaqueButton_Click(object sender, RoutedEventArgs e)
         {
             VisualStateManager.GoToState(this, "FullInfoState", true);
@@ -551,11 +588,14 @@ namespace Maps
             Plaque nearestplaque=null;
             foreach (Plaque p in SaveState.Instance.plaques)
             {
-                double distance = currentLocation.GetDistanceTo(p.GetLocation());
-                if (distance < closestdistance)
+                if (!PersistentStorage.Instance.Visited(p.Info.number))
                 {
-                    closestdistance = distance;
-                    nearestplaque = p;
+                    double distance = currentLocation.GetDistanceTo(p.GetLocation());
+                    if (distance < closestdistance)
+                    {
+                        closestdistance = distance;
+                        nearestplaque = p;
+                    }
                 }
             }
             return nearestplaque;
@@ -595,7 +635,7 @@ namespace Maps
             mywp.Location = SaveState.Instance.currentLocation.Location;
             waypoints.Add(mywp);
 
-            SaveState.Instance.routeList.Clear();
+            SaveState.Instance.routeList.GetList().Clear();
             int count = 0;
             foreach (PD pd in SaveState.Instance.plaquedistance.GetList())
             {
@@ -621,7 +661,11 @@ namespace Maps
             }
 
             SaveState.Instance.route.CalculateRoute(waypoints, SaveState.Instance.summary);
-            RemoveAllPinsExceptCurrentRoute();
+            if (SaveState.Instance.routeMode == RouteMode.AppGenRoute)
+                RemoveAllPinsExceptCurrentRoute();
+            else
+                RemoveAllPinsExceptNext();
+            SaveState.Instance.routeState = RouteState.DistanceSummary;
             VisualStateManager.GoToState(this, "DistanceSummaryState", true); 
             
 
@@ -630,7 +674,7 @@ namespace Maps
         void ClearRoute()
         {
             SaveState.Instance.routeList.Clear();
-            SaveState.Instance.route.ClearRouteLine();
+            SaveState.Instance.routedrawer.ClearRouteLine();
             ClearSelectedPins();
             UpdatePlaqueVisibilty();
         }
@@ -659,6 +703,11 @@ namespace Maps
                         onMainMenu = true;
                         break;
                     }
+                case "DistanceSummaryState":
+                    {
+                        SaveState.Instance.routeState = RouteState.DistanceSummary;
+                        break;
+                    }
                 case "SelectStartPlaqueState":
                     {
                         SaveState.Instance.routeState = RouteState.SelectStartPoint;
@@ -685,8 +734,20 @@ namespace Maps
                     }
                 case "AppGenEndPointState":
                     {
+                        ClearRoute();
                         SaveState.Instance.routeState = RouteState.SelectEndPoint;
                         SetRouteModeText();
+
+                        if (SaveState.Instance.routeList.GetEndPoint() == null)
+                        {
+                            AppGenEndPointDone.Opacity = 0.50;
+                            AppGenRouteEndPointDonButton.IsHitTestVisible = false;
+                        }
+                        break;
+                    }
+                case "AppGenParametersState":
+                    {
+                        SaveState.Instance.routeState = RouteState.SelectParameters;
                         break;
                     }
                 case "DefineEndPointState":
@@ -723,13 +784,14 @@ namespace Maps
                         break;
                     }
             }
-
+/*
             if (e.NewState.Name != "SplashScreenState")
             {
                 SplashScreen.Opacity = 0.0;
                 SplashScreen.IsHitTestVisible = false;
                 SplashScreenButton.IsHitTestVisible = false;            
             }
+*/
         }
         
         private void SetRouteModeText()
@@ -832,6 +894,7 @@ namespace Maps
                                     if (SaveState.Instance.routeList.GetEndPoint() != null)
                                     {
                                         SaveState.Instance.routeList.GetEndPoint().ClearSelection();
+                                        SaveState.Instance.routeList.SetEndPoint(null);
                                     }
                                     
 
@@ -851,10 +914,38 @@ namespace Maps
                         }
                         break;
                     }
-                default:
+                case RouteMode.Discovery:
+                case RouteMode.AppGenRoute:
                     {
                         VisualStateManager.GoToState(AppGenEndPlaqueNameInfo, "Start", true);
+                        switch (SaveState.Instance.routeState)
+                        {
+                            case RouteState.DistanceSummary:
+                                {
+                                    VisualStateManager.GoToState(this, "AppGenParametersState", true);
+                                    break;
+                                }
+                            case RouteState.SelectParameters:
+                                {
+                                    if (SaveState.Instance.routeList.GetEndPoint() != null)
+                                    {
+                                        SaveState.Instance.routeList.GetEndPoint().ClearSelection();
+                                        SaveState.Instance.routeList.SetEndPoint(null);
+                                    }
 
+                                    VisualStateManager.GoToState(this, "AppGenEndPointState", true);
+                                    break;
+                                }
+                            case RouteState.SelectEndPoint:
+                                {
+                                    VisualStateManager.GoToState(this, "MainMenuState", true);
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+                default:
+                    {
                         VisualStateManager.GoToState(this, "MainMenuState", true);
                         break;
                     }
@@ -926,6 +1017,30 @@ namespace Maps
                 }
             }
             UpdatePlaqueVisibilty();
+        }
+
+        private void RemoveAllPinsExceptNext()
+        {
+            // remove old pins
+            SaveState.Instance.pinlayer.Children.Clear();
+            List<Plaque> route = SaveState.Instance.routeList.GetList();
+            foreach (Plaque p in route)
+            {
+                if (p.Found)
+                {
+                    SaveState.Instance.pinlayer.Children.Add(p.Pin);
+                }
+                else
+                {
+                    // first non-found pin
+                    SaveState.Instance.pinlayer.Children.Add(p.Pin);
+                    break;
+                }
+            }
+            if (SaveState.Instance.routeList.GetEndPoint() != null)
+            {
+                SaveState.Instance.pinlayer.Children.Add(SaveState.Instance.routeList.GetEndPoint().Pin);
+            }
         }
 
         private void RemoveAllPinsExceptCurrentRoute()

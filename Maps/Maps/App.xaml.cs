@@ -64,7 +64,10 @@ namespace Maps
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
             SaveState.Init();
-            
+            PersistentStorage.Init();
+
+            LoadPersistentStorage();
+
             using (var store = IsolatedStorageFile.GetUserStoreForApplication())
             using (var stream = new IsolatedStorageFileStream("data.txt", FileMode.OpenOrCreate, FileAccess.Read, store))
             using (var reader = new StreamReader(stream))
@@ -82,18 +85,21 @@ namespace Maps
         // This code will not execute when the application is first launched
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
+            LoadPersistentStorage();
         }
 
         // Code to execute when the application is deactivated (sent to background)
         // This code will not execute when the application is closing
         private void Application_Deactivated(object sender, DeactivatedEventArgs e)
         {
+            SavePersistentStorage();
         }
 
         // Code to execute when the application is closing (eg, user hit Back)
         // This code will not execute when the application is deactivated
         private void Application_Closing(object sender, ClosingEventArgs e)
         {
+            SavePersistentStorage();
             /*
             // persist the data using isolated storage
             using (var store = IsolatedStorageFile.GetUserStoreForApplication())
@@ -106,6 +112,34 @@ namespace Maps
                 serializer.Serialize(stream, SaveState.Instance);
             }
              * */
+
+        }
+
+        private void SavePersistentStorage()
+        {
+            using (var store = IsolatedStorageFile.GetUserStoreForApplication())
+            using (var stream = new IsolatedStorageFileStream("persistent.txt",
+                                                            FileMode.Create,
+                                                            FileAccess.Write,
+                                                            store))
+            {
+                var serializer = new XmlSerializer(typeof(PersistentStorage));
+                serializer.Serialize(stream, PersistentStorage.Instance);
+            }
+        }
+
+        private void LoadPersistentStorage()
+        {
+            using (var store = IsolatedStorageFile.GetUserStoreForApplication())
+            using (var stream = new IsolatedStorageFileStream("persistent.txt", FileMode.OpenOrCreate, FileAccess.Read, store))
+            using (var reader = new StreamReader(stream))
+            {
+                if (!reader.EndOfStream)
+                {
+                    var serializer = new XmlSerializer(typeof(PersistentStorage));
+                    PersistentStorage.Instance.SetState((PersistentStorage)serializer.Deserialize(reader));
+                }
+            }
         }
 
         // Code to execute if a navigation fails
@@ -163,6 +197,11 @@ namespace Maps
         }
 
         #endregion
+
+        private void SliderButtonClick(object sender, RoutedEventArgs e)
+        {
+            SaveState.Instance.appgenparameters.SliderDelta(0);
+        }
 
         private void Slider_DragDelta(object sender, System.Windows.Controls.Primitives.DragDeltaEventArgs e)
         {

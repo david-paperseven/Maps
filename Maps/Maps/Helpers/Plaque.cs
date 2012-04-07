@@ -70,8 +70,7 @@ namespace Maps.Helpers
             Pin.Width = pinwidth;
             Pin.Height = pinheight;
 
-            Pin.Fill = brushMarker;
-            Pin.Opacity = 0.50;
+            ClearSelection();
 
             MapLayer.SetPosition(Pin, Info.location);
             MapLayer.SetPositionOrigin(Pin, PositionOrigin.Center);
@@ -111,6 +110,8 @@ namespace Maps.Helpers
 
             if (SaveState.Instance.routeState == MainPage.RouteState.SelectRoute)
             {
+                if (SaveState.Instance.routeList.GetStartPoint() == this)
+                    return;
                 ShowQuickInfo();
 
                 myMainPage.AddOrRemovePlaque.Opacity = 1.0;
@@ -123,7 +124,10 @@ namespace Maps.Helpers
                 }
                 else
                 {
-                    myMainPage.AddOrRemovePlaque.Text = "Add plaque to route";
+                    if (PersistentStorage.Instance.Visited(this.Info.number))
+                        myMainPage.AddOrRemovePlaque.Text = "Revisit plaque?";
+                    else
+                        myMainPage.AddOrRemovePlaque.Text = "Add plaque to route";
                 }
 
 
@@ -142,6 +146,10 @@ namespace Maps.Helpers
             {
                 myMainPage.Done.Opacity = 1;
                 myMainPage.DoneEndPointButton.IsHitTestVisible = true;
+
+                myMainPage.AppGenEndPointDone.Opacity = 1.0;
+                myMainPage.AppGenRouteEndPointDonButton.IsHitTestVisible = true;
+
 
                 // it is currently the endpoint
                 if (this == SaveState.Instance.routeList.GetEndPoint())
@@ -335,8 +343,16 @@ namespace Maps.Helpers
         public bool Found { get; set; }
         public void ClearSelection()
         {
-            Pin.Fill = brushMarker;
-            Pin.Opacity = 0.50;
+            if (PersistentStorage.Instance.Visited(Info.number))
+            {
+                Pin.Fill = brushMarker;
+                Pin.Opacity = 1.0;
+            }
+            else
+            {
+                Pin.Fill = brushMarker;
+                Pin.Opacity = 0.50;
+            }
             Selected = false;
             //UnshowQuickInfo();
         }

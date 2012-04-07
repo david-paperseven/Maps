@@ -76,7 +76,9 @@
     <Compile Include="Helpers\AppGenParameters.cs" />
     <Compile Include="Helpers\Bounds.cs" />
     <Compile Include="Helpers\JourneySaver.cs" />
+    <Compile Include="Helpers\PersistentStorage.cs" />
     <Compile Include="Helpers\PlaqueDistance.cs" />
+    <Compile Include="Helpers\RouteDrawer.cs" />
     <Compile Include="Helpers\SaveState.cs" />
     <Compile Include="Helpers\CurrentLocation.cs" />
     <Compile Include="Helpers\Journey.cs" />
@@ -159,6 +161,8 @@
     <None Include="Service References\RouteService\route.wsdl" />
     <None Include="Service References\RouteService\route.xsd" />
     <None Include="Service References\RouteService\service.xsd" />
+    <Resource Include="About_Images\Group.png" />
+    <Resource Include="About_Images\Path.png" />
     <Resource Include="AppGenEndPoint_Images\Compound Path.png" />
     <Resource Include="AppGenEndPoint_Images\Group.png" />
     <Resource Include="AppGenEndPoint_Images\Path.png" />
@@ -223,6 +227,8 @@
     <Resource Include="StartPlaqueWithInfo_Images\Group.png" />
     <Resource Include="StartPlaqueWithInfo_Images\Group1.png" />
     <Resource Include="StartPlaqueWithInfo_Images\Path.png" />
+    <Resource Include="StatsScreen_Images\Group.png" />
+    <Resource Include="StatsScreen_Images\Path.png" />
     <Resource Include="UnlockedPlaque_Images\Group.png" />
     <Resource Include="UnlockedPlaque_Images\Path.png" />
     <Resource Include="WhiteMARKER.png" />

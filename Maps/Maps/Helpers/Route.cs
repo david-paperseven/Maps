@@ -27,8 +27,7 @@ namespace Maps.Helpers
         Map myMap;
         MainPage myMainPage;
         Summary mySummary;
-        MapLayer routeLayer;
-        MapPolyline currentRouteLine;
+
 
         public Route()
         {
@@ -39,8 +38,7 @@ namespace Maps.Helpers
             credentialsId = Id;
             myMap = map;
             myMainPage = page;
-            routeLayer = new MapLayer();
-            myMap.Children.Add(routeLayer);
+
         }
 
         // This method makes the initial CalculateRoute asynchronous request using the results of the Geocode Service.
@@ -69,81 +67,29 @@ namespace Maps.Helpers
             routeService.CalculateRouteAsync(routeRequest);
         }
 
-        public void FadeOutRouteLine()
-        {
-            if (currentRouteLine != null)
-                currentRouteLine.Opacity = 0.3;
-        }
-
-        public void ClearRouteLine()
-        {
-            routeLayer.Children.Clear();
-        }
         // This is the callback method for the CalculateRoute request.
         private void routeService_CalculateRouteCompleted(object sender, RouteService.CalculateRouteCompletedEventArgs e)
         {
-
+            
             // If the route calculate was a success and contains a route, then draw the route on the map.
             if ((e.Result.ResponseSummary.StatusCode == RouteService.ResponseStatusCode.Success) & (e.Result.Result.Legs.Count != 0))
             {
-                // Set properties of the route line you want to draw.
-                Color routeColor = Colors.Magenta;
-                SolidColorBrush routeBrush = new SolidColorBrush(routeColor);
-                MapPolyline routeLine = new MapPolyline();
-                routeLine.Locations = new LocationCollection();
-                routeLine.Stroke = routeBrush;
-                routeLine.Opacity = 1.0;
-                routeLine.StrokeThickness = 5.0;
-/*
-                DoubleCollection collection = new DoubleCollection();
-                collection.Add(0.1);
-                collection.Add(0.4);
-                collection.Add(0.1);
-                routeLine.StrokeDashArray = collection;
-*/
+                SaveState.Instance.routedrawer.result = e.Result;
+
                 mySummary.Distance = e.Result.Result.Summary.Distance;
                 mySummary.Time = e.Result.Result.Summary.TimeInSeconds;
 
-                // Retrieve the route points that define the shape of the route.
-                foreach (Location p in e.Result.Result.RoutePath.Points)
+                if (SaveState.Instance.routeMode == MainPage.RouteMode.Discovery)
                 {
-                    Location location = new Location();
-                    location.Longitude = p.Longitude;
-                    location.Latitude = p.Latitude;
-                    routeLine.Locations.Add(location);
+                    SaveState.Instance.routedrawer.DrawUpToLeg(0);
+                }
+                else
+                {
+                    SaveState.Instance.routedrawer.DrawEntireRoute();
                 }
 
-
-                routeLayer.Children.Clear();
-
-                // Add the route line to the new layer.
-                routeLayer.Children.Add(routeLine);
-                currentRouteLine = routeLine;
-
-                double minX = 1000;
-                double minY = 1000;
-                double maxX = -1000;
-                double maxY = -1000;
-                for (int i = 0; i < routeLine.Locations.Count; i++)
-                {
-                    if (routeLine.Locations[i].Longitude < minX)
-                        minX = routeLine.Locations[i].Longitude;
-                    if (routeLine.Locations[i].Longitude > maxX)
-                        maxX = routeLine.Locations[i].Longitude;
-
-                    if (routeLine.Locations[i].Latitude < minY)
-                        minY = routeLine.Locations[i].Latitude;
-                    if (routeLine.Locations[i].Latitude > maxY)
-                        maxY = routeLine.Locations[i].Latitude;
-                }
-                // LocationRect(north,west,south,east)
-                LocationRect rect = new LocationRect(maxY,minX,minY,maxX);
-
-                // Set the map view using the rectangle which bounds the rendered route.
-                myMap.SetView(rect);
 
                 myMainPage.SummaryLoaded();
-
             }
         }
     }
