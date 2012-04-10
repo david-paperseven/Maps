@@ -205,15 +205,24 @@ namespace Maps.Helpers
         public void ShowFullInfo()
         {
             myMainPage.FullInfoRichTextBox.Blocks.Clear();
+            myMainPage.FullInfoScrollViewer.ScrollToVerticalOffset(0);
+            myMainPage.FullInfoRichTextBox.Height = 1600.0;
+            myMainPage.FullInfo1.Height = 1600.0;
 
+            Run unlockedRun = new Run();
             Run nameRun = new Run();
             Run dateRun = new Run();
             Run infoRun = new Run();
             Run fullInfoRun = new Run();
             Run exitRun = new Run();
+            Run spaceAtBottom = new Run();
 
             FontFamily headline = new FontFamily("/Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline");
             FontFamily light = new FontFamily("/Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light");
+            unlockedRun.Text = "You've unlocked this plaque!\n";
+            unlockedRun.FontFamily = headline;
+            unlockedRun.FontSize = 30;
+
             nameRun.Text = Info.GetName() + "\n";
             nameRun.FontFamily = headline;
             nameRun.FontSize = 37;
@@ -246,50 +255,58 @@ namespace Maps.Helpers
             InlineUIContainer LBUI2 = new InlineUIContainer();
             LBUI2.Child = LineBreak2;
 
+            Image LineBreak3 = new Image();
+            LineBreak3.Source = new BitmapImage(new Uri("QuickInfo_Images/LINE BREAK copy.png", UriKind.RelativeOrAbsolute));
+            LineBreak3.Height = 3;
+            LineBreak3.Width = 388;
+            InlineUIContainer LBUI3 = new InlineUIContainer();
+            LBUI3.Child = LineBreak3;
+
+            Hyperlink link = new Hyperlink();
+            link.FontFamily = light;
+            link.FontSize = 30;
+            link.Inlines.Add("More Info\n");
+            link.NavigateUri = new Uri(Info.moreinfo);
+            link.TargetName = "_blank";
+
+            //p1.Inlines.Add(exitRun);
+
+            Button button = new Button();
+            button.Width = 128;
+            button.Height = 128;
+            button.Click += exitFullInfoClick;
+            button.FontFamily = headline;
+            button.FontSize = 37;
+            button.Content = "Exit";
+            button.BorderBrush = null;
+            InlineUIContainer buttonUI = new InlineUIContainer();
+            buttonUI.Child = button;
+
             Paragraph p1 = new Paragraph();
+            p1.Inlines.Add(unlockedRun);
+            p1.Inlines.Add(LBUI3);
             p1.Inlines.Add(nameRun);
             p1.Inlines.Add(dateRun);
             p1.Inlines.Add(LBUI);
             p1.Inlines.Add(infoRun);
             p1.Inlines.Add(LBUI2);
             p1.Inlines.Add(fullInfoRun);
-
-            Hyperlink link = new Hyperlink();
-            link.FontFamily = light;
-            link.FontSize = 30;
-            link.Inlines.Add("More Info");
-            link.NavigateUri = new Uri(Info.moreinfo);
-            link.TargetName = "_blank";
             p1.Inlines.Add(link);
-
-            p1.Inlines.Add(exitRun);
-
-            Button button = new Button();
-            button.Width = 200;
-            button.Height = 150;
-            button.Click += exitFullInfoClick;
-            button.FontFamily = headline;
-            button.FontSize = 37;
-            button.Content = "Exit";
-            InlineUIContainer buttonUI = new InlineUIContainer();
-            buttonUI.Child = button;
             p1.Inlines.Add(buttonUI);
+
 
             myMainPage.FullInfoRichTextBox.Blocks.Add(p1);
 
-            
-            /*
-            myMainPage.FullInfoName.Text = Info.GetName() + "\n";
-            myMainPage.FullInfoDateAndCategory.Text = "(" + Info.date + ") " + Info.info1 + "\n\n";
-            myMainPage.FullInfoPlaqueInfo.Text = Info.fullinfo + "\n\n";
-            myMainPage.FullInfoPlaqueFullInfo.Text = Info.fulltext;
-            */
-            VisualStateManager.GoToState(myMainPage, "UnlockedPlaqueState", true);
+//            Rect tp = p1.ContentEnd.GetCharacterRect(LogicalDirection.Backward);
+ //           myMainPage.FullInfoRichTextBox.Height = tp.Bottom - 600.0;
+  //          myMainPage.FullInfo1.Height = tp.Bottom - 600.0;
+
+            VisualStateManager.GoToState(myMainPage, "FullInfoState", true);
         }
 
         void exitFullInfoClick(object sender, RoutedEventArgs e)
         {
-            VisualStateManager.GoToState(myMainPage, "MapOnlyState", true);
+            myMainPage.ExitFullInfoState();
         }
 
         public void ShowQuickInfo()
@@ -298,9 +315,18 @@ namespace Maps.Helpers
             {
                 case MainPage.RouteState.SelectStartPoint:
                     {
-                        VisualStateManager.GoToState(myMainPage.StartPlaqueNameInfo, "SlideUp", true);
-                        myMainPage.StartPlaqueNameInfo.SelectRoutePlaqueName.Text = Info.GetName();
-                        myMainPage.StartPlaqueNameInfo.SelectRoutePlaqueDateAndCategory.Text = "(" + Info.date + ") " + Info.info1;
+                        if (SaveState.Instance.routeMode == MainPage.RouteMode.QuickStart)
+                        {
+                            myMainPage.QuickStartNameInfo.SelectRoutePlaqueName.Text = Info.GetName();
+                            myMainPage.QuickStartNameInfo.SelectRoutePlaqueDateAndCategory.Text = "(" + Info.date + ") " + Info.info1;
+                            
+                        }
+                        else
+                        {
+                            VisualStateManager.GoToState(myMainPage.StartPlaqueNameInfo, "SlideUp", true);
+                            myMainPage.StartPlaqueNameInfo.SelectRoutePlaqueName.Text = Info.GetName();
+                            myMainPage.StartPlaqueNameInfo.SelectRoutePlaqueDateAndCategory.Text = "(" + Info.date + ") " + Info.info1;
+                        }
                         break;
                     }
                 case MainPage.RouteState.SelectEndPoint:

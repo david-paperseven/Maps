@@ -1,8 +1,8 @@
-﻿<xapCache source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Release\Maps.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="07/04/2012 13:26:19">
+﻿<xapCache source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Release\Maps.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="10/04/2012 19:22:25">
   <file source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Release\WMAppManifest.xml" archivePath="WMAppManifest.xml" lastWriteTime="02/04/2012 09:24:15" />
   <file source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\Background.png" archivePath="Background.png" lastWriteTime="17/01/2011 23:02:00" />
   <file source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\ApplicationIcon.png" archivePath="ApplicationIcon.png" lastWriteTime="17/01/2011 23:02:00" />
-  <file source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\obj\Release\Maps.dll" archivePath="Maps.dll" lastWriteTime="07/04/2012 13:26:18" />
+  <file source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\obj\Release\Maps.dll" archivePath="Maps.dll" lastWriteTime="10/04/2012 19:22:24" />
   <file source="c:\Program Files (x86)\Microsoft SDKs\Expression\Blend\Windows Phone\v7.1\Libraries\Microsoft.Expression.Interactions.dll" archivePath="Microsoft.Expression.Interactions.dll" lastWriteTime="17/08/2011 02:48:22" />
   <file source="C:\Program Files (x86)\Microsoft SDKs\Windows Phone\v7.1\Libraries\Silverlight\Microsoft.Phone.Controls.Maps.dll" archivePath="Microsoft.Phone.Controls.Maps.dll" lastWriteTime="15/09/2011 16:36:26" />
   <file source="c:\Program Files (x86)\Microsoft SDKs\Expression\Blend\Windows Phone\v7.1\Libraries\System.Windows.Interactivity.dll" archivePath="System.Windows.Interactivity.dll" lastWriteTime="17/08/2011 02:48:22" />

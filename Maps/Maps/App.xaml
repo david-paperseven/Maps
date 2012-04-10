@@ -15,9 +15,9 @@
 		<Style x:Key="BuildMapSlider" TargetType="Slider">
 			<Setter Property="BorderThickness" Value="0"/>
 			<Setter Property="BorderBrush" Value="Transparent"/>
-			<Setter Property="Maximum" Value="10"/>
+			<Setter Property="Maximum" Value="20"/>
 			<Setter Property="Minimum" Value="1"/>
-			<Setter Property="Value" Value="4"/>
+			<Setter Property="Value" Value="8"/>
 			<Setter Property="Background" Value="{StaticResource PhoneContrastBackgroundBrush}"/>
 			<Setter Property="Foreground" Value="{StaticResource PhoneAccentBrush}"/>
 			<Setter Property="Template">

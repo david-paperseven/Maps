@@ -161,6 +161,8 @@
     <None Include="Service References\RouteService\route.wsdl" />
     <None Include="Service References\RouteService\route.xsd" />
     <None Include="Service References\RouteService\service.xsd" />
+    <Resource Include="About_Images1\Group.png" />
+    <Resource Include="About_Images1\Path.png" />
     <Resource Include="About_Images\Group.png" />
     <Resource Include="About_Images\Path.png" />
     <Resource Include="AppGenEndPoint_Images\Compound Path.png" />
@@ -179,6 +181,8 @@
     <Resource Include="EndPoint_Images\Path.png" />
     <Resource Include="Filter1_Images\Group.png" />
     <Resource Include="Filter1_Images\Path.png" />
+    <Resource Include="Filter_Images1\Group.png" />
+    <Resource Include="Filter_Images1\Path.png" />
     <Resource Include="Filter_Images\Group.png" />
     <Resource Include="Filter_Images\Path.png" />
     <Resource Include="FullInfo_Images\Compound Path.png" />
@@ -204,6 +208,9 @@
     <Content Include="Text\plaques.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Parameters2_Images\Group.png" />
+    <Resource Include="Parameters2_Images\Group1.png" />
+    <Resource Include="Parameters2_Images\Path + Path.png" />
     <Resource Include="Parameters_Images\Group.png" />
     <Resource Include="Parameters_Images\Group1.png" />
     <Resource Include="Parameters_Images\Path + Path.png" />

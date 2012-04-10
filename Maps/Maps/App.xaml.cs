@@ -100,7 +100,7 @@ namespace Maps
         private void Application_Closing(object sender, ClosingEventArgs e)
         {
             SavePersistentStorage();
-            /*
+            
             // persist the data using isolated storage
             using (var store = IsolatedStorageFile.GetUserStoreForApplication())
             using (var stream = new IsolatedStorageFileStream("data.txt",
@@ -111,7 +111,7 @@ namespace Maps
                 var serializer = new XmlSerializer(typeof(SaveState));
                 serializer.Serialize(stream, SaveState.Instance);
             }
-             * */
+            
 
         }
 
@@ -138,6 +138,10 @@ namespace Maps
                 {
                     var serializer = new XmlSerializer(typeof(PersistentStorage));
                     PersistentStorage.Instance.SetState((PersistentStorage)serializer.Deserialize(reader));
+                }
+                else
+                {
+                    PersistentStorage.Instance.Reset();
                 }
             }
         }
