@@ -132,45 +132,45 @@
                     <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="Blue">
                         <EasingDoubleKeyFrame KeyTime="0" Value="-351"/>
                         <EasingDoubleKeyFrame KeyTime="0:0:2" Value="-330"/>
-                        <EasingDoubleKeyFrame KeyTime="0:0:3" Value="-330"/>
-                        <EasingDoubleKeyFrame KeyTime="0:0:4" Value="9"/>
+                        <EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="-330"/>
+                        <EasingDoubleKeyFrame KeyTime="0:0:3" Value="9"/>
+                        <EasingDoubleKeyFrame KeyTime="0:0:3.5" Value="9"/>
                         <EasingDoubleKeyFrame KeyTime="0:0:5" Value="9"/>
-                        <EasingDoubleKeyFrame KeyTime="0:0:7" Value="9"/>
-                        <EasingDoubleKeyFrame KeyTime="0:0:8" Value="9"/>
+                        <EasingDoubleKeyFrame KeyTime="0:0:5.5" Value="9"/>
                     </DoubleAnimationUsingKeyFrames>
                     <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="Maps">
                         <EasingDoubleKeyFrame KeyTime="0" Value="-486"/>
                         <EasingDoubleKeyFrame KeyTime="0:0:2" Value="-465"/>
-                        <EasingDoubleKeyFrame KeyTime="0:0:3" Value="6"/>
+                        <EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="6"/>
+                        <EasingDoubleKeyFrame KeyTime="0:0:3.5" Value="6"/>
                         <EasingDoubleKeyFrame KeyTime="0:0:5" Value="6"/>
-                        <EasingDoubleKeyFrame KeyTime="0:0:7" Value="6"/>
-                        <EasingDoubleKeyFrame KeyTime="0:0:8" Value="6"/>
+                        <EasingDoubleKeyFrame KeyTime="0:0:5.5" Value="6"/>
                     </DoubleAnimationUsingKeyFrames>
                     <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Nokia">
                         <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                        <EasingDoubleKeyFrame KeyTime="0:0:5" Value="0"/>
-                        <EasingDoubleKeyFrame KeyTime="0:0:6" Value="1"/>
-                        <EasingDoubleKeyFrame KeyTime="0:0:7" Value="1"/>
-                        <EasingDoubleKeyFrame KeyTime="0:0:8" Value="0"/>
+                        <EasingDoubleKeyFrame KeyTime="0:0:3.5" Value="0"/>
+                        <EasingDoubleKeyFrame KeyTime="0:0:4.5" Value="1"/>
+                        <EasingDoubleKeyFrame KeyTime="0:0:5" Value="1"/>
+                        <EasingDoubleKeyFrame KeyTime="0:0:5.5" Value="0"/>
                     </DoubleAnimationUsingKeyFrames>
                     <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Balloon">
                         <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                        <EasingDoubleKeyFrame KeyTime="0:0:5" Value="0"/>
-                        <EasingDoubleKeyFrame KeyTime="0:0:6" Value="1"/>
-                        <EasingDoubleKeyFrame KeyTime="0:0:7" Value="1"/>
-                        <EasingDoubleKeyFrame KeyTime="0:0:8" Value="0"/>
+                        <EasingDoubleKeyFrame KeyTime="0:0:3.5" Value="0"/>
+                        <EasingDoubleKeyFrame KeyTime="0:0:4.5" Value="1"/>
+                        <EasingDoubleKeyFrame KeyTime="0:0:5" Value="1"/>
+                        <EasingDoubleKeyFrame KeyTime="0:0:5.5" Value="0"/>
                     </DoubleAnimationUsingKeyFrames>
                     <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Blue">
                         <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
                         <EasingDoubleKeyFrame KeyTime="0:0:2" Value="1"/>
-                    	<EasingDoubleKeyFrame KeyTime="0:0:4" Value="1"/>
-                    	<EasingDoubleKeyFrame KeyTime="0:0:5" Value="1"/>
-                    	<EasingDoubleKeyFrame KeyTime="0:0:7" Value="1"/>
-                    	<EasingDoubleKeyFrame KeyTime="0:0:8" Value="0"/>
+                        <EasingDoubleKeyFrame KeyTime="0:0:3" Value="1"/>
+                        <EasingDoubleKeyFrame KeyTime="0:0:3.5" Value="1"/>
+                        <EasingDoubleKeyFrame KeyTime="0:0:5" Value="1"/>
+                        <EasingDoubleKeyFrame KeyTime="0:0:5.5" Value="0"/>
                     </DoubleAnimationUsingKeyFrames>
                     <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Maps">
-                    	<EasingDoubleKeyFrame KeyTime="0:0:7" Value="1"/>
-                    	<EasingDoubleKeyFrame KeyTime="0:0:8" Value="0"/>
+                    	<EasingDoubleKeyFrame KeyTime="0:0:5" Value="1"/>
+                    	<EasingDoubleKeyFrame KeyTime="0:0:5.5" Value="0"/>
                     </DoubleAnimationUsingKeyFrames>
                     <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="SplashScreen">
                     	<DiscreteObjectKeyFrame KeyTime="0">
@@ -180,22 +180,20 @@
                     	</DiscreteObjectKeyFrame>
                     </ObjectAnimationUsingKeyFrames>
                 	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="MainMenu">
-                		<EasingDoubleKeyFrame KeyTime="0:0:8" Value="0"/>
-                		<EasingDoubleKeyFrame KeyTime="0:0:9" Value="0"/>
-                		<EasingDoubleKeyFrame KeyTime="0:0:10" Value="1"/>
+                		<EasingDoubleKeyFrame KeyTime="0:0:6" Value="0"/>
+                		<EasingDoubleKeyFrame KeyTime="0:0:6.5" Value="1"/>
                 	</DoubleAnimationUsingKeyFrames>
                     <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="MainMenu">
-                    	<EasingDoubleKeyFrame KeyTime="0:0:8" Value="0"/>
-                    	<EasingDoubleKeyFrame KeyTime="0:0:9" Value="-414"/>
-                    	<EasingDoubleKeyFrame KeyTime="0:0:10" Value="-423"/>
+                    	<EasingDoubleKeyFrame KeyTime="0:0:5" Value="0"/>
+                    	<EasingDoubleKeyFrame KeyTime="0:0:6" Value="-423"/>
                     </DoubleAnimationUsingKeyFrames>
                 	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Storyboard.TargetName="BlueBackground">
-                		<EasingDoubleKeyFrame KeyTime="0:0:8" Value="1"/>
-                		<EasingDoubleKeyFrame KeyTime="0:0:9" Value="0.554"/>
+                		<EasingDoubleKeyFrame KeyTime="0:0:5" Value="1"/>
+                		<EasingDoubleKeyFrame KeyTime="0:0:6" Value="0.554"/>
                 	</DoubleAnimationUsingKeyFrames>
                 	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="BlueBackground">
-                		<EasingDoubleKeyFrame KeyTime="0:0:8" Value="0"/>
-                		<EasingDoubleKeyFrame KeyTime="0:0:9" Value="178.5"/>
+                		<EasingDoubleKeyFrame KeyTime="0:0:5" Value="0"/>
+                		<EasingDoubleKeyFrame KeyTime="0:0:6" Value="178.5"/>
                 	</DoubleAnimationUsingKeyFrames>
                 </Storyboard>
                 </VisualState>
@@ -512,7 +510,7 @@
         	<Button x:Name="DoneEndPointButton" Content="Done" Canvas.Left="345" Canvas.Top="162" Opacity="0" Click="DoneEndPointButton_Click" Width="129.69"/>
         	<Button x:Name="OptionsButton2" Content="Button" Canvas.Left="27.5" Canvas.Top="169.5" Opacity="0" Height="42.693" Width="143.3" Click="MainMenuOptionsButton_Click"/>
         </Canvas>
-        <Canvas x:Name="RouteSummary" HorizontalAlignment="Left" Height="305" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" Canvas.Top="769.5" Canvas.ZIndex="10" RenderTransformOrigin="0.5,0.5" d:IsHidden="True">
+        <Canvas x:Name="RouteSummary" HorizontalAlignment="Left" Height="305" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" Canvas.Top="769.5" Canvas.ZIndex="10" RenderTransformOrigin="0.5,0.5">
         	<Canvas.RenderTransform>
         		<CompositeTransform/>
         	</Canvas.RenderTransform>
@@ -544,10 +542,37 @@
                                 TextWrapping="Wrap" 
                                 Canvas.Top="121.94"
                             ><Run x:Name="DistanceRun" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline"/><Run Text=" "/><Run x:Name="KMRun" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light"/></TextBlock>
-        					<TextBlock x:Name="TimeElapsed" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="0:00 " Canvas.Top="164.94"/>
-        					<TextBlock x:Name="elapsed" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" LineStackingStrategy="BlockLineHeight" Canvas.Left="117.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="elapsed" Canvas.Top="164.94"/>
+        					<TextBlock 
+                                x:Name="TimeElapsed" 
+                                Foreground="#FFFFFFFF" 
+                                FontSize="37" 
+                                FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" 
+                                LineStackingStrategy="BlockLineHeight" 
+                                Canvas.Left="35.5" 
+                                LineHeight="37" 
+                                TextAlignment="Left" 
+                                TextWrapping="Wrap" 
+                                Canvas.Top="164.94" Text="0:00:00">
+                               <!-- <Run x:Name="ElapsedRun" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light"/>-->
+                            </TextBlock>
+                            <TextBlock x:Name="elapsed" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" LineStackingStrategy="BlockLineHeight" Canvas.Left="171.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="elapsed" Canvas.Top="164.94"/>
         					<TextBlock x:Name="Edit_Route___Clear_Route" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Main Menu" Canvas.Top="291.94"/>
         					<Image x:Name="___Path_5" Height="2" Canvas.Left="36" Source="RouteSummary_Images/Path.png" Canvas.Top="68" Width="408"/>
+                            <TextBlock 
+                                x:Name="DistanceToNextPlaque" 
+                                Foreground="#FFFFFFFF" 
+                                FontSize="37" 
+                                FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" 
+                                LineStackingStrategy="BlockLineHeight" 
+                                Canvas.Left="35.5" 
+                                LineHeight="37" 
+                                TextAlignment="Left" 
+                                TextWrapping="Wrap"
+                                Canvas.Top="204.9">
+                                <Run x:Name="DistanceToPlaqueRun" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline"/>
+                                <Run x:Name="MToNextPlaqueRun" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light"/>
+                            </TextBlock>
+        					<!--<TextBlock x:Name="meters_to_plaque" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" LineStackingStrategy="BlockLineHeight" Canvas.Left="120.833" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="m to next plaque" Canvas.Top="204.939"/>-->
         				</Canvas>
         			</Canvas>
         		</Canvas>
@@ -584,7 +609,7 @@
         	<Canvas.RenderTransform>
         		<CompositeTransform/>
         	</Canvas.RenderTransform>
-        	<Canvas x:Name="Layer_15" Height="343" Canvas.Left="0" Width="480" RenderTransformOrigin="0.5,0.5">
+        	<Canvas x:Name="Layer_15" Height="343" Canvas.Left="0" Width="480" RenderTransformOrigin="0.5,0.5" d:IsHidden="True">
         		<Canvas.RenderTransform>
         			<CompositeTransform/>
         		</Canvas.RenderTransform>
@@ -612,7 +637,7 @@
         				</Canvas>
         				<Button x:Name="AboutButton" Content="Button" Canvas.Left="30.333" Canvas.Top="365.167" Height="52.193" Width="101.3" Opacity="0" Click="MainMenuAboutButton_Click"/>
         				<Button x:Name="UserSelectedRouteButton" Content="Button" Canvas.Left="37.5" Canvas.Top="120" Height="47.4" Width="386.01" Opacity="0" Click="SelectStartPlaque_Click"/>
-        				<Button x:Name="MainMenuOptionsButton" Content="Button" Canvas.Left="28.5" Canvas.Top="304.5" Opacity="0" Height="52.693" Width="102.3" Click="MainMenuOptionsButton_Click"/>
+        				<Button x:Name="MainMenuOptionsButton" Content="Button" Canvas.Left="28.5" Canvas.Top="304.5" Opacity="0" Height="52.693" Width="152.3" Click="MainMenuOptionsButton_Click"/>
         				<Button x:Name="QuickStartButton" Content="Button" Canvas.Left="35.5" Canvas.Top="66" Height="47.4" Width="386.01" Opacity="0" Click="QuickStartButton_Click"/>
         			</Canvas>
         		</Canvas>
@@ -705,7 +730,7 @@
         	<local:NameInfo x:Name="AppGenEndPlaqueNameInfo" Height="138" Width="480" Canvas.Top="1.5"/>
         	<Button x:Name="AppGenRouteEndPointDonButton" Content="Button" Canvas.Left="361.5" Canvas.Top="217.5" Height="59.693" Width="105.8" Opacity="0" Click="AppGenRouteEndPointDone_Click"/>
         </Canvas>
-        <Canvas x:Name="Parameters" HorizontalAlignment="Left" Height="540" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" Canvas.Top="769.5" RenderTransformOrigin="0.5,0.5">
+        <Canvas x:Name="Parameters" HorizontalAlignment="Left" Height="540" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" Canvas.Top="769.5" RenderTransformOrigin="0.5,0.5" d:IsHidden="True">
         	<Canvas.RenderTransform>
         		<CompositeTransform/>
         	</Canvas.RenderTransform>
@@ -726,6 +751,7 @@
         			<TextBlock x:Name="Done4" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="364.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Done" Canvas.Top="273.94"/>
         			<Image x:Name="___Path_____Path_" Height="104" Canvas.Left="39" Source="Parameters2_Images/Path + Path.png" Canvas.Top="68" Width="409"/>
         		</Canvas>
+        		<Button x:Name="MainMenuOptionsButton1" Content="Button" Canvas.Left="30.5" Canvas.Top="263.5" Opacity="0" Height="52.693" Width="152.3" Click="MainMenuOptionsButton_Click"/>
         	</Canvas>
         	<Button x:Name="ParametersDoneButton" Content="Button" Canvas.Left="345.5" Canvas.Top="254.5" Opacity="0" Click="ParametersDoneButton_Click"/>
         	<Slider x:Name="Slider1" Value="8" Canvas.Left="26.667" Canvas.Top="142.666" Width="414.667" Style="{StaticResource BuildMapSlider}"/>
@@ -767,11 +793,11 @@
         			<TextBlock x:Name="Help_______________________________5" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="37.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Help                               " Canvas.Top="562.94"/>
         			<TextBlock x:Name="Done6" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="364.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Done" Canvas.Top="562.94"/>
         			<Image x:Name="___Path_12" Height="2" Canvas.Left="39" Source="StatsScreen_Images/Path.png" Canvas.Top="67" Width="409"/>
-        			<TextBlock x:Name="KMTravelled" Canvas.Left="348" TextWrapping="Wrap" Canvas.Top="312" FontSize="36.667" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" Text="12km"/>
+        			<TextBlock x:Name="KMTravelled" Canvas.Left="320" TextWrapping="Wrap" Canvas.Top="312.5" FontSize="36.667" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" Text="12km"/>
         			<TextBlock x:Name="ETime" Canvas.Left="250" TextWrapping="Wrap" Canvas.Top="352" FontSize="36.667" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" Text="1h32min"/>
         		</Canvas>
         		<TextBlock x:Name="NumPlaquesFound" Canvas.Left="346.5" TextWrapping="Wrap" Canvas.Top="75.415" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" FontSize="36" Text="1 / 100"/>
-        		<TextBlock x:Name="Kilometers_Travelled" Canvas.Left="37.997" TextWrapping="Wrap" Canvas.Top="312.5" Text="Kilometers Travelled:" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" FontSize="36.667"/>
+        		<TextBlock x:Name="Kilometers_Travelled" Canvas.Left="37.997" TextWrapping="Wrap" Canvas.Top="312.5" Text="Distance Travelled:" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" FontSize="36.667"/>
         		<TextBlock x:Name="Arts1" Canvas.Left="78.845" TextWrapping="Wrap" Canvas.Top="122" Text="Arts" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" FontSize="36.667"/>
         		<TextBlock x:Name="NumArts" Canvas.Left="321.5" TextWrapping="Wrap" Canvas.Top="123.59" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" Text="3 / 25" FontSize="36"/>
         		<TextBlock x:Name="Politics1" Canvas.Left="79.845" TextWrapping="Wrap" Canvas.Top="163" Text="Politics" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" FontSize="36.667"/>

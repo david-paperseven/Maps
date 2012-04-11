@@ -258,6 +258,7 @@ namespace Maps
                 GeoCoordinate currentLocation = SaveState.Instance.currentLocation.GetLocation();
                 double distance = currentLocation.GetDistanceTo(location);
                 SaveState.Instance.journey.DistanceTravelled += distance / 1000.0;
+                PersistentStorage.Instance.km += distance / 1000.0; 
             }
 
             SaveState.Instance.currentLocation.SetLocation(location);
@@ -378,6 +379,7 @@ namespace Maps
         {
             if (SaveState.Instance.journey.Completed)
             {
+                PersistentStorage.Instance.ticks += SaveState.Instance.journey.GetElapsedTime().Ticks;
                 VisualStateManager.GoToState(this, "CompletedRouteState", true);
             }
             else
@@ -877,6 +879,14 @@ namespace Maps
                         VisualStateManager.GoToState(QuickStartNameInfo, "SlideUp", true);
                         break;
                     }
+                case "StatsScreenState":
+                    {
+                        KMTravelled.Text = PersistentStorage.Instance.km.ToString("F2") + "km";
+                        TimeSpan elapsedtime = new TimeSpan(PersistentStorage.Instance.ticks);
+                        ETime.Text = elapsedtime.Hours.ToString() + ":" + elapsedtime.Minutes.ToString("D2") + "hrs";
+                        break;
+                    }
+                        
             }
 /*
             if (e.NewState.Name != "SplashScreenState")
@@ -1126,7 +1136,7 @@ namespace Maps
             UpdatePlaqueVisibilty();
         }
 
-        private void RemoveAllPinsExceptNext()
+        public void RemoveAllPinsExceptNext()
         {
             // remove old pins
             SaveState.Instance.pinlayer.Children.Clear();

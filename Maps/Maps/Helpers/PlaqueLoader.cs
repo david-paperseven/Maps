@@ -136,7 +136,7 @@ namespace Maps.Helpers
                             if (character == '\"' && tokenInQuotes == false)
                             {
                                 tokenInQuotes = true;
-                                printLine += character;
+                                //printLine += character;
                                 continue;
                             }
 
@@ -144,7 +144,7 @@ namespace Maps.Helpers
                             else if (tokenInQuotes == true && character == '\"')
                             {
                                 tokenInQuotes = false;
-                                printLine += character;
+                                //printLine += character;
                                 continue;
                             }
                         }

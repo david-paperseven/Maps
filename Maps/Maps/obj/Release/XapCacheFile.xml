@@ -1,8 +1,8 @@
-﻿<xapCache source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Release\Maps.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="10/04/2012 19:22:25">
+﻿<xapCache source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Release\Maps.xap" wasSigned="False" certificateThumbprint="" TimeStampUrl="" lastWriteTime="11/04/2012 20:54:13">
   <file source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Release\WMAppManifest.xml" archivePath="WMAppManifest.xml" lastWriteTime="02/04/2012 09:24:15" />
   <file source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\Background.png" archivePath="Background.png" lastWriteTime="17/01/2011 23:02:00" />
   <file source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\ApplicationIcon.png" archivePath="ApplicationIcon.png" lastWriteTime="17/01/2011 23:02:00" />
-  <file source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\obj\Release\Maps.dll" archivePath="Maps.dll" lastWriteTime="10/04/2012 19:22:24" />
+  <file source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\obj\Release\Maps.dll" archivePath="Maps.dll" lastWriteTime="11/04/2012 20:54:12" />
   <file source="c:\Program Files (x86)\Microsoft SDKs\Expression\Blend\Windows Phone\v7.1\Libraries\Microsoft.Expression.Interactions.dll" archivePath="Microsoft.Expression.Interactions.dll" lastWriteTime="17/08/2011 02:48:22" />
   <file source="C:\Program Files (x86)\Microsoft SDKs\Windows Phone\v7.1\Libraries\Silverlight\Microsoft.Phone.Controls.Maps.dll" archivePath="Microsoft.Phone.Controls.Maps.dll" lastWriteTime="15/09/2011 16:36:26" />
   <file source="c:\Program Files (x86)\Microsoft SDKs\Expression\Blend\Windows Phone\v7.1\Libraries\System.Windows.Interactivity.dll" archivePath="System.Windows.Interactivity.dll" lastWriteTime="17/08/2011 02:48:22" />
@@ -15,7 +15,7 @@
   <file source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\ServiceReferences.ClientConfig" archivePath="ServiceReferences.ClientConfig" lastWriteTime="01/03/2012 19:52:48" />
   <file source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\Text\plaques.csv" archivePath="Text\plaques.csv" lastWriteTime="05/04/2012 13:08:50" />
   <file source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\SplashScreenImage.jpg" archivePath="SplashScreenImage.jpg" lastWriteTime="17/01/2011 23:02:00" />
-  <file source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Release\AppManifest.xaml" archivePath="AppManifest.xaml" lastWriteTime="05/04/2012 11:54:01" />
+  <file source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Release\AppManifest.xaml" archivePath="AppManifest.xaml" lastWriteTime="11/04/2012 17:16:03" />
   <file source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Release\Fonts\NokiaPureHeadlineBd.ttf" archivePath="Fonts\NokiaPureHeadlineBd.ttf" lastWriteTime="04/02/2011 14:46:36" />
   <file source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Release\Fonts\NokiaPureHeadlineLt.ttf" archivePath="Fonts\NokiaPureHeadlineLt.ttf" lastWriteTime="04/02/2011 14:46:36" />
   <file source="C:\Users\PaperPC\Projects\Maps\Maps\Maps\Bin\Release\Fonts\NokiaPureHeadlineRg.ttf" archivePath="Fonts\NokiaPureHeadlineRg.ttf" lastWriteTime="04/02/2011 14:46:40" />
