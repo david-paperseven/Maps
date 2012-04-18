@@ -45,14 +45,19 @@ namespace Maps.Helpers
 
             myMap = map;
             Circle = new Ellipse();
-            Circle.Stroke = new SolidColorBrush(Colors.Black);
-            Color grey = new Color();
-            grey.A = 128;
-            grey.R = 128;
-            grey.G = 128;
-            grey.B = 128;
+            Color strokecolor = new Color();
+            strokecolor.A = 255;
+            strokecolor.R = 255;
+            strokecolor.G = 0;
+            strokecolor.B = 179;
+            Circle.Stroke = new SolidColorBrush(strokecolor);
+            Color fillcolor = new Color();
+            fillcolor.A = 128;
+            fillcolor.R = 255;
+            fillcolor.G = 212;
+            fillcolor.B = 242;
 
-            Circle.Fill = new SolidColorBrush(grey);
+            Circle.Fill = new SolidColorBrush(fillcolor);
             Circle.HorizontalAlignment = HorizontalAlignment.Left;
             Circle.VerticalAlignment = VerticalAlignment.Center;
             Circle.Width = 75;

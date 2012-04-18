@@ -73,7 +73,8 @@ namespace Maps
             SaveState.Instance.routedrawer.Init();
 
             Initializeplaques();
-            //DebugRouteTimer();
+            DebugRouteTimer();
+            //DebugPlaquePosTimer();
             PlaqueFlashTimer();
 
             //PersistentStorage.Instance.Reset();
@@ -91,6 +92,7 @@ namespace Maps
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            Tombstone.Instance.RestoringFromTombstone();
             VisualStateManager.GoToState(this, SaveState.Instance.CurrentVisualState, true);
         }
 
@@ -143,7 +145,7 @@ namespace Maps
         private void InitializeWatcher()
         {
             SaveState.Instance.watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.High); // using high accuracy;
-            SaveState.Instance.watcher.MovementThreshold = 5.0f; // meters of change before "PositionChanged"
+            SaveState.Instance.watcher.MovementThreshold = 1.0f; // meters of change before "PositionChanged"
             // wire up event handlers
             SaveState.Instance.watcher.StatusChanged += new
             EventHandler<GeoPositionStatusChangedEventArgs>(watcher_StatusChanged);
@@ -188,6 +190,41 @@ namespace Maps
         }
 
         int counter = 0;
+        private void DebugPlaquePosTimer()
+        {
+            DispatcherTimer timer = new DispatcherTimer();
+
+            timer.Tick +=
+                delegate(object s, EventArgs args)
+                {
+                    if (SaveState.Instance.routeState == RouteState.Travelling)
+                    {
+                        GeoCoordinate location = SaveState.Instance.plaques[counter++].GetLocation();
+
+                        Point desiredPoint = new Point(-100, 300);
+
+                        //GeoCoordinate centre = myMap.ViewportPointToLocation(viewportPoint);
+
+                        Point currentPoint = myMap.LocationToViewportPoint(location);
+                        Point centrePoint = new Point();
+                        centrePoint.X = currentPoint.X + desiredPoint.X;
+                        centrePoint.Y = currentPoint.Y + desiredPoint.Y;
+
+                        GeoCoordinate centre = myMap.ViewportPointToLocation(centrePoint);
+                        myMap.Center = centre;
+
+                        //myMap.Center = location;
+                    
+                        //Point viewportPoint = new Point(150, 900);
+                        //GeoCoordinate centre = myMap.ViewportPointToLocation(viewportPoint);
+                        //myMap.SetView(centre);
+                    }
+                };
+
+            timer.Interval = new TimeSpan(0, 0, 0, 5, 0);
+            timer.Start();
+        }
+
         private void DebugRouteTimer()
         {
             DispatcherTimer timer = new DispatcherTimer();
@@ -245,10 +282,10 @@ namespace Maps
 
         void watcher_PositionChanged(object sender, GeoPositionChangedEventArgs<GeoCoordinate> e)
         {
-            //GeoCoordinate location = new GeoCoordinate(51.511397, -0.128263);
-            //ChangedLocation(location);
+            GeoCoordinate location = new GeoCoordinate(51.511397, -0.128263);
+            ChangedLocation(location);
 
-            ChangedLocation(e.Position.Location);
+            //ChangedLocation(e.Position.Location);
         }
 
         void ChangedLocation(GeoCoordinate location)
@@ -302,7 +339,7 @@ namespace Maps
             }
         }
 
-        void DrawRoute()
+        public void DrawRoute()
         {
             System.Collections.ObjectModel.ObservableCollection<Waypoint> waypoints = SaveState.Instance.routeList.GetFinalList(SaveState.Instance.currentLocation.GetLocation());
 
@@ -472,8 +509,8 @@ namespace Maps
             SaveState.Instance.routeState = RouteState.Travelling;
             SaveState.Instance.journey.FillInDetails();
             SaveState.Instance.journey.StartJourney(SaveState.Instance.summary);
+            //myMap.ZoomLevel = 17;
             myMap.Center = Bounds.GetCentreWithOffset(SaveState.Instance.currentLocation.GetLocation(), (int)myMap.ZoomLevel);
-
         }
 
         private void RouteSummaryEditRouteButton_Click(object sender, RoutedEventArgs e)
@@ -697,10 +734,10 @@ namespace Maps
 
         private void ParametersDoneButton_Click(object sender, RoutedEventArgs e)
         {
-            SaveState.Instance.plaquedistance.SortPlaques();
-
             SaveState.Instance.summary.NumPlaques = SaveState.Instance.appgenparameters.NumPlaques + 1; // +1 for the end point
-           
+
+            SaveState.Instance.plaquedistance.SortPlaques(SaveState.Instance.summary.NumPlaques);
+
             CalculatingPage();
             
             System.Collections.ObjectModel.ObservableCollection<Waypoint> waypoints = new System.Collections.ObjectModel.ObservableCollection<Waypoint>();
@@ -742,6 +779,18 @@ namespace Maps
             SaveState.Instance.routeState = RouteState.DistanceSummary;
             VisualStateManager.GoToState(this, "DistanceSummaryState", true); 
             
+
+        }
+        
+        public void CentrePlaqueForFullInfo(GeoCoordinate location)
+        {
+            Point desiredPoint = new Point(-100, 300);
+            Point currentPoint = myMap.LocationToViewportPoint(location);
+            Point centrePoint = new Point();
+            centrePoint.X = currentPoint.X + desiredPoint.X;
+            centrePoint.Y = currentPoint.Y + desiredPoint.Y;
+            GeoCoordinate centre = myMap.ViewportPointToLocation(centrePoint);
+            myMap.Center = centre;
 
         }
 

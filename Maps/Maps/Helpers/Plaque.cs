@@ -84,6 +84,7 @@ namespace Maps.Helpers
 
         void Pin_Tap(object sender, GestureEventArgs e)
         {
+
             /*
             if (SaveState.Instance.routeState == MainPage.RouteState.Normal)
             {
@@ -204,10 +205,12 @@ namespace Maps.Helpers
 
         public void ShowFullInfo()
         {
+            myMainPage.CentrePlaqueForFullInfo(GetLocation());
+
             myMainPage.FullInfoRichTextBox.Blocks.Clear();
-            myMainPage.FullInfoScrollViewer.ScrollToVerticalOffset(0);
-            myMainPage.FullInfoRichTextBox.Height = 1600.0;
-            myMainPage.FullInfo1.Height = 1600.0;
+            myMainPage.FullInfoScrollViewer.ScrollToVerticalOffset(150);
+            myMainPage.FullInfoRichTextBox.Height = 1700.0;
+            myMainPage.FullInfo1.Height = 1700.0;
 
             Run unlockedRun = new Run();
             Run nameRun = new Run();
@@ -243,21 +246,21 @@ namespace Maps.Helpers
 
             Image LineBreak = new Image();
             LineBreak.Source = new BitmapImage(new Uri("QuickInfo_Images/LINE BREAK copy.png",UriKind.RelativeOrAbsolute));
-            LineBreak.Height = 3;
+            LineBreak.Height = 8;
             LineBreak.Width = 388;
             InlineUIContainer LBUI = new InlineUIContainer();
             LBUI.Child = LineBreak;
 
             Image LineBreak2 = new Image();
             LineBreak2.Source = new BitmapImage(new Uri("QuickInfo_Images/LINE BREAK copy.png", UriKind.RelativeOrAbsolute));
-            LineBreak2.Height = 3;
+            LineBreak2.Height = 8;
             LineBreak2.Width = 388;
             InlineUIContainer LBUI2 = new InlineUIContainer();
             LBUI2.Child = LineBreak2;
 
             Image LineBreak3 = new Image();
             LineBreak3.Source = new BitmapImage(new Uri("QuickInfo_Images/LINE BREAK copy.png", UriKind.RelativeOrAbsolute));
-            LineBreak3.Height = 3;
+            LineBreak3.Height = 8;
             LineBreak3.Width = 388;
             InlineUIContainer LBUI3 = new InlineUIContainer();
             LBUI3.Child = LineBreak3;
@@ -393,6 +396,12 @@ namespace Maps.Helpers
         public void SetGreen()
         {
             Pin.Fill = brushStartOfRouteMarker;
+            Pin.Opacity = 1.0;
+        }
+
+        public void SetRed()
+        {
+            Pin.Fill = brushEndOfRouteMarker;
             Pin.Opacity = 1.0;
         }
 

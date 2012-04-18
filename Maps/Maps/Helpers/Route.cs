@@ -63,6 +63,8 @@ namespace Maps.Helpers
 
             mySummary = summary;
 
+            routeRequest.ExecutionOptions = new ExecutionOptions();
+            routeRequest.ExecutionOptions.SuppressFaults = true;
             // Make the CalculateRoute asnychronous request.
             routeService.CalculateRouteAsync(routeRequest);
         }
@@ -70,7 +72,6 @@ namespace Maps.Helpers
         // This is the callback method for the CalculateRoute request.
         private void routeService_CalculateRouteCompleted(object sender, RouteService.CalculateRouteCompletedEventArgs e)
         {
-            
             // If the route calculate was a success and contains a route, then draw the route on the map.
             if ((e.Result.ResponseSummary.StatusCode == RouteService.ResponseStatusCode.Success) & (e.Result.Result.Legs.Count != 0))
             {

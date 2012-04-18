@@ -65,33 +65,30 @@ namespace Maps
         {
             SaveState.Init();
             PersistentStorage.Init();
+            Tombstone.Init();
 
             LoadPersistentStorage();
-
-            using (var store = IsolatedStorageFile.GetUserStoreForApplication())
-            using (var stream = new IsolatedStorageFileStream("data.txt", FileMode.OpenOrCreate, FileAccess.Read, store))
-            using (var reader = new StreamReader(stream))
-            {
-                if (!reader.EndOfStream)
-                {
-                    var serializer = new XmlSerializer(typeof(SaveState));
-                    SaveState.Instance.SetState((SaveState)serializer.Deserialize(reader));
-                }
-            }
-            
         }
 
         // Code to execute when the application is activated (brought to foreground)
         // This code will not execute when the application is first launched
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
+            SaveState.Init();
+            PersistentStorage.Init();
+            Tombstone.Init();
+
             LoadPersistentStorage();
+            LoadTombstoneData();
+
         }
 
         // Code to execute when the application is deactivated (sent to background)
         // This code will not execute when the application is closing
         private void Application_Deactivated(object sender, DeactivatedEventArgs e)
         {
+            Tombstone.Instance.Tombstoning();
+            SaveTombstoneData();
             SavePersistentStorage();
         }
 
@@ -100,19 +97,33 @@ namespace Maps
         private void Application_Closing(object sender, ClosingEventArgs e)
         {
             SavePersistentStorage();
-            
-            // persist the data using isolated storage
+        }
+
+        private void SaveTombstoneData()
+        {
             using (var store = IsolatedStorageFile.GetUserStoreForApplication())
-            using (var stream = new IsolatedStorageFileStream("data.txt",
+            using (var stream = new IsolatedStorageFileStream("tombstone.txt",
                                                             FileMode.Create,
                                                             FileAccess.Write,
                                                             store))
             {
-                var serializer = new XmlSerializer(typeof(SaveState));
-                serializer.Serialize(stream, SaveState.Instance);
+                var serializer = new XmlSerializer(typeof(Tombstone));
+                serializer.Serialize(stream, Tombstone.Instance);
             }
-            
+        }
 
+        private void LoadTombstoneData()
+        {
+            using (var store = IsolatedStorageFile.GetUserStoreForApplication())
+            using (var stream = new IsolatedStorageFileStream("tombstone.txt", FileMode.OpenOrCreate, FileAccess.Read, store))
+            using (var reader = new StreamReader(stream))
+            {
+                if (!reader.EndOfStream)
+                {
+                    var serializer = new XmlSerializer(typeof(Tombstone));
+                    Tombstone.Instance.SetState((Tombstone)serializer.Deserialize(reader));
+                }
+            }
         }
 
         private void SavePersistentStorage()

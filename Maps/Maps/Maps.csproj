@@ -89,6 +89,7 @@
     <Compile Include="Helpers\RouteList.cs" />
     <Compile Include="Helpers\Summary.cs" />
     <Compile Include="Helpers\TileSystem.cs" />
+    <Compile Include="Helpers\Tombstone.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -128,6 +129,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="BLD_BLUE-MAPS_ARROW_01.png" />
     <Content Include="Fonts\NokiaPureHeadlineBd.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -205,6 +207,7 @@
     <Resource Include="Marker\MARKER_TRANS_RED.png" />
     <Resource Include="Marker\HOME.png" />
     <Content Include="ServiceReferences.ClientConfig" />
+    <Resource Include="StartPlaqueInfo-ARROW_01.png" />
     <Content Include="Text\plaques.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
