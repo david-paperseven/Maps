@@ -73,7 +73,7 @@ namespace Maps
             SaveState.Instance.routedrawer.Init();
 
             Initializeplaques();
-            DebugRouteTimer();
+            //DebugRouteTimer();
             //DebugPlaquePosTimer();
             PlaqueFlashTimer();
 
