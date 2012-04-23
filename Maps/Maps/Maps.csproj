@@ -54,6 +54,7 @@
     <Reference Include="Microsoft.Phone" />
     <Reference Include="Microsoft.Phone.Controls.Maps" />
     <Reference Include="Microsoft.Phone.Interop" />
+    <Reference Include="Microsoft.Xna.Framework" />
     <Reference Include="mscorlib.Extensions" />
     <Reference Include="System.Device" />
     <Reference Include="System.Runtime.Serialization" />
@@ -75,9 +76,12 @@
     </Compile>
     <Compile Include="Helpers\AppGenParameters.cs" />
     <Compile Include="Helpers\Bounds.cs" />
+    <Compile Include="Helpers\DebugClass.cs" />
     <Compile Include="Helpers\JourneySaver.cs" />
     <Compile Include="Helpers\PersistentStorage.cs" />
     <Compile Include="Helpers\PlaqueDistance.cs" />
+    <Compile Include="Helpers\RouteCalculationError.cs" />
+    <Compile Include="Helpers\RouteCalculator.cs" />
     <Compile Include="Helpers\RouteDrawer.cs" />
     <Compile Include="Helpers\SaveState.cs" />
     <Compile Include="Helpers\CurrentLocation.cs" />
@@ -129,6 +133,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="addplaque_Images\Path.png" />
     <Resource Include="BLD_BLUE-MAPS_ARROW_01.png" />
     <Content Include="Fonts\NokiaPureHeadlineBd.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -170,6 +175,24 @@
     <Resource Include="AppGenEndPoint_Images\Compound Path.png" />
     <Resource Include="AppGenEndPoint_Images\Group.png" />
     <Resource Include="AppGenEndPoint_Images\Path.png" />
+    <Resource Include="BLD_BLUE-MAPS_BUTTON_ADD-PLAQUE_Images\AddPlaqueOutline.png" />
+    <Resource Include="BLD_BLUE-MAPS_BUTTON_ADD-PLAQUE_PRESS_Images\AddPlaquePressedOutline.png" />
+    <Resource Include="BLD_BLUE-MAPS_BUTTON_CLEAR-ROUTE_Images\ClearRouteOutline.png" />
+    <Resource Include="BLD_BLUE-MAPS_BUTTON_CLEAR-ROUTE_PRESS_Images\ClearRoutePressedOutline.png" />
+    <Resource Include="BLD_BLUE-MAPS_BUTTON_DONE_Images\Vector Smart Object.png" />
+    <Resource Include="BLD_BLUE-MAPS_BUTTON_DONE_PRESS_Images\Vector Smart Object.png" />
+    <Resource Include="BLD_BLUE-MAPS_BUTTON_HELP_Images\HelpOutline.png" />
+    <Resource Include="BLD_BLUE-MAPS_BUTTON_HELP_PRESS_Images\HelpOutlinePressed.png" />
+    <Resource Include="BLD_BLUE-MAPS_BUTTON_HELP_PRESS_Images\Vector Smart Object copy.png" />
+    <Resource Include="BLD_BLUE-MAPS_BUTTON_OPTIONS_Images\OptionsOutline.png" />
+    <Resource Include="BLD_BLUE-MAPS_BUTTON_OPTIONS_PRESS_Images\OptionsOutlinePressed.png" />
+    <Resource Include="BLD_BLUE-MAPS_BUTTON_PLOT-ROUTE_Images\PlotRouteOutlineNotPressed.png" />
+    <Resource Include="BLD_BLUE-MAPS_BUTTON_PLOT-ROUTE_PRESS_Images\PlotRouteOutlinePressed.png" />
+    <Resource Include="BLD_BLUE-MAPS_BUTTON_REMOVE-PLAQUE_Images\RemovePlaqueOutline.png" />
+    <Resource Include="BLD_BLUE-MAPS_BUTTON_REMOVE-PLAQUE_Images\Vector Smart Object copy 13.png" />
+    <Resource Include="BLD_BLUE-MAPS_BUTTON_REMOVE-PLAQUE_PRESS_Images\RemovePlaqueOutlinePressed.png" />
+    <Resource Include="BLD_BLUE-MAPS_BUTTON_REVISIT-PLAQUE_Images\RevisitPlaqueOutline.png" />
+    <Resource Include="BLD_BLUE-MAPS_BUTTON_REVISIT-PLAQUE_PRESS_Images\RevisitPlaqueOutlinePressed.png" />
     <Resource Include="BLD_NK_BLUE-PLAQUE-MAIN-MENU_01_Images\Group.png" />
     <Resource Include="BLD_NK_BLUE-PLAQUE-MAIN-MENU_01_Images\Group1.png" />
     <Resource Include="BottomBar_Images\Group.png" />
@@ -191,6 +214,7 @@
     <Resource Include="FullInfo_Images\Compound Path1.png" />
     <Resource Include="FullInfo_Images\Group.png" />
     <Resource Include="MainMenu_Images\Group.png" />
+    <Resource Include="MainMenu_Images\Group1.png" />
     <Resource Include="MainMenu_Images\Path.png" />
     <Resource Include="Marker\MARKER.png" />
     <Resource Include="Marker\MARKER_BLUE.png" />
@@ -241,6 +265,16 @@
     <Resource Include="StatsScreen_Images\Path.png" />
     <Resource Include="UnlockedPlaque_Images\Group.png" />
     <Resource Include="UnlockedPlaque_Images\Path.png" />
+    <Resource Include="USER-SEL-EndPlaque_Images\Compound Path.png" />
+    <Resource Include="USER-SEL-EndPlaque_Images\Group.png" />
+    <Resource Include="USER-SEL-EndPlaque_Images\Group1.png" />
+    <Resource Include="USER-SEL-EndPlaque_Images\Path.png" />
+    <Resource Include="USER-SEL_ChoosePlaques_Images\Group.png" />
+    <Resource Include="USER-SEL_ChoosePlaques_Images\Group1.png" />
+    <Resource Include="USER-SEL_ChoosePlaques_Images\Path.png" />
+    <Resource Include="USER-SEL_ChooseStartPlaque_Images\Group.png" />
+    <Resource Include="USER-SEL_ChooseStartPlaque_Images\Group1.png" />
+    <Resource Include="USER-SEL_ChooseStartPlaque_Images\Path.png" />
     <Resource Include="WhiteMARKER.png" />
   </ItemGroup>
   <ItemGroup>

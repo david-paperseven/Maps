@@ -17,6 +17,27 @@ using Microsoft.Phone.Controls.Maps.Core;
 
 namespace Maps.Helpers
 {
+    public static class FrameworkElementExtensions
+    {
+        public static object TryFindResource(this FrameworkElement element, object resourceKey)
+        {
+            var currentElement = element;
+
+            while (currentElement != null)
+            {
+                var resource = currentElement.Resources[resourceKey];
+                if (resource != null)
+                {
+                    return resource;
+                }
+
+                currentElement = currentElement.Parent as FrameworkElement;
+            }
+
+            return Application.Current.Resources[resourceKey];
+        }
+    }
+    
     public class Plaque
     {
         MainPage myMainPage;
@@ -79,7 +100,7 @@ namespace Maps.Helpers
 
             text = new TextBlock();
 
-            myMainPage.AddOrRemovePlaque.Opacity = 0.0;
+            myMainPage.AddPlaque.Visibility = Visibility.Collapsed;
         }
 
         void Pin_Tap(object sender, GestureEventArgs e)
@@ -104,8 +125,8 @@ namespace Maps.Helpers
                 SaveState.Instance.routeList.SetStartPoint(this);
                 ShowQuickInfo();
 
-                myMainPage.Done1.Opacity = 1.0;
-                myMainPage.SelectPlaquesButton.IsHitTestVisible = true;
+                myMainPage.DoneButton.Opacity = 1.0;
+                myMainPage.DoneButton.IsHitTestVisible = true;
 
             }
 
@@ -115,22 +136,24 @@ namespace Maps.Helpers
                     return;
                 ShowQuickInfo();
 
-                myMainPage.AddOrRemovePlaque.Opacity = 1.0;
-                myMainPage.AddOrRemovePlaqueYesNo.Opacity = 1.0;
-                myMainPage.SelectPlaqueYes.IsHitTestVisible = true;
+                myMainPage.Select_plaques_to_visit.Visibility = Visibility.Collapsed;
+                myMainPage.RemovePlaque.Visibility = Visibility.Collapsed;
+                myMainPage.RevisitPlaque.Visibility = Visibility.Collapsed;
+                myMainPage.AddPlaque.Visibility = Visibility.Collapsed; 
 
+                
                 if (SaveState.Instance.routeList.GetList().Contains(this))
                 {
-                    myMainPage.AddOrRemovePlaque.Text = "Remove from route";
+                    myMainPage.RemovePlaque.Visibility = Visibility.Visible; 
                 }
                 else
                 {
                     if (PersistentStorage.Instance.Visited(this.Info.number))
-                        myMainPage.AddOrRemovePlaque.Text = "Revisit plaque?";
+                        myMainPage.RevisitPlaque.Visibility = Visibility.Visible; 
                     else
-                        myMainPage.AddOrRemovePlaque.Text = "Add plaque to route";
+                       myMainPage.AddPlaque.Visibility = Visibility.Visible; 
                 }
-
+                
 
                 if (SaveState.Instance.routeList.GetCurrentPoint() != null)
                 {
@@ -148,7 +171,7 @@ namespace Maps.Helpers
                 myMainPage.Done.Opacity = 1;
                 myMainPage.DoneEndPointButton.IsHitTestVisible = true;
 
-                myMainPage.AppGenEndPointDone.Opacity = 1.0;
+                myMainPage.AppGenRouteEndPointDonButton.Opacity = 1.0;
                 myMainPage.AppGenRouteEndPointDonButton.IsHitTestVisible = true;
 
 
@@ -212,6 +235,8 @@ namespace Maps.Helpers
             myMainPage.FullInfoRichTextBox.Height = 1700.0;
             myMainPage.FullInfo1.Height = 1700.0;
 
+            Brush white = new SolidColorBrush(Colors.White);
+
             Run unlockedRun = new Run();
             Run nameRun = new Run();
             Run dateRun = new Run();
@@ -225,22 +250,28 @@ namespace Maps.Helpers
             unlockedRun.Text = "You've unlocked this plaque!\n";
             unlockedRun.FontFamily = headline;
             unlockedRun.FontSize = 30;
+            unlockedRun.Foreground = white;
 
             nameRun.Text = Info.GetName() + "\n";
             nameRun.FontFamily = headline;
             nameRun.FontSize = 37;
+            nameRun.Foreground = white;
             dateRun.Text = "(" + Info.date + ") " + Info.info1 + "\n";
             dateRun.FontFamily = light;
             dateRun.FontSize = 37;
+            dateRun.Foreground = white;
             infoRun.Text = Info.fullinfo + "\n";
             infoRun.FontFamily = headline;
             infoRun.FontSize = 30;
+            infoRun.Foreground = white;
             fullInfoRun.Text = Info.fulltext + "\n\n";
             fullInfoRun.FontFamily = light;
             fullInfoRun.FontSize = 30;
+            fullInfoRun.Foreground = white;
             exitRun.Text = "\n\nExit\n";
             exitRun.FontFamily = headline;
             exitRun.FontSize = 37;
+            exitRun.Foreground = white;
 
                     		//<Image x:Name="LINE_BREAK_copy3" Height="3" Canvas.Left="46" Source="QuickInfo_Images/LINE BREAK copy.png" Canvas.Top="65" Width="388" d:IsHidden="True"/>
 
@@ -268,7 +299,8 @@ namespace Maps.Helpers
             Hyperlink link = new Hyperlink();
             link.FontFamily = light;
             link.FontSize = 30;
-            link.Inlines.Add("More Info\n");
+            link.Foreground = white;
+            link.Inlines.Add("More Info\n\n");
             link.NavigateUri = new Uri(Info.moreinfo);
             link.TargetName = "_blank";
 
@@ -282,6 +314,8 @@ namespace Maps.Helpers
             button.FontSize = 37;
             button.Content = "Exit";
             button.BorderBrush = null;
+            button.Style = (Style)FrameworkElementExtensions.TryFindResource(myMainPage.element, "ExitButton");
+
             InlineUIContainer buttonUI = new InlineUIContainer();
             buttonUI.Child = button;
 
@@ -306,6 +340,7 @@ namespace Maps.Helpers
 
             VisualStateManager.GoToState(myMainPage, "FullInfoState", true);
         }
+
 
         void exitFullInfoClick(object sender, RoutedEventArgs e)
         {

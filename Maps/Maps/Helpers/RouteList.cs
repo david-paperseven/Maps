@@ -102,13 +102,23 @@ namespace Maps.Helpers
             sp.Location = startPoint.Info.location;
             waypoints.Add(sp);
 
+            int count = 0;
             foreach (Plaque p in routeList)
             {
                 if (p != endPoint) // endpoint treated separately
                 {
                     Waypoint wp = new Waypoint();
                     wp.Location = p.Info.location;
-                    waypoints.Add(wp);
+                    count++;
+
+                    if (count < 21)
+                    {
+                        waypoints.Add(wp);
+                    }
+                    else
+                    {
+                        p.ClearSelection();
+                    }
                 }
             }
 

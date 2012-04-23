@@ -23,7 +23,7 @@ namespace Maps.Helpers
             long hours = numMins / 60;
             long mins = numMins % 60;
 
-            string output = hours.ToString() + ":" + mins.ToString("D2");
+            string output = hours.ToString() + "h:" + mins.ToString("D2")+"m";
             return output;
         }
 

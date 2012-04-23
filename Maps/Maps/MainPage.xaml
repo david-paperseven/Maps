@@ -68,12 +68,572 @@
 								</VisualStateGroup>
 							</VisualStateManager.VisualStateGroups>
 							<Border x:Name="ButtonBackground" Background="{TemplateBinding Background}" CornerRadius="0" Margin="0,11,24,13">
-								<ContentControl x:Name="ContentContainer" ContentTemplate="{TemplateBinding ContentTemplate}" Foreground="{TemplateBinding Foreground}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" Style="{StaticResource ContentControlStyle1}" Opacity="0.995" HorizontalAlignment="Right" Width="85" Margin="0,-8,-13,-20" Content="Exit" FontFamily="/Maps;component/Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" FontSize="49.333"/>
+								<ContentControl x:Name="ContentContainer" ContentTemplate="{TemplateBinding ContentTemplate}" Foreground="{TemplateBinding Foreground}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" Padding="{TemplateBinding Padding}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" Style="{StaticResource ContentControlStyle1}" Opacity="0.995" HorizontalAlignment="Right" Width="85" Margin="0,-8,-13,-20" Content="Exit" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" FontSize="49.333"/>
 							</Border>
 						</Grid>
 					</ControlTemplate>
 				</Setter.Value>
 			</Setter>
+		</Style>
+		<Style x:Key="DoneButton" TargetType="Button">
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="Button">
+						<Canvas x:Name="BLD_BLUE_MAPS_BUTTON_DONE" UseLayoutRounding="False">
+							<VisualStateManager.VisualStateGroups>
+								<VisualStateGroup x:Name="CommonStates">
+									<VisualState x:Name="Disabled"/>
+									<VisualState x:Name="Normal"/>
+									<VisualState x:Name="MouseOver"/>
+									<VisualState x:Name="Pressed">
+										<Storyboard>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="DoneNotPressed">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Collapsed</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="DonePressed">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Visible</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="DoneTextNotPressed">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Collapsed</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="DoneTextPressed">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Visible</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+										</Storyboard>
+									</VisualState>
+								</VisualStateGroup>
+							</VisualStateManager.VisualStateGroups>
+							<Image x:Name="DoneNotPressed" Height="42" Canvas.Left="2" Source="BLD_BLUE-MAPS_BUTTON_DONE_Images/Vector Smart Object.png" Canvas.Top="2" Width="105"/>
+							<Image x:Name="DonePressed" Height="42" Source="BLD_BLUE-MAPS_BUTTON_DONE_PRESS_Images/Vector Smart Object.png" Stretch="Fill" Width="105" Visibility="Collapsed"/>
+							<TextBlock x:Name="DoneTextNotPressed" TextWrapping="Wrap" Text="Done" Canvas.Left="15.776" Canvas.Top="-0.19" Foreground="#FFFBF6F6" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" FontSize="34.667"/>
+                            <TextBlock x:Name="DoneTextPressed" TextWrapping="Wrap" Text="Done" Canvas.Left="15.776" Canvas.Top="-0.19" Foreground="#FF124191" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" FontSize="34.667" Visibility="Collapsed"/>
+						</Canvas>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+			<Setter Property="FontFamily" Value="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline"/>
+			<Setter Property="FontSize" Value="34.5"/>
+			<Setter Property="Foreground" Value="White"/>
+		</Style>
+		<Style x:Key="OptionsButton" TargetType="Button">
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="Button">
+						<Canvas x:Name="BLD_BLUE_MAPS_BUTTON_DONE" UseLayoutRounding="False">
+							<VisualStateManager.VisualStateGroups>
+								<VisualStateGroup x:Name="CommonStates">
+									<VisualState x:Name="Disabled"/>
+									<VisualState x:Name="Normal"/>
+									<VisualState x:Name="MouseOver"/>
+									<VisualState x:Name="Pressed">
+										<Storyboard>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="DoneTextNotPressed">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Collapsed</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="DoneTextPressed">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Visible</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="OptionsNotPressed">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Collapsed</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="OptionsPressed">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Visible</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+										</Storyboard>
+									</VisualState>
+								</VisualStateGroup>
+							</VisualStateManager.VisualStateGroups>
+							<Image x:Name="OptionsNotPressed" Height="42" Source="BLD_BLUE-MAPS_BUTTON_OPTIONS_Images/OptionsOutline.png" Stretch="Fill" Width="141"/>
+							<Image x:Name="OptionsPressed" Height="42" Source="BLD_BLUE-MAPS_BUTTON_OPTIONS_PRESS_Images/OptionsOutlinePressed.png" Stretch="Fill" Width="141" Visibility="Collapsed"/>
+							<TextBlock x:Name="DoneTextNotPressed" TextWrapping="Wrap" Text="Options" Canvas.Left="9.776" Canvas.Top="-3.19" Foreground="#FFFBF6F6" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" FontSize="34.667"/>
+							<TextBlock x:Name="DoneTextPressed" TextWrapping="Wrap" Text="Options" Canvas.Left="9.776" Canvas.Top="-3.19" Foreground="#FF124191" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" FontSize="34.667" Visibility="Collapsed"/>
+						</Canvas>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+			<Setter Property="FontFamily" Value="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline"/>
+			<Setter Property="FontSize" Value="34.5"/>
+			<Setter Property="Foreground" Value="White"/>
+		</Style>
+		<Style x:Key="AddPlaqueButton" TargetType="Button">
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="Button">
+						<Canvas x:Name="BLD_BLUE_MAPS_BUTTON_DONE" UseLayoutRounding="False">
+							<VisualStateManager.VisualStateGroups>
+								<VisualStateGroup x:Name="CommonStates">
+									<VisualState x:Name="Disabled"/>
+									<VisualState x:Name="Normal"/>
+									<VisualState x:Name="MouseOver"/>
+									<VisualState x:Name="Pressed">
+										<Storyboard>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="AddPlaqueTextNotPressed">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Collapsed</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="AddPlaqueTextPressed">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Visible</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="OutlineNotPressed">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Collapsed</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="OutlinePressed">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Visible</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+										</Storyboard>
+									</VisualState>
+								</VisualStateGroup>
+							</VisualStateManager.VisualStateGroups>
+							<Image x:Name="OutlineNotPressed" Height="42" Source="BLD_BLUE-MAPS_BUTTON_ADD-PLAQUE_Images/AddPlaqueOutline.png" Stretch="Fill" Width="191"/>
+							<Image x:Name="OutlinePressed" Height="42" Source="BLD_BLUE-MAPS_BUTTON_ADD-PLAQUE_PRESS_Images/AddPlaquePressedOutline.png" Stretch="Fill" Width="191" Visibility="Collapsed"/>
+							<TextBlock x:Name="AddPlaqueTextNotPressed" TextWrapping="Wrap" Text="Add Plaque" Canvas.Left="9.776" Canvas.Top="-3.19" Foreground="#FFFBF6F6" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" FontSize="34.667"/>
+							<TextBlock x:Name="AddPlaqueTextPressed" TextWrapping="Wrap" Text="AddPlaque" Canvas.Left="9.776" Canvas.Top="-3.19" Foreground="#FF124191" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" FontSize="34.667" Visibility="Collapsed"/>
+						</Canvas>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+			<Setter Property="FontFamily" Value="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline"/>
+			<Setter Property="FontSize" Value="34.5"/>
+			<Setter Property="Foreground" Value="White"/>
+		</Style>
+		<Style x:Key="StartButton" TargetType="Button">
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="Button">
+						<Canvas x:Name="BLD_BLUE_MAPS_BUTTON_DONE" UseLayoutRounding="False">
+							<VisualStateManager.VisualStateGroups>
+								<VisualStateGroup x:Name="CommonStates">
+									<VisualState x:Name="Disabled"/>
+									<VisualState x:Name="Normal"/>
+									<VisualState x:Name="MouseOver"/>
+									<VisualState x:Name="Pressed">
+										<Storyboard>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="DoneNotPressed">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Collapsed</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="DonePressed">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Visible</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="DoneTextNotPressed">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Collapsed</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="DoneTextPressed">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Visible</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+										</Storyboard>
+									</VisualState>
+								</VisualStateGroup>
+							</VisualStateManager.VisualStateGroups>
+							<Image x:Name="DoneNotPressed" Height="42" Canvas.Left="2" Source="BLD_BLUE-MAPS_BUTTON_DONE_Images/Vector Smart Object.png" Canvas.Top="2" Width="105"/>
+							<Image x:Name="DonePressed" Height="42" Source="BLD_BLUE-MAPS_BUTTON_DONE_PRESS_Images/Vector Smart Object.png" Stretch="Fill" Width="105" Visibility="Collapsed"/>
+							<TextBlock x:Name="DoneTextNotPressed" TextWrapping="Wrap" Text="Start" Canvas.Left="15.776" Canvas.Top="-0.19" Foreground="#FFFBF6F6" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" FontSize="34.667"/>
+							<TextBlock x:Name="DoneTextPressed" TextWrapping="Wrap" Text="Start" Canvas.Left="15.776" Canvas.Top="-0.19" Foreground="#FF124191" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" FontSize="34.667" Visibility="Collapsed"/>
+						</Canvas>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+			<Setter Property="FontFamily" Value="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline"/>
+			<Setter Property="FontSize" Value="34.5"/>
+			<Setter Property="Foreground" Value="White"/>
+		</Style>
+		<Style x:Key="ClearRouteButton" TargetType="Button">
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="Button">
+						<Canvas x:Name="BLD_BLUE_MAPS_BUTTON_DONE" UseLayoutRounding="False">
+							<VisualStateManager.VisualStateGroups>
+								<VisualStateGroup x:Name="CommonStates">
+									<VisualState x:Name="Disabled"/>
+									<VisualState x:Name="Normal"/>
+									<VisualState x:Name="MouseOver"/>
+									<VisualState x:Name="Pressed">
+										<Storyboard>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="DoneTextNotPressed">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Collapsed</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="DoneTextPressed">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Visible</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="image">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Collapsed</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="image1">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Visible</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+										</Storyboard>
+									</VisualState>
+								</VisualStateGroup>
+							</VisualStateManager.VisualStateGroups>
+							<Image x:Name="image" Height="42" Source="BLD_BLUE-MAPS_BUTTON_CLEAR-ROUTE_Images/ClearRouteOutline.png" Stretch="Fill" Width="196"/>
+							<Image x:Name="image1" Height="42" Source="BLD_BLUE-MAPS_BUTTON_CLEAR-ROUTE_PRESS_Images/ClearRoutePressedOutline.png" Stretch="Fill" Width="196" Visibility="Collapsed"/>
+							<TextBlock x:Name="DoneTextNotPressed" TextWrapping="Wrap" Text="Clear Route" Canvas.Left="8.437" Canvas.Top="-2.194" Foreground="#FFFBF6F6" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" FontSize="34.667"/>
+							<TextBlock x:Name="DoneTextPressed" TextWrapping="Wrap" Text="Clear Route" Canvas.Left="-8.437" Canvas.Top="-2.19" Foreground="#FF124191" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" FontSize="34.667" Visibility="Collapsed"/>
+						</Canvas>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+			<Setter Property="FontFamily" Value="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline"/>
+			<Setter Property="FontSize" Value="34.5"/>
+			<Setter Property="Foreground" Value="White"/>
+		</Style>
+		<Style x:Key="ExitButton" TargetType="Button">
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="Button">
+						<Canvas x:Name="BLD_BLUE_MAPS_BUTTON_DONE" UseLayoutRounding="False">
+							<VisualStateManager.VisualStateGroups>
+								<VisualStateGroup x:Name="CommonStates">
+									<VisualState x:Name="Disabled"/>
+									<VisualState x:Name="Normal"/>
+									<VisualState x:Name="MouseOver"/>
+									<VisualState x:Name="Pressed">
+										<Storyboard>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="DoneNotPressed">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Collapsed</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="DonePressed">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Visible</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="DoneTextNotPressed">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Collapsed</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="DoneTextPressed">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Visible</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+										</Storyboard>
+									</VisualState>
+								</VisualStateGroup>
+							</VisualStateManager.VisualStateGroups>
+							<Image x:Name="DoneNotPressed" Height="42" Canvas.Left="2" Source="BLD_BLUE-MAPS_BUTTON_DONE_Images/Vector Smart Object.png" Canvas.Top="2" Width="105"/>
+							<Image x:Name="DonePressed" Height="42" Source="BLD_BLUE-MAPS_BUTTON_DONE_PRESS_Images/Vector Smart Object.png" Stretch="Fill" Width="105" Visibility="Collapsed"/>
+							<TextBlock x:Name="DoneTextNotPressed" TextWrapping="Wrap" Text="Exit" Canvas.Left="22.436" Canvas.Top="-0.19" Foreground="#FFFBF6F6" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" FontSize="34.667"/>
+							<TextBlock x:Name="DoneTextPressed" TextWrapping="Wrap" Text="Exit" Canvas.Left="22.436" Canvas.Top="-0.19" Foreground="#FF124191" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" FontSize="34.667" Visibility="Collapsed"/>
+						</Canvas>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+			<Setter Property="FontFamily" Value="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline"/>
+			<Setter Property="FontSize" Value="34.5"/>
+			<Setter Property="Foreground" Value="White"/>
+		</Style>
+		<Style x:Key="PlotRouteButton" TargetType="Button">
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="Button">
+						<Canvas x:Name="BLD_BLUE_MAPS_BUTTON_DONE" UseLayoutRounding="False">
+							<VisualStateManager.VisualStateGroups>
+								<VisualStateGroup x:Name="CommonStates">
+									<VisualState x:Name="Disabled"/>
+									<VisualState x:Name="Normal"/>
+									<VisualState x:Name="MouseOver"/>
+									<VisualState x:Name="Pressed">
+										<Storyboard>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="AddPlaqueTextNotPressed">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Collapsed</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="AddPlaqueTextPressed">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Visible</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="OutlinePressed">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Visible</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="OutlineNotPressed">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Collapsed</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+										</Storyboard>
+									</VisualState>
+								</VisualStateGroup>
+							</VisualStateManager.VisualStateGroups>
+							<Image x:Name="OutlinePressed" Height="42" Source="BLD_BLUE-MAPS_BUTTON_PLOT-ROUTE_PRESS_Images/PlotRouteOutlinePressed.png" Stretch="Fill" Width="176" Visibility="Collapsed"/>
+							<Image x:Name="OutlineNotPressed" Height="42" Source="BLD_BLUE-MAPS_BUTTON_PLOT-ROUTE_Images/PlotRouteOutlineNotPressed.png" Stretch="Fill" Width="176"/>
+							<TextBlock x:Name="AddPlaqueTextNotPressed" TextWrapping="Wrap" Text="Plot Route" Canvas.Left="9.776" Canvas.Top="-3.19" Foreground="#FFFBF6F6" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" FontSize="34.667"/>
+							<TextBlock x:Name="AddPlaqueTextPressed" TextWrapping="Wrap" Text="Plot Route" Canvas.Left="9.776" Canvas.Top="-3.19" Foreground="#FF124191" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" FontSize="34.667" Visibility="Collapsed"/>
+						</Canvas>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+			<Setter Property="FontFamily" Value="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline"/>
+			<Setter Property="FontSize" Value="34.5"/>
+			<Setter Property="Foreground" Value="White"/>
+		</Style>
+		<Style x:Key="HelpButton" TargetType="Button">
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="Button">
+						<Canvas x:Name="BLD_BLUE_MAPS_BUTTON_DONE" UseLayoutRounding="False">
+							<VisualStateManager.VisualStateGroups>
+								<VisualStateGroup x:Name="CommonStates">
+									<VisualState x:Name="Disabled"/>
+									<VisualState x:Name="Normal"/>
+									<VisualState x:Name="MouseOver"/>
+									<VisualState x:Name="Pressed">
+										<Storyboard>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="DoneTextNotPressed">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Collapsed</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="DoneTextPressed">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Visible</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="Outline">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Collapsed</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="OutlinePressed">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Visible</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+										</Storyboard>
+									</VisualState>
+								</VisualStateGroup>
+							</VisualStateManager.VisualStateGroups>
+							<Image x:Name="Outline" Height="42" Source="BLD_BLUE-MAPS_BUTTON_HELP_Images/HelpOutline.png" Stretch="Fill" Width="97"/>
+							<Image x:Name="OutlinePressed" Height="42" Source="BLD_BLUE-MAPS_BUTTON_HELP_PRESS_Images/HelpOutlinePressed.png" Stretch="Fill" Width="97" Visibility="Collapsed"/>
+							<TextBlock x:Name="DoneTextNotPressed" TextWrapping="Wrap" Text="Help" Canvas.Left="12.776" Canvas.Top="-3.19" Foreground="#FFFBF6F6" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" FontSize="34.667"/>
+							<TextBlock x:Name="DoneTextPressed" TextWrapping="Wrap" Text="Help" Canvas.Left="12.776" Canvas.Top="-3.19" Foreground="#FF124191" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" FontSize="34.667" Visibility="Collapsed"/>
+						</Canvas>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+			<Setter Property="FontFamily" Value="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline"/>
+			<Setter Property="FontSize" Value="34.5"/>
+			<Setter Property="Foreground" Value="White"/>
+		</Style>
+		<Style x:Key="RemovePlaque" TargetType="Button">
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="Button">
+						<Canvas x:Name="BLD_BLUE_MAPS_BUTTON_DONE" UseLayoutRounding="False">
+							<VisualStateManager.VisualStateGroups>
+								<VisualStateGroup x:Name="CommonStates">
+									<VisualState x:Name="Disabled"/>
+									<VisualState x:Name="Normal"/>
+									<VisualState x:Name="MouseOver"/>
+									<VisualState x:Name="Pressed">
+										<Storyboard>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="AddPlaqueTextNotPressed">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Collapsed</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="AddPlaqueTextPressed">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Visible</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="Outline">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Collapsed</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="OutlinePressed">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Visible</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+										</Storyboard>
+									</VisualState>
+								</VisualStateGroup>
+							</VisualStateManager.VisualStateGroups>
+							<Image x:Name="Outline" Height="42" Source="BLD_BLUE-MAPS_BUTTON_REMOVE-PLAQUE_Images/RemovePlaqueOutline.png" Stretch="Fill" Width="247"/>
+							<Image x:Name="OutlinePressed" Height="42" Source="BLD_BLUE-MAPS_BUTTON_REMOVE-PLAQUE_PRESS_Images/RemovePlaqueOutlinePressed.png" Stretch="Fill" Width="247" Visibility="Collapsed"/>
+							<TextBlock x:Name="AddPlaqueTextNotPressed" TextWrapping="Wrap" Text="Remove Plaque" Canvas.Left="9.776" Canvas.Top="-3.19" Foreground="#FFFBF6F6" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" FontSize="34.667"/>
+							<TextBlock x:Name="AddPlaqueTextPressed" TextWrapping="Wrap" Text="Remove Plaque" Canvas.Left="9.776" Canvas.Top="-3.19" Foreground="#FF124191" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" FontSize="34.667" Visibility="Collapsed"/>
+						</Canvas>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+			<Setter Property="FontFamily" Value="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline"/>
+			<Setter Property="FontSize" Value="34.5"/>
+			<Setter Property="Foreground" Value="White"/>
+		</Style>
+		<Style x:Key="RevisitPlaque" TargetType="Button">
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="Button">
+						<Canvas x:Name="BLD_BLUE_MAPS_BUTTON_DONE" UseLayoutRounding="False">
+							<VisualStateManager.VisualStateGroups>
+								<VisualStateGroup x:Name="CommonStates">
+									<VisualState x:Name="Disabled"/>
+									<VisualState x:Name="Normal"/>
+									<VisualState x:Name="MouseOver"/>
+									<VisualState x:Name="Pressed">
+										<Storyboard>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="AddPlaqueTextNotPressed">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Collapsed</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="AddPlaqueTextPressed">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Visible</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="OutlinePressed">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Visible</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="Outline">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Collapsed</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+										</Storyboard>
+									</VisualState>
+								</VisualStateGroup>
+							</VisualStateManager.VisualStateGroups>
+							<Image x:Name="Outline" Height="42" Source="BLD_BLUE-MAPS_BUTTON_REVISIT-PLAQUE_Images/RevisitPlaqueOutline.png" Stretch="Fill" Width="224"/>
+							<Image x:Name="OutlinePressed" Height="42" Source="BLD_BLUE-MAPS_BUTTON_REVISIT-PLAQUE_PRESS_Images/RevisitPlaqueOutlinePressed.png" Stretch="Fill" Width="224" Visibility="Collapsed"/>
+							<TextBlock x:Name="AddPlaqueTextNotPressed" TextWrapping="Wrap" Text="Revisit Plaque" Canvas.Left="9.776" Canvas.Top="-3.19" Foreground="#FFFBF6F6" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" FontSize="34.667"/>
+							<TextBlock x:Name="AddPlaqueTextPressed" TextWrapping="Wrap" Text="Revisit Plaque" Canvas.Left="9.776" Canvas.Top="-3.19" Foreground="#FF124191" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" FontSize="34.667" Visibility="Collapsed"/>
+						</Canvas>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+			<Setter Property="FontFamily" Value="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline"/>
+			<Setter Property="FontSize" Value="34.5"/>
+			<Setter Property="Foreground" Value="White"/>
 		</Style>
 	</phone:PhoneApplicationPage.Resources>
     
@@ -132,7 +692,7 @@
 					<Storyboard>
 						<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="DistanceSummary">
 							<EasingDoubleKeyFrame KeyTime="0" Value="-1.5"/>
-							<EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="-317.746"/>
+							<EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="-291.5"/>
 						</DoubleAnimationUsingKeyFrames>
 					</Storyboard>
 				</VisualState>
@@ -156,106 +716,163 @@
 					<Storyboard>
 						<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="SelectStartPoint">
 							<EasingDoubleKeyFrame KeyTime="0" Value="1.5"/>
-							<EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="-376.351"/>
+							<EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="-196.502"/>
 						</DoubleAnimationUsingKeyFrames>
 					</Storyboard>
 				</VisualState>
                 <VisualState x:Name="DefineEndPointState">
 					<Storyboard>
-						<DoubleAnimation Duration="0:0:0.2" To="-361.922" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="DefineEndPoint" d:IsOptimized="True"/>
+						<DoubleAnimation Duration="0:0:0.2" To="-323.922" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="DefineEndPoint" d:IsOptimized="True"/>
 					</Storyboard>
 				</VisualState>
                 <VisualState x:Name="RouteSummaryState">
 					<Storyboard>
 						<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="RouteSummary">
 							<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-							<EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="-361.5"/>
+							<EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="-306"/>
 						</DoubleAnimationUsingKeyFrames>
 					</Storyboard>
 				</VisualState>
                 <VisualState x:Name="SplashScreenState">
                 <Storyboard>
-                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="Blue">
-                        <EasingDoubleKeyFrame KeyTime="0" Value="-351"/>
-                        <EasingDoubleKeyFrame KeyTime="0:0:2" Value="-330"/>
-                        <EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="-330"/>
-                        <EasingDoubleKeyFrame KeyTime="0:0:3" Value="9"/>
-                        <EasingDoubleKeyFrame KeyTime="0:0:3.5" Value="9"/>
-                        <EasingDoubleKeyFrame KeyTime="0:0:5" Value="9"/>
-                        <EasingDoubleKeyFrame KeyTime="0:0:5.5" Value="9"/>
-                    </DoubleAnimationUsingKeyFrames>
-                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="Maps">
-                        <EasingDoubleKeyFrame KeyTime="0" Value="-486"/>
-                        <EasingDoubleKeyFrame KeyTime="0:0:2" Value="-465"/>
-                        <EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="6"/>
-                        <EasingDoubleKeyFrame KeyTime="0:0:3.5" Value="6"/>
-                        <EasingDoubleKeyFrame KeyTime="0:0:5" Value="6"/>
-                        <EasingDoubleKeyFrame KeyTime="0:0:5.5" Value="6"/>
-                    </DoubleAnimationUsingKeyFrames>
-                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Nokia">
-                        <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                        <EasingDoubleKeyFrame KeyTime="0:0:3.5" Value="0"/>
-                        <EasingDoubleKeyFrame KeyTime="0:0:4.5" Value="1"/>
-                        <EasingDoubleKeyFrame KeyTime="0:0:5" Value="1"/>
-                        <EasingDoubleKeyFrame KeyTime="0:0:5.5" Value="0"/>
-                    </DoubleAnimationUsingKeyFrames>
-                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Balloon">
-                        <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                        <EasingDoubleKeyFrame KeyTime="0:0:3.5" Value="0"/>
-                        <EasingDoubleKeyFrame KeyTime="0:0:4.5" Value="1"/>
-                        <EasingDoubleKeyFrame KeyTime="0:0:5" Value="1"/>
-                        <EasingDoubleKeyFrame KeyTime="0:0:5.5" Value="0"/>
-                    </DoubleAnimationUsingKeyFrames>
-                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Blue">
-                        <EasingDoubleKeyFrame KeyTime="0" Value="1"/>
-                        <EasingDoubleKeyFrame KeyTime="0:0:2" Value="1"/>
-                        <EasingDoubleKeyFrame KeyTime="0:0:3" Value="1"/>
-                        <EasingDoubleKeyFrame KeyTime="0:0:3.5" Value="1"/>
-                        <EasingDoubleKeyFrame KeyTime="0:0:5" Value="1"/>
-                        <EasingDoubleKeyFrame KeyTime="0:0:5.5" Value="0"/>
-                    </DoubleAnimationUsingKeyFrames>
-                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Maps">
-                    	<EasingDoubleKeyFrame KeyTime="0:0:5" Value="1"/>
-                    	<EasingDoubleKeyFrame KeyTime="0:0:5.5" Value="0"/>
-                    </DoubleAnimationUsingKeyFrames>
-                    <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="SplashScreen">
-                    	<DiscreteObjectKeyFrame KeyTime="0">
-                    		<DiscreteObjectKeyFrame.Value>
-                    			<Visibility>Visible</Visibility>
-                    		</DiscreteObjectKeyFrame.Value>
-                    	</DiscreteObjectKeyFrame>
-                    </ObjectAnimationUsingKeyFrames>
-                	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="MainMenu">
-                		<EasingDoubleKeyFrame KeyTime="0:0:6" Value="0"/>
-                		<EasingDoubleKeyFrame KeyTime="0:0:6.5" Value="1"/>
-                	</DoubleAnimationUsingKeyFrames>
-                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="MainMenu">
-                    	<EasingDoubleKeyFrame KeyTime="0:0:5" Value="0"/>
-                    	<EasingDoubleKeyFrame KeyTime="0:0:6" Value="-423"/>
-                    </DoubleAnimationUsingKeyFrames>
-                	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Storyboard.TargetName="BlueBackground">
-                		<EasingDoubleKeyFrame KeyTime="0:0:5" Value="1"/>
-                		<EasingDoubleKeyFrame KeyTime="0:0:6" Value="0.554"/>
-                	</DoubleAnimationUsingKeyFrames>
-                	<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="BlueBackground">
-                		<EasingDoubleKeyFrame KeyTime="0:0:5" Value="0"/>
-                		<EasingDoubleKeyFrame KeyTime="0:0:6" Value="178.5"/>
-                	</DoubleAnimationUsingKeyFrames>
-                </Storyboard>
+                		<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="Blue">
+                			<EasingDoubleKeyFrame KeyTime="0" Value="-351"/>
+                			<EasingDoubleKeyFrame KeyTime="0:0:2" Value="-330"/>
+                			<EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="-330"/>
+                			<EasingDoubleKeyFrame KeyTime="0:0:3" Value="9"/>
+                			<EasingDoubleKeyFrame KeyTime="0:0:3.5" Value="9"/>
+                			<EasingDoubleKeyFrame KeyTime="0:0:5" Value="9"/>
+                			<EasingDoubleKeyFrame KeyTime="0:0:5.5" Value="9"/>
+                		</DoubleAnimationUsingKeyFrames>
+                		<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="Maps">
+                			<EasingDoubleKeyFrame KeyTime="0" Value="-486"/>
+                			<EasingDoubleKeyFrame KeyTime="0:0:2" Value="-465"/>
+                			<EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="6"/>
+                			<EasingDoubleKeyFrame KeyTime="0:0:3.5" Value="6"/>
+                			<EasingDoubleKeyFrame KeyTime="0:0:5" Value="6"/>
+                			<EasingDoubleKeyFrame KeyTime="0:0:5.5" Value="6"/>
+                		</DoubleAnimationUsingKeyFrames>
+                		<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Nokia">
+                			<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                			<EasingDoubleKeyFrame KeyTime="0:0:3.5" Value="0"/>
+                			<EasingDoubleKeyFrame KeyTime="0:0:4.5" Value="1"/>
+                			<EasingDoubleKeyFrame KeyTime="0:0:5" Value="1"/>
+                			<EasingDoubleKeyFrame KeyTime="0:0:5.5" Value="0"/>
+                		</DoubleAnimationUsingKeyFrames>
+                		<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Balloon">
+                			<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                			<EasingDoubleKeyFrame KeyTime="0:0:3.5" Value="0"/>
+                			<EasingDoubleKeyFrame KeyTime="0:0:4.5" Value="1"/>
+                			<EasingDoubleKeyFrame KeyTime="0:0:5" Value="1"/>
+                			<EasingDoubleKeyFrame KeyTime="0:0:5.5" Value="0"/>
+                		</DoubleAnimationUsingKeyFrames>
+                		<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Blue">
+                			<EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+                			<EasingDoubleKeyFrame KeyTime="0:0:2" Value="1"/>
+                			<EasingDoubleKeyFrame KeyTime="0:0:3" Value="1"/>
+                			<EasingDoubleKeyFrame KeyTime="0:0:3.5" Value="1"/>
+                			<EasingDoubleKeyFrame KeyTime="0:0:5" Value="1"/>
+                			<EasingDoubleKeyFrame KeyTime="0:0:5.5" Value="0"/>
+                		</DoubleAnimationUsingKeyFrames>
+                		<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="Maps">
+                			<EasingDoubleKeyFrame KeyTime="0:0:5" Value="1"/>
+                			<EasingDoubleKeyFrame KeyTime="0:0:5.5" Value="0"/>
+                		</DoubleAnimationUsingKeyFrames>
+                		<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="SplashScreen">
+                			<DiscreteObjectKeyFrame KeyTime="0">
+                				<DiscreteObjectKeyFrame.Value>
+                					<Visibility>Visible</Visibility>
+                				</DiscreteObjectKeyFrame.Value>
+                			</DiscreteObjectKeyFrame>
+                		</ObjectAnimationUsingKeyFrames>
+                		<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="MainMenu">
+                			<EasingDoubleKeyFrame KeyTime="0:0:6" Value="0"/>
+                			<EasingDoubleKeyFrame KeyTime="0:0:6.5" Value="1"/>
+                		</DoubleAnimationUsingKeyFrames>
+                		<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.ScaleY)" Storyboard.TargetName="BlueBackground">
+                			<EasingDoubleKeyFrame KeyTime="0:0:5" Value="1"/>
+                			<EasingDoubleKeyFrame KeyTime="0:0:6" Value="0.514"/>
+                		</DoubleAnimationUsingKeyFrames>
+                		<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="BlueBackground">
+                			<EasingDoubleKeyFrame KeyTime="0:0:5" Value="0"/>
+                			<EasingDoubleKeyFrame KeyTime="0:0:6" Value="194.5"/>
+                		</DoubleAnimationUsingKeyFrames>
+                		<DoubleAnimation Duration="0:0:6" To="-382" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="Layer_15" d:IsOptimized="True"/>
+                		<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="BlueBackground">
+                			<EasingDoubleKeyFrame KeyTime="0:0:6" Value="0.845"/>
+                			<EasingDoubleKeyFrame KeyTime="0:0:7" Value="0"/>
+                		</DoubleAnimationUsingKeyFrames>
+                		<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="AboutButton">
+                			<DiscreteObjectKeyFrame KeyTime="0:0:6">
+                				<DiscreteObjectKeyFrame.Value>
+                					<Visibility>Visible</Visibility>
+                				</DiscreteObjectKeyFrame.Value>
+                			</DiscreteObjectKeyFrame>
+                		</ObjectAnimationUsingKeyFrames>
+                		<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="UserSelectedRouteButton">
+                			<DiscreteObjectKeyFrame KeyTime="0:0:6">
+                				<DiscreteObjectKeyFrame.Value>
+                					<Visibility>Visible</Visibility>
+                				</DiscreteObjectKeyFrame.Value>
+                			</DiscreteObjectKeyFrame>
+                		</ObjectAnimationUsingKeyFrames>
+                		<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="MainMenuOptionsButton">
+                			<DiscreteObjectKeyFrame KeyTime="0:0:6">
+                				<DiscreteObjectKeyFrame.Value>
+                					<Visibility>Visible</Visibility>
+                				</DiscreteObjectKeyFrame.Value>
+                			</DiscreteObjectKeyFrame>
+                		</ObjectAnimationUsingKeyFrames>
+                		<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="QuickStartButton">
+                			<DiscreteObjectKeyFrame KeyTime="0:0:6">
+                				<DiscreteObjectKeyFrame.Value>
+                					<Visibility>Visible</Visibility>
+                				</DiscreteObjectKeyFrame.Value>
+                			</DiscreteObjectKeyFrame>
+                		</ObjectAnimationUsingKeyFrames>
+                		<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="AppGeneratedRouteButton">
+                			<DiscreteObjectKeyFrame KeyTime="0:0:6">
+                				<DiscreteObjectKeyFrame.Value>
+                					<Visibility>Visible</Visibility>
+                				</DiscreteObjectKeyFrame.Value>
+                			</DiscreteObjectKeyFrame>
+                		</ObjectAnimationUsingKeyFrames>
+                		<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="DiscoveryModeButton">
+                			<DiscreteObjectKeyFrame KeyTime="0:0:6">
+                				<DiscreteObjectKeyFrame.Value>
+                					<Visibility>Visible</Visibility>
+                				</DiscreteObjectKeyFrame.Value>
+                			</DiscreteObjectKeyFrame>
+                		</ObjectAnimationUsingKeyFrames>
+                		<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="MainMenuHelpButton">
+                			<DiscreteObjectKeyFrame KeyTime="0:0:6">
+                				<DiscreteObjectKeyFrame.Value>
+                					<Visibility>Visible</Visibility>
+                				</DiscreteObjectKeyFrame.Value>
+                			</DiscreteObjectKeyFrame>
+                		</ObjectAnimationUsingKeyFrames>
+                		<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="DebugButton">
+                			<DiscreteObjectKeyFrame KeyTime="0:0:6">
+                				<DiscreteObjectKeyFrame.Value>
+                					<Visibility>Visible</Visibility>
+                				</DiscreteObjectKeyFrame.Value>
+                			</DiscreteObjectKeyFrame>
+                		</ObjectAnimationUsingKeyFrames>
+                	</Storyboard>
                 </VisualState>
                 <VisualState x:Name="MainMenuState">
-					<Storyboard>
-						<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="MainMenu2">
-							<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-							<EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="-444.958"/>
-						</DoubleAnimationUsingKeyFrames>
-					</Storyboard>
-				</VisualState>
+                	<Storyboard>
+                		<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="Layer_15">
+                			<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                			<EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="-380.619"/>
+                		</DoubleAnimationUsingKeyFrames>
+                	</Storyboard>
+                </VisualState>
                 <VisualState x:Name="SelectRouteState">
                 	<Storyboard>
                 		<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="SelectPlaques">
                 			<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                			<EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="-398.057"/>
+                			<EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="-195.332"/>
                 		</DoubleAnimationUsingKeyFrames>
                 	</Storyboard>
                 </VisualState>
@@ -280,7 +897,7 @@
                 	<Storyboard>
                 		<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="AppGenEndPoint">
                 			<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                			<EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="-297"/>
+                			<EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="-189"/>
                 		</DoubleAnimationUsingKeyFrames>
                 	</Storyboard>
                 </VisualState>
@@ -288,7 +905,7 @@
                 	<Storyboard>
                 		<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="Parameters">
                 			<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
-                			<EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="-326.569"/>
+                			<EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="-304.569"/>
                 		</DoubleAnimationUsingKeyFrames>
                 	</Storyboard>
                 </VisualState>
@@ -322,6 +939,20 @@
                 			<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
                 			<EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="-636.566"/>
                 		</DoubleAnimationUsingKeyFrames>
+                	</Storyboard>
+                </VisualState>
+                <VisualState x:Name="DebugState">
+                	<Storyboard>
+                		<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="Debug">
+                			<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                			<EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="-524.042"/>
+                		</DoubleAnimationUsingKeyFrames>
+                		<DoubleAnimation Duration="0:0:0.2" To="25.997" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="DebugScreenDone" d:IsOptimized="True"/>
+                	</Storyboard>
+                </VisualState>
+                <VisualState x:Name="NoInternetState">
+                	<Storyboard>
+                		<DoubleAnimation Duration="0:0:0.2" To="-291.538" Storyboard.TargetProperty="(UIElement.RenderTransform).(CompositeTransform.TranslateY)" Storyboard.TargetName="NoInternet" d:IsOptimized="True"/>
                 	</Storyboard>
                 </VisualState>
 			</VisualStateGroup>
@@ -377,7 +1008,6 @@
                 			<TextBlock x:Name="Science" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Science &amp; Engineering" Canvas.Top="176.94"/>
                 			<TextBlock x:Name="Exploration" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Exploration" Canvas.Top="224.94"/>
                 			<Image x:Name="___Path_1" Height="2" Canvas.Left="36" Source="Filter_Images/Path.png" Canvas.Top="68" Width="408"/>
-                			<TextBlock x:Name="FilterDone" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="375.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Done" Canvas.Top="242.939"/>
                 		</Canvas>
                 	</Canvas>
                 </Canvas>
@@ -385,7 +1015,7 @@
         		<Button x:Name="PoliticsButton" Content="Button" Width="114.01" Canvas.Left="39" Canvas.Top="130" Height="30.4" Opacity="0" Click="PoliticsButton_Click"/>
                 <Button x:Name="ScienceButton" Content="Button" Width="353.51" Canvas.Left="38.5" Canvas.Top="178" Height="30.9" Opacity="0" Click="ScienceButton_Click"/>
                 <Button x:Name="ExplorationButton" Content="Button" Width="188.01" Canvas.Left="37" Canvas.Top="224" Height="32.9" Opacity="0" Click="ExplorationButton_Click"/>
-                <Button x:Name="ExitFilterMenu" Content="Button" Opacity="0" Width="120.01" Height="61.4" Click="ExitFilterMenu_Click" Canvas.Left="357" Canvas.Top="232"/>
+                <Button x:Name="ExitFilterMenu" Content="Button" Width="120.01" Height="61.4" Click="ExitFilterMenu_Click" Canvas.Left="362" Canvas.Top="235" Style="{StaticResource DoneButton}"/>
         	</Canvas>
         </Canvas>
         <Canvas x:Name="DistanceSummary" HorizontalAlignment="Left" Height="454" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" Canvas.Top="771" RenderTransformOrigin="0.5,0.5" Canvas.ZIndex="10" Opacity="0.85" d:IsHidden="True">
@@ -437,17 +1067,18 @@
         				<TextBlock x:Name="km" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" LineStackingStrategy="BlockLineHeight" Canvas.Left="126.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="km" Canvas.Top="121.94"/>-->
         				<TextBlock x:Name="Approx_time" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Approx. time:" Canvas.Top="164.94"/>
         				<TextBlock x:Name="ApproxTime" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="240.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text=" 1:06" Canvas.Top="164.94"/>
-        				<TextBlock x:Name="Edit_Route___Go" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Start / Clear Route" Canvas.Top="249.94"/>
         				<Image x:Name="___Path_2" Height="2" Canvas.Left="36" Source="DistanceSummary_Images/Path.png" Canvas.Top="68" Width="408"/>
         			</Canvas>
         		</Canvas>
         	</Canvas>
-            <Button x:Name="EditRouteButton" Content="Button" Canvas.Left="155" Canvas.Top="247" Width="185.01" Opacity="0" Click="DistanceSummaryBackButton_Click" Height="38.4" RenderTransformOrigin="0.5,0.5">
-        		<Button.RenderTransform>
-        			<CompositeTransform/>
-        		</Button.RenderTransform>
-        	</Button>
-        	<Button x:Name="GoButton" Content="Button" RenderTransformOrigin="0.604,0.804" Canvas.Left="35.5" Canvas.Top="243.5" Opacity="0" Click="GoButton_Click" Height="45.9" Width="89.01"/>
+        	<Grid x:Name="Start_ClearRoute" Height="45.9" Canvas.Left="34.833" Canvas.Top="213" Width="305.177">
+        		<Button x:Name="EditRouteButton" Content="Button" Click="DistanceSummaryBackButton_Click" RenderTransformOrigin="0.5,0.5" Style="{StaticResource ClearRouteButton}" Margin="120.167,3.5,0,4">
+        			<Button.RenderTransform>
+        				<CompositeTransform/>
+        			</Button.RenderTransform>
+        		</Button>
+        		<Button x:Name="GoButton" Content="Button" RenderTransformOrigin="0.604,0.804" Click="GoButton_Click" Width="89.01" Style="{StaticResource StartButton}" HorizontalAlignment="Left"/>
+        	</Grid>
         </Canvas>
         <Canvas x:Name="QuickInfo" HorizontalAlignment="Left" Height="237" UseLayoutRounding="False" VerticalAlignment="Top" Width="479" Canvas.Top="771" RenderTransformOrigin="0.5,0.5" Canvas.ZIndex="10" Opacity="0.85" d:IsHidden="True">
         	<Canvas.RenderTransform>
@@ -463,20 +1094,21 @@
         	</Canvas>
         </Canvas>
         <Canvas x:Name="MainMenuButton" Height="56" Canvas.Top="717" Width="486" d:IsHidden="True">
-        	<Button Canvas.Left="1" Content="Menu" Height="55" x:Name="button1" Width="481" Click="button1_Click_1" Canvas.ZIndex="20" RenderTransformOrigin="0.5,0.5" BorderBrush="#FF23518D" Foreground="#FF2B54A3" Background="#00565878" Opacity="0" Canvas.Top="56" d:IsHidden="True" >
+        	<Button Canvas.Left="1" Content="Menu" Height="55" x:Name="button1" Width="481" Click="button1_Click_1" Canvas.ZIndex="20" RenderTransformOrigin="0.5,0.5" BorderBrush="#FF23518D" Foreground="#FF2B54A3" Background="#00565878" Opacity="0" Canvas.Top="56" >
         		<Button.RenderTransform>
         			<CompositeTransform/>
         		</Button.RenderTransform>
         	</Button>
-        	<Canvas x:Name="BottomBar" HorizontalAlignment="Left" Height="48" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" Canvas.Top="56.5" RenderTransformOrigin="0.5,0.5" d:IsHidden="True">
+        	<Canvas x:Name="BottomBar" HorizontalAlignment="Left" Height="48" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" Canvas.Top="56.5" RenderTransformOrigin="0.5,0.5">
         		<Canvas.RenderTransform>
         			<CompositeTransform/>
         		</Canvas.RenderTransform>
-        		<Image x:Name="___Group_3" Height="62.667" Canvas.Left="0" Source="BottomBar_Images/Group.png" Width="480" Stretch="Fill" Canvas.Top="-0.667" RenderTransformOrigin="0.5,0.5" d:IsHidden="True">
+        		<Image x:Name="___Group_3" Height="62.667" Canvas.Left="0" Source="BottomBar_Images/Group.png" Width="480" Stretch="Fill" Canvas.Top="-0.667" RenderTransformOrigin="0.5,0.5">
         			<Image.RenderTransform>
         				<CompositeTransform/>
         			</Image.RenderTransform>
         		</Image>
+        		<TextBlock TextWrapping="Wrap" Text="Route Information" Canvas.Left="40" Canvas.Top="10.5" FontFamily="/Maps;component/Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" FontSize="36.667"/>
         	</Canvas>
         </Canvas>
         <Canvas x:Name="FullInfo" HorizontalAlignment="Left" Height="1172.167" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" Canvas.Top="768.833" RenderTransformOrigin="0.5,0.5" d:IsHidden="True">
@@ -506,28 +1138,23 @@
         	<Canvas.RenderTransform>
         		<CompositeTransform/>
         	</Canvas.RenderTransform>
-        	<Canvas x:Name="Layer_6" Height="237" Canvas.Left="0" Canvas.Top="0" Width="479">
-        		<Canvas x:Name="StartPlaqueWithInfo" HorizontalAlignment="Left" Height="375" UseLayoutRounding="False" VerticalAlignment="Top" Width="480">
-        			<Canvas x:Name="Layer_8" Height="375" Canvas.Left="0" Canvas.Top="0" Width="480">
-        				<Canvas x:Name="___Group_" Height="375" Canvas.Left="0" Canvas.Top="0" Width="480">
-        					<local:NameInfo x:Name="StartPlaqueNameInfo" Height="138" Width="480" Canvas.Top="126"/>
-        					<Canvas x:Name="___Group_1" Height="375" Canvas.Left="0" Canvas.Top="0" Width="480">
-        						<Canvas x:Name="___Group_2" Height="249" Canvas.Left="0" Opacity="0.929" Canvas.Top="126" Width="480">
-        							<Image x:Name="___Group_4" Height="249" Canvas.Left="0" Source="StartPlaqueWithInfo_Images/Group.png" Canvas.Top="0" Width="480"/>
-        						</Canvas>
+        	<local:NameInfo x:Name="StartPlaqueNameInfo" Height="138" Width="480"/>
+        	<Canvas x:Name="USER_SEL_ChooseStartPlaque" HorizontalAlignment="Left" Height="196" UseLayoutRounding="False" VerticalAlignment="Top" Width="481">
+        		<Canvas x:Name="Layer_6" Height="196" Canvas.Left="0" Canvas.Top="0" Width="481">
+        			<Canvas x:Name="___Group_" Height="196" Canvas.Left="0" Canvas.Top="0" Width="481">
+        				<Canvas x:Name="___Group_2" Height="196" Canvas.Left="0" Canvas.Top="0" Width="481">
+        					<Canvas x:Name="___Group_4" Height="196" Canvas.Left="0" Opacity="0.929" Canvas.Top="0" Width="481">
+        						<Image x:Name="___Group_51" Height="196" Canvas.Left="0" Source="USER-SEL_ChooseStartPlaque_Images/Group1.png" Canvas.Top="0" Width="481"/>
         					</Canvas>
-        					<TextBlock x:Name="User_Selected_Route4" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="User Selected Route" Canvas.Top="156.94"/>
-        					<TextBlock x:Name="Select_the_starting_plaque" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Select the starting plaque" Canvas.Top="204.94"/>
-        					<TextBlock x:Name="Help_______________________________" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Options" Canvas.Top="301.94"/>
-        					<TextBlock x:Name="___Type_" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="355.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text=" " Canvas.Top="301.94"/>
-        					<TextBlock x:Name="Done1" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="362.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Done" Canvas.Top="301.94"/>
-        					<Image x:Name="___Path_4" Height="2" Canvas.Left="36" Source="StartPlaqueWithInfo_Images/Path.png" Canvas.Top="193" Width="408"/>
         				</Canvas>
+        				<Image x:Name="___Path_4" Height="2" Canvas.Left="36" Source="USER-SEL_ChooseStartPlaque_Images/Path.png" Canvas.Top="54" Width="409"/>
+        				<TextBlock x:Name="User_Selected_Mode1" Foreground="#FFFFFFFF" FontSize="34.5" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="34.5" TextAlignment="Left" TextWrapping="Wrap" Text="User Selected Mode" Canvas.Top="19.64"/>
+        				<TextBlock x:Name="Select_the_starting_plaque" Foreground="#FFFFFFFF" FontSize="34.5" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="34.5" TextAlignment="Left" TextWrapping="Wrap" Text="Select the starting plaque" Canvas.Top="65.64"/>
         			</Canvas>
-        			<Button x:Name="OptionsButton1" Content="Button" Canvas.Left="28.5" Canvas.Top="297.5" Opacity="0" Height="42.693" Width="143.3" Click="MainMenuOptionsButton_Click"/>
         		</Canvas>
-        		<Button x:Name="SelectPlaquesButton" Content="Button" Height="62.9" Width="142.51" RenderTransformOrigin="7.796,1.588" Canvas.Left="335" Canvas.Top="286" Opacity="0" Click="DoneSelectingRouteStartPoint"/>
         	</Canvas>
+        	<Button x:Name="OptionsButton1" Content="Button" Canvas.Left="160" Canvas.Top="118.5" Height="56" Width="112" Click="MainMenuOptionsButton_Click" Style="{StaticResource OptionsButton}"/>
+            <Button x:Name="DoneButton" Content="Done" HorizontalAlignment="Left" Height="46" Style="{StaticResource DoneButton}" VerticalAlignment="Top" Width="109" Canvas.Left="36" Canvas.Top="116.5" Click="DoneSelectingRouteStartPoint"/>
         </Canvas>
         <Canvas x:Name="DefineEndPoint" HorizontalAlignment="Left" Height="237" UseLayoutRounding="False" VerticalAlignment="Top" Width="479" Canvas.Top="895" RenderTransformOrigin="0.5,0.5" d:IsHidden="True">
         	<Canvas.RenderTransform>
@@ -535,29 +1162,31 @@
         	</Canvas.RenderTransform>
         	<Canvas x:Name="SelectEndPlaque" HorizontalAlignment="Left" Height="249" UseLayoutRounding="False" VerticalAlignment="Top" Width="480">
                 <local:NameInfo x:Name="EndPlaqueNameInfo" Height="138" Width="480" Canvas.Top="1.5"/>
-        		<Canvas x:Name="Layer_7" Height="249" Canvas.Left="0" Canvas.Top="0" Width="480">
-        			<Canvas x:Name="___Group_5" Height="249" Canvas.Left="0" Canvas.Top="0" Width="480">
-        				<Canvas x:Name="___Group_7" Height="249" Canvas.Left="0" Canvas.Top="0" Width="480">
-        					<Canvas x:Name="___Group_8" Height="249" Canvas.Left="0" Opacity="0.929" Canvas.Top="0" Width="480">
-        						<Image x:Name="___Group_9" Height="249" Canvas.Left="0" Source="SelectEndPlaque_Images/Group.png" Canvas.Top="0" Width="480"/>
+                <Canvas x:Name="USER_SEL_EndPlaque" HorizontalAlignment="Left" Height="197" UseLayoutRounding="False" VerticalAlignment="Top" Width="481">
+        			<Canvas x:Name="Layer_24" Height="197" Canvas.Left="0" Canvas.Top="0" Width="481">
+        				<Canvas x:Name="___Group_71" Height="197" Canvas.Left="0" Canvas.Top="0" Width="481">
+        					<Canvas x:Name="___Group_73" Height="197" Canvas.Left="0" Canvas.Top="0" Width="481">
+        						<Canvas x:Name="___Group_74" Height="197" Canvas.Left="0" Opacity="0.929" Canvas.Top="0" Width="481">
+        							<Image x:Name="___Group_75" Height="197" Canvas.Left="0" Source="USER-SEL-EndPlaque_Images/Group1.png" Canvas.Top="0" Width="481"/>
+        						</Canvas>
         					</Canvas>
+        					<Image x:Name="___Path_16" Height="2" Canvas.Left="36" Source="USER-SEL-EndPlaque_Images/Path.png" Canvas.Top="52" Width="409"/>
+        					<Image x:Name="___Group_72" Height="42" Canvas.Left="34" Source="USER-SEL-EndPlaque_Images/Group.png" Canvas.Top="119" Width="234"/>
+        					<TextBlock x:Name="User_Selected_Mode3" Foreground="#FFFFFFFF" FontSize="34.5" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="34.5" TextAlignment="Left" TextWrapping="Wrap" Text="User Selected Mode" Canvas.Top="20.64"/>
+        					<TextBlock x:Name="___Type_15" Foreground="#FFFFFFFF" FontSize="34.5" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="34.5" TextAlignment="Left" TextWrapping="Wrap" Text=" " Canvas.Top="124.64"/>
+        					<TextBlock x:Name="___Type_14" Foreground="#FFFFFFFF" FontSize="34.5" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="43.5" LineHeight="34.5" TextAlignment="Left" TextWrapping="Wrap" Text=" " Canvas.Top="124.64"/>
+        					<TextBlock x:Name="Done" Foreground="#FFFFFFFF" FontSize="34.5" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="51.5" LineHeight="34.5" TextAlignment="Left" TextWrapping="Wrap" Text="Done      " Canvas.Top="124.64"/>
+        					<TextBlock x:Name="___Type_13" Foreground="#FFFFFFFF" FontSize="34.5" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="173.5" LineHeight="34.5" TextAlignment="Left" TextWrapping="Wrap" Text=" " Canvas.Top="124.64"/>
+        					<TextBlock x:Name="Help3" Foreground="#FFFFFFFF" FontSize="34.5" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="181.5" LineHeight="34.5" TextAlignment="Left" TextWrapping="Wrap" Text="Help" Canvas.Top="124.64"/>
         				</Canvas>
-        				<TextBlock x:Name="User_Selected_Route6" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="User Selected Route" Canvas.Top="30.94"/>
-        				<TextBlock x:Name="Help_______________________________2" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Options" Canvas.Top="175.94"/>
-        				<TextBlock x:Name="___Type_2" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="355.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text=" " Canvas.Top="175.94"/>
-        				<TextBlock x:Name="Done" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="362.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Done" Canvas.Top="175.94"/>
-        				<Image x:Name="___Path_7" Height="2" Canvas.Left="36" Source="SelectEndPlaque_Images/Path.png" Canvas.Top="64" Width="408"/>
         			</Canvas>
         		</Canvas>
-        		<Canvas x:Name="DefineEndPoint1" Height="37" Canvas.Left="37" Canvas.Top="79" Width="351">
-        			<TextBlock x:Name="Choose_the_last_plaque" Canvas.Left="-1.5" TextWrapping="Wrap" Canvas.Top="-4.5" FontFamily="Nokia Pure Headline IN Light" FontSize="37" Text="Confirm your final plaque" Height="45.153" Width="416.507"/>
-        			<TextBlock x:Name="to_visit" TextWrapping="Wrap" Canvas.Top="31.5" FontFamily="Nokia Pure Headline IN Light" FontSize="37" Text="to visit" Height="45.153" Width="356.507"/>
-        		</Canvas>
+                <TextBlock x:Name="ConfirmEndPlaque" TextWrapping="Wrap" FontSize="34.5" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" Text="Confirm the final plaque" Canvas.Left="36" Canvas.Top="58"/>
         	</Canvas>
-        	<Button x:Name="DoneEndPointButton" Content="Done" Canvas.Left="345" Canvas.Top="162" Opacity="0" Click="DoneEndPointButton_Click" Width="129.69"/>
-        	<Button x:Name="OptionsButton2" Content="Button" Canvas.Left="27.5" Canvas.Top="169.5" Opacity="0" Height="42.693" Width="143.3" Click="MainMenuOptionsButton_Click"/>
+        	<Button x:Name="DoneEndPointButton" Content="Done" Canvas.Left="38.31" Canvas.Top="121" Opacity="0" Click="DoneEndPointButton_Click" Width="105.69" Height="40"/>
+        	<Button x:Name="OptionsButton2" Content="Button" Canvas.Left="168.7" Canvas.Top="118.307" Opacity="0" Height="42.693" Width="95.3" Click="MainMenuOptionsButton_Click"/>
         </Canvas>
-        <Canvas x:Name="RouteSummary" HorizontalAlignment="Left" Height="305" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" Canvas.Top="769.5" Canvas.ZIndex="10" RenderTransformOrigin="0.5,0.5">
+        <Canvas x:Name="RouteSummary" HorizontalAlignment="Left" Height="305" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" Canvas.Top="769.5" Canvas.ZIndex="10" RenderTransformOrigin="0.5,0.5" d:IsHidden="True">
         	<Canvas.RenderTransform>
         		<CompositeTransform/>
         	</Canvas.RenderTransform>
@@ -615,7 +1244,6 @@
                                <!-- <Run x:Name="ElapsedRun" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light"/>-->
                             </TextBlock>
                             <TextBlock x:Name="elapsed" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" LineStackingStrategy="BlockLineHeight" Canvas.Left="171.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="elapsed" Canvas.Top="164.94"/>
-        					<TextBlock x:Name="Edit_Route___Clear_Route" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Exit Mode" Canvas.Top="291.94"/>
         					<Image x:Name="___Path_5" Height="2" Canvas.Left="36" Source="RouteSummary_Images/Path.png" Canvas.Top="68" Width="408"/>
                             <TextBlock 
                                 x:Name="DistanceToNextPlaque" 
@@ -636,7 +1264,7 @@
         			</Canvas>
         		</Canvas>
         		<Button x:Name="RouteSummaryGoButton" Content="Button" RenderTransformOrigin="0.704,2.522" Canvas.Left="1" Width="481.01" Opacity="0" Click="RouteSummaryGoButton_Click" Canvas.ZIndex="20" Height="363.9" Canvas.Top="-2.5"/>
-        		<Button x:Name="RouteSummaryClearRouteButton" Content="Button" RenderTransformOrigin="0.704,2.522" Canvas.Left="25.5" Canvas.Top="282" Opacity="0" Click="RouteSummaryClearRouteButton_Click" Canvas.ZIndex="20" Width="210.51" Height="50.4"/>
+        		<Button x:Name="RouteSummaryClearRouteButton" Content="Button" RenderTransformOrigin="0.704,2.522" Canvas.Left="30" Canvas.Top="241.5" Click="RouteSummaryClearRouteButton_Click" Canvas.ZIndex="20" Width="182.5" Height="50.4" Style="{StaticResource ExitButton}"/>
         	</Canvas>
         </Canvas>
         <Canvas x:Name="SplashScreen" HorizontalAlignment="Left" Height="800" UseLayoutRounding="False" VerticalAlignment="Top" Width="481" Visibility="Collapsed" d:IsHidden="True">
@@ -664,66 +1292,70 @@
         	</Canvas>
         	<!--<Button x:Name="SplashScreenButton" Content="Button" Height="756.4" Width="479.01" Opacity="0" Click="SplashScreenButton_Click"/>-->
         </Canvas>
-        <Canvas x:Name="MainMenu" HorizontalAlignment="Left" Height="343" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" Canvas.Top="770" RenderTransformOrigin="0.5,0.5" d:IsHidden="True">
+        <Canvas x:Name="MainMenu" HorizontalAlignment="Left" Height="382" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" Canvas.Top="770" RenderTransformOrigin="0.5,0.5" d:IsHidden="True">
         	<Canvas.RenderTransform>
         		<CompositeTransform/>
         	</Canvas.RenderTransform>
-        	<Canvas x:Name="Layer_15" Height="343" Canvas.Left="0" Width="480" RenderTransformOrigin="0.5,0.5" d:IsHidden="True">
+        	<Canvas x:Name="Layer_15" Height="382" Canvas.Left="-1" Width="480" RenderTransformOrigin="0.5,0.5">
         		<Canvas.RenderTransform>
         			<CompositeTransform/>
         		</Canvas.RenderTransform>
-        		<Canvas x:Name="MainMenu2" HorizontalAlignment="Left" Height="443" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" RenderTransformOrigin="0.5,0.5">
-        			<Canvas.RenderTransform>
-        				<CompositeTransform/>
-        			</Canvas.RenderTransform>
-        			<Canvas x:Name="Layer_18" Height="443" Canvas.Left="0" Canvas.Top="0" Width="480">
-        				<Canvas x:Name="___Group_32" Height="443" Canvas.Left="0" Canvas.Top="0" Width="480">
-        					<Canvas x:Name="___Group_33" Height="443" Canvas.Left="0" Canvas.Top="0" Width="480">
-        						<Canvas x:Name="___Group_34" Height="443" Canvas.Left="0" Opacity="0.929" Canvas.Top="0" Width="480">
-        							<Image x:Name="___Group_35" Height="443" Canvas.Left="0" Source="MainMenu_Images/Group.png" Canvas.Top="0" Width="480"/>
+        		<Canvas x:Name="MainMenu1" HorizontalAlignment="Left" Height="380" UseLayoutRounding="False" VerticalAlignment="Top" Width="481">
+        			<Canvas x:Name="Layer_18" Height="380" Canvas.Left="0" Canvas.Top="0" Width="481">
+        				<Canvas x:Name="___Group_32" Height="380" Canvas.Left="0" Canvas.Top="0" Width="481">
+        					<Canvas x:Name="___Group_34" Height="380" Canvas.Left="0" Canvas.Top="0" Width="481">
+        						<Canvas x:Name="___Group_35" Height="380" Canvas.Left="0" Opacity="0.929" Canvas.Top="0" Width="481">
+        							<Image x:Name="___Group_50" Height="380" Canvas.Left="0" Source="MainMenu_Images/Group1.png" Canvas.Top="0" Width="481"/>
         						</Canvas>
         					</Canvas>
-        					<TextBlock x:Name="Main_Menu" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Main Menu" Canvas.Top="30.94"/>
-        					<TextBlock x:Name="Quick_Start_Mode" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Quick Start Mode" Canvas.Top="79.94"/>
-        					<TextBlock x:Name="User_Selected_Route3" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="User Selected Mode" Canvas.Top="127.94"/>
-        					<TextBlock x:Name="App_Generated_Route" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="App Generated Mode" Canvas.Top="176.94"/>
-        					<TextBlock x:Name="Discovery_Mode" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Discovery Mode" Canvas.Top="224.94"/>
-        					<TextBlock x:Name="MainMenuOptions" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Options" Canvas.Top="321.94"/>
-        					<TextBlock x:Name="Help2" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="About" Canvas.Top="369.94"/>
-        					<Image x:Name="___Path_" Height="2" Canvas.Left="37" Source="MainMenu_Images/Path.png" Canvas.Top="68" Width="408"/>
-        					<Button x:Name="AppGeneratedRouteButton" Content="Button" Canvas.Left="36.5" Canvas.Top="173" Height="47.4" Width="386.01" Opacity="0" Click="AppGeneratedRouteButton_Click"/>
-        					<Button x:Name="DiscoveryModeButton" Content="Button" Canvas.Left="37.167" Canvas.Top="223.667" Height="40.067" Width="269.344" Opacity="0" Click="DiscoveryModeButton_Click"/>
+        					<Image x:Name="___Path_" Height="1" Canvas.Left="37" Source="MainMenu_Images/Path.png" Canvas.Top="58" Width="409"/>
+        					<TextBlock x:Name="Main_Menu" Foreground="#FFFFFFFF" FontSize="34.5" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="36.5" LineHeight="34.5" TextAlignment="Left" TextWrapping="Wrap" Text="Main Menu" Canvas.Top="21.64"/>
+        					<TextBlock x:Name="About1" Foreground="#FFFFFFFF" FontSize="34.5" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="36.5" LineHeight="34.5" TextAlignment="Left" TextWrapping="Wrap" Text="About" Canvas.Top="67.64"/>
+        					<TextBlock x:Name="Quick_Start_Mode" Foreground="#FFFFFFFF" FontSize="34.5" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="36.5" LineHeight="34.5" TextAlignment="Left" TextWrapping="Wrap" Text="Quick Start Mode" Canvas.Top="112.64"/>
+        					<TextBlock x:Name="User_Selected_Mode" Foreground="#FFFFFFFF" FontSize="34.5" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="36.5" LineHeight="34.5" TextAlignment="Left" TextWrapping="Wrap" Text="User Selected Mode" Canvas.Top="158.64" Height="42.5"/>
+        					<TextBlock x:Name="App_Generated_Mode" Foreground="#FFFFFFFF" FontSize="34.5" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="36.5" LineHeight="34.5" TextAlignment="Left" TextWrapping="Wrap" Text="App Generated Mode" Canvas.Top="203.64"/>
+        					<TextBlock x:Name="Discovery_Mode" Foreground="#FFFFFFFF" FontSize="34.5" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="36.5" LineHeight="34.5" TextAlignment="Left" TextWrapping="Wrap" Text="Discovery Mode" Canvas.Top="249.64"/>
         				</Canvas>
-        				<Button x:Name="AboutButton" Content="Button" Canvas.Left="30.333" Canvas.Top="365.167" Height="52.193" Width="101.3" Opacity="0" Click="MainMenuAboutButton_Click"/>
-        				<Button x:Name="UserSelectedRouteButton" Content="Button" Canvas.Left="37.5" Canvas.Top="120" Height="47.4" Width="386.01" Opacity="0" Click="SelectStartPlaque_Click"/>
-        				<Button x:Name="MainMenuOptionsButton" Content="Button" Canvas.Left="28.5" Canvas.Top="304.5" Opacity="0" Height="52.693" Width="152.3" Click="MainMenuOptionsButton_Click"/>
-        				<Button x:Name="QuickStartButton" Content="Button" Canvas.Left="35.5" Canvas.Top="66" Height="47.4" Width="386.01" Opacity="0" Click="QuickStartButton_Click"/>
         			</Canvas>
         		</Canvas>
+        		<Button x:Name="AboutButton" Content="Button" Canvas.Left="40.333" Canvas.Top="62.167" Height="45.526" Width="99.967" Opacity="0" Click="MainMenuAboutButton_Click" Visibility="Collapsed"/>
+        		<Button x:Name="UserSelectedRouteButton" Content="Button" Canvas.Left="37.5" Canvas.Top="156.667" Height="40.733" Width="307.343" Opacity="0" Click="SelectStartPlaque_Click" Visibility="Collapsed"/>
+        		<Button x:Name="MainMenuOptionsButton" Content="Button" Canvas.Left="39.5" Canvas.Top="303.5" Height="40.693" Width="86.3" Click="MainMenuOptionsButton_Click" Style="{StaticResource OptionsButton}" Visibility="Collapsed"/>
+        		<Button x:Name="QuickStartButton" Content="Button" Canvas.Left="38.167" Canvas.Top="107.333" Height="40.734" Width="349.343" Opacity="0" Click="QuickStartButton_Click" Visibility="Collapsed"/>
+        		<Button x:Name="AppGeneratedRouteButton" Content="Button" Canvas.Left="36.5" Canvas.Top="197.667" Height="42.733" Width="321.343" Opacity="0" Click="AppGeneratedRouteButton_Click" Visibility="Collapsed"/>
+        		<Button x:Name="DiscoveryModeButton" Content="Button" Canvas.Left="37.167" Canvas.Top="247.667" Height="40.067" Width="269.344" Opacity="0" Click="DiscoveryModeButton_Click" Visibility="Collapsed"/>
+        		<Button x:Name="MainMenuHelpButton" Content="Button" Canvas.Left="195.5" Canvas.Top="303.5" Height="40.693" Width="86.3" Click="MainMenuHelpButton_Click" Style="{StaticResource HelpButton}" Visibility="Collapsed"/>
+        		<Button x:Name="DebugButton" Content="Debug" Canvas.Left="336" Canvas.Top="286" Click="DebugButton_Click" Visibility="Collapsed"/>
         	</Canvas>
         </Canvas>
         <Canvas x:Name="SelectRoute" HorizontalAlignment="Left" Height="237" UseLayoutRounding="False" VerticalAlignment="Top" Width="479" Canvas.Top="769" RenderTransformOrigin="0.5,0.5" d:IsHidden="True">
         	<Canvas.RenderTransform>
         		<CompositeTransform/>
         	</Canvas.RenderTransform>
-        	<Canvas x:Name="SelectPlaques" HorizontalAlignment="Left" Height="424" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" RenderTransformOrigin="0.5,0.5">
+        	<Canvas x:Name="SelectPlaques" HorizontalAlignment="Left" Height="424" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" RenderTransformOrigin="0.5,0.5" Canvas.Left="-1">
         		<Canvas.RenderTransform>
         			<CompositeTransform/>
         		</Canvas.RenderTransform>
-                <local:NameInfo x:Name="RoutePlaqueNameInfo" Height="138" Width="480" Canvas.Top="126"/>
-        		<Canvas x:Name="___Group_6" Height="424" Canvas.Left="0" Canvas.Top="0" Width="480">
-        			<Image x:Name="___Group_37" Height="298" Canvas.Left="0" Source="SelectPlaques_Images/Group.png" Canvas.Top="126" Width="480" IsHitTestVisible="False"/>
+                <local:NameInfo x:Name="RoutePlaqueNameInfo" Height="138" Width="480"/>
+                <Canvas x:Name="USER_SEL_ChoosePlaques" HorizontalAlignment="Left" Height="196" UseLayoutRounding="False" VerticalAlignment="Top" Width="481">
+        			<Canvas x:Name="Layer_8" Height="196" Canvas.Left="0" Canvas.Top="0" Width="481">
+        				<Canvas x:Name="___Group_6" Height="196" Canvas.Left="0" Canvas.Top="0" Width="481">
+        					<Canvas x:Name="___Group_67" Height="196" Canvas.Left="0" Canvas.Top="0" Width="481">
+        						<Canvas x:Name="___Group_68" Height="196" Canvas.Left="0" Opacity="0.929" Canvas.Top="0" Width="481">
+        							<Image x:Name="___Group_69" Height="196" Canvas.Left="0" Source="USER-SEL_ChoosePlaques_Images/Group1.png" Canvas.Top="0" Width="481"/>
+        						</Canvas>
+        					</Canvas>
+        					<Image x:Name="___Path_6" Height="1" Canvas.Left="36" Source="USER-SEL_ChoosePlaques_Images/Path.png" Canvas.Top="55" Width="409"/>
+        					<TextBlock x:Name="User_Selected_Mode2" Foreground="#FFFFFFFF" FontSize="34.5" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="36.5" LineHeight="34.5" TextAlignment="Left" TextWrapping="Wrap" Text="User Selected Mode" Canvas.Top="19.64"/>
+        					<TextBlock x:Name="Select_plaques_to_visit" Foreground="#FFFFFFFF" FontSize="34.5" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" LineStackingStrategy="BlockLineHeight" Canvas.Left="36.5" LineHeight="34.5" TextAlignment="Left" TextWrapping="Wrap" Text="Select plaques to visit" Canvas.Top="65.64"/>
+        				</Canvas>
+        			</Canvas>
         		</Canvas>
-        		<TextBlock x:Name="User_Selected_Route5" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="User Selected Route" Canvas.Top="156.94"/>
-        		<TextBlock x:Name="AddOrRemovePlaque" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Add plaque to route?" Canvas.Top="204.94"/>
-        		<TextBlock x:Name="AddOrRemovePlaqueYesNo" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="373.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="OK" Canvas.Top="209.939"/>
-        		<TextBlock x:Name="Help_______________________________1" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Options" Canvas.Top="350.94"/>
-        		<TextBlock x:Name="___Type_1" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="355.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text=" " Canvas.Top="350.94"/>
-        		<TextBlock x:Name="Done2" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="362.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Done" Canvas.Top="350.94"/>
-        		<Image x:Name="___Path_6" Height="2" Canvas.Left="36" Source="SelectPlaques_Images/Path.png" Canvas.Top="193" Width="408"/>
-        		<Button x:Name="SelectPlaquesButton1" Content="Button" Height="56.9" Width="120.51" RenderTransformOrigin="7.796,1.588" Canvas.Left="348" Canvas.Top="336.5" Opacity="0" Click="DoneSelectingRoute"/>
-        		<Button x:Name="SelectPlaqueYes" Content="Button" Height="67.9" Width="101.51" RenderTransformOrigin="7.796,1.588" Canvas.Left="361" Canvas.Top="195.5" Opacity="0" Click="AddRemovePlaqueFromListYes_Click"/>
-        		<Button x:Name="OptionsButton3" Content="Button" Canvas.Left="27.5" Canvas.Top="345.5" Opacity="0" Height="42.693" Width="143.3" Click="MainMenuOptionsButton_Click"/>
+        		<Button x:Name="SelectPlaquesButton1" Content="Button" Height="56.9" Width="120.51" RenderTransformOrigin="7.796,1.588" Canvas.Left="36.669" Canvas.Top="116.336" Click="DoneSelectingRoute" Style="{StaticResource DoneButton}"/>
+        		<Button x:Name="AddPlaque" Content="Button" Height="40" Width="208" RenderTransformOrigin="7.796,1.588" Canvas.Left="38.5" Canvas.Top="63" Click="AddRemovePlaqueFromListYes_Click" Style="{StaticResource AddPlaqueButton}" Visibility="Collapsed"/>
+        		<Button x:Name="OptionsButton3" Content="Button" Canvas.Left="163.669" Canvas.Top="119" Height="42.693" Width="143.3" Click="MainMenuOptionsButton_Click" Style="{StaticResource OptionsButton}"/>
+        		<Button x:Name="RemovePlaque" Content="Button" Height="40" Width="208" RenderTransformOrigin="7.796,1.588" Canvas.Left="38.5" Canvas.Top="63" Click="AddRemovePlaqueFromListYes_Click" Style="{StaticResource RemovePlaque}" Visibility="Collapsed"/>
+        		<Button x:Name="RevisitPlaque" Content="Button" Height="40" Width="208" RenderTransformOrigin="7.796,1.588" Canvas.Left="38.5" Canvas.Top="63" Click="AddRemovePlaqueFromListYes_Click" Style="{StaticResource RevisitPlaque}" Visibility="Collapsed"/>
         	</Canvas>
         </Canvas>
         <Canvas x:Name="CompletedRoute" HorizontalAlignment="Left" Height="249" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" Canvas.Top="769.5" RenderTransformOrigin="0.5,0.5" d:IsHidden="True">
@@ -758,10 +1390,9 @@
         				</Canvas>
         			</Canvas>
         			<TextBlock x:Name="Quick_Start_Mode1" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="36.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Quick Start Mode" Canvas.Top="30.94"/>
-                    <TextBlock x:Name="Plot_Route" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" LineStackingStrategy="BlockLineHeight" Canvas.Left="36.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Plot Route" Canvas.Top="79.94"/>
         			<Image x:Name="___Path_9" Height="1" Canvas.Left="37" Source="QUICK-START_Images/Path.png" Canvas.Top="68" Width="408"/>
         		</Canvas>
-        		<Button x:Name="QuickStartPlotRoute" Content="Button" Canvas.Left="22" Canvas.Top="70" Width="196.01" Height="60.4" Opacity="0" Click="QuickStartPlotRouteButton_Click"/>
+        		<Button x:Name="QuickStartPlotRoute" Content="Button" Canvas.Left="35.99" Canvas.Top="81.6" Width="196.01" Height="60.4" Click="QuickStartPlotRouteButton_Click" Style="{StaticResource PlotRouteButton}"/>
         	</Canvas>
         </Canvas>
         <Canvas x:Name="AppGenEndPoint" HorizontalAlignment="Left" Height="297" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" Canvas.Top="769" RenderTransformOrigin="0.5,0.5" d:IsHidden="True">
@@ -777,17 +1408,12 @@
         			</Canvas>
         			<TextBlock x:Name="RouteMode3" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="36.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="App Generated Mode" Canvas.Top="30.94"/>
         			<Image x:Name="___Compound_Path_" Height="38" Canvas.Left="39" Source="AppGenEndPoint_Images/Compound Path.png" Canvas.Top="78" Width="317"/>
-        			<TextBlock x:Name="___Type_6" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="36.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="           " Canvas.Top="175.94"/>
-        			<TextBlock x:Name="___Type_5" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="376.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text=" " Canvas.Top="175.94"/>
-        			<TextBlock x:Name="Help_______________________________3" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="36.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Options" Canvas.Top="224.94"/>
-        			<TextBlock x:Name="___Type_4" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="356.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text=" " Canvas.Top="224.94"/>
-        			<TextBlock x:Name="AppGenEndPointDone" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="363.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Done" Canvas.Top="224.94"/>
         			<Image x:Name="___Path_10" Height="2" Canvas.Left="37" Source="AppGenEndPoint_Images/Path.png" Canvas.Top="67" Width="408"/>
         		</Canvas>
-        		<Button x:Name="OptionsButton2_Copy" Content="Button" Canvas.Left="26" Canvas.Top="221" Opacity="0" Height="42" Width="143" Click="MainMenuOptionsButton_Click"/>
+        		<Button x:Name="OptionsButton2_Copy" Content="Button" Canvas.Left="153" Canvas.Top="126" Height="42" Width="143" Click="MainMenuOptionsButton_Click" Style="{StaticResource OptionsButton}"/>
         	</Canvas>
         	<local:NameInfo x:Name="AppGenEndPlaqueNameInfo" Height="138" Width="480" Canvas.Top="1.5"/>
-        	<Button x:Name="AppGenRouteEndPointDonButton" Content="Button" Canvas.Left="361.5" Canvas.Top="217.5" Height="59.693" Width="105.8" Opacity="0" Click="AppGenRouteEndPointDone_Click"/>
+        	<Button x:Name="AppGenRouteEndPointDonButton" Content="Button" Canvas.Left="33.5" Canvas.Top="123.5" Height="59.693" Width="105.8" Opacity="0.995" Click="AppGenRouteEndPointDone_Click" Style="{StaticResource DoneButton}"/>
         </Canvas>
         <Canvas x:Name="Parameters" HorizontalAlignment="Left" Height="540" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" Canvas.Top="769.5" RenderTransformOrigin="0.5,0.5" d:IsHidden="True">
         	<Canvas.RenderTransform>
@@ -806,13 +1432,11 @@
         			<TextBlock x:Name="___Type_3" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="405.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text=" " Canvas.Top="176.94"/>
         			<TextBlock x:Name="_2" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" LineStackingStrategy="BlockLineHeight" Canvas.Left="414.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="2" Canvas.Top="176.94"/>
         			<TextBlock x:Name="_0" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" LineStackingStrategy="BlockLineHeight" Canvas.Left="430.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="0" Canvas.Top="176.94"/>
-        			<TextBlock x:Name="Options______________________________" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="37.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Options                              " Canvas.Top="273.94"/>
-        			<TextBlock x:Name="Done4" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="364.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Done" Canvas.Top="273.94"/>
         			<Image x:Name="___Path_____Path_" Height="104" Canvas.Left="39" Source="Parameters2_Images/Path + Path.png" Canvas.Top="68" Width="409"/>
         		</Canvas>
-        		<Button x:Name="MainMenuOptionsButton1" Content="Button" Canvas.Left="30.5" Canvas.Top="263.5" Opacity="0" Height="52.693" Width="152.3" Click="MainMenuOptionsButton_Click"/>
+        		<Button x:Name="MainMenuOptionsButton1" Content="Button" Canvas.Left="153.5" Canvas.Top="240.5" Height="52.693" Width="152.3" Click="MainMenuOptionsButton_Click" Style="{StaticResource OptionsButton}"/>
         	</Canvas>
-        	<Button x:Name="ParametersDoneButton" Content="Button" Canvas.Left="345.5" Canvas.Top="254.5" Opacity="0" Click="ParametersDoneButton_Click"/>
+        	<Button x:Name="ParametersDoneButton" Content="Button" Canvas.Left="28.338" Canvas.Top="238.339" Click="ParametersDoneButton_Click" Style="{StaticResource DoneButton}" Height="64" Width="118.5"/>
         	<Slider x:Name="Slider1" Value="8" Canvas.Left="26.667" Canvas.Top="142.666" Width="414.667" Style="{StaticResource BuildMapSlider}"/>
         </Canvas>
         <Canvas x:Name="About" HorizontalAlignment="Left" Height="636" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" Canvas.Top="769" RenderTransformOrigin="0.5,0.5" d:IsHidden="True">
@@ -830,11 +1454,10 @@
         			<ScrollViewer Height="449" Canvas.Left="39.5" Canvas.Top="78.94" Width="403.97">
         				<TextBlock x:Name="Blue_Plaques_is_a_quided__tour_of_an_eclectic__selection_of_London_s_famous_people_and_places__" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" LineStackingStrategy="BlockLineHeight" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Height="753" Width="403.97"><Run Text="Brought to you by Nokia, Blue Maps is a guided tour of some of London's most fascinating people and places. Blue Maps allows you to uncover the stories behind the city's Blue Plaques. Your personal companion across cultural London.  "/><LineBreak/><Run/><LineBreak/><Run Text="You can choose to select your own route or let Blue Maps take you on a suggested one. As you reach each destination you unlock detailed information about the landmark and its important resident."/></TextBlock>
         			</ScrollViewer>
-        			<TextBlock x:Name="Done5" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="364.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Done" Canvas.Top="562.94"/>
         			<Image x:Name="___Path_11" Height="2" Canvas.Left="39" Source="About_Images/Path.png" Canvas.Top="67" Width="409"/>
         		</Canvas>
         	</Canvas>
-            <Button x:Name="AboutDoneButton" Content="Button" Canvas.Left="342" Canvas.Top="543" Opacity="0" Click="AboutButtonDone_Click"/>
+            <Button x:Name="AboutDoneButton" Content="Button" Canvas.Left="351.324" Canvas.Top="547.657" Click="AboutButtonDone_Click" Style="{StaticResource DoneButton}" Height="46.676" Width="110"/>
         </Canvas>
         <Canvas x:Name="StatsScreen" HorizontalAlignment="Left" Height="636" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" Canvas.Top="769" RenderTransformOrigin="0.5,0.5" d:IsHidden="True">
         	<Canvas.RenderTransform>
@@ -849,25 +1472,23 @@
         			</Canvas>
         			<TextBlock x:Name="Stats" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="37.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Stats" Canvas.Top="30.94"/>
         			<TextBlock x:Name="No__Plaques_Found__" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" LineStackingStrategy="BlockLineHeight" Canvas.Left="37.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Plaques Found: " Canvas.Top="78.94"/>
-        			<TextBlock x:Name="Help_______________________________5" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="37.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Help                               " Canvas.Top="562.94"/>
-        			<TextBlock x:Name="Done6" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="364.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Done" Canvas.Top="562.94"/>
         			<Image x:Name="___Path_12" Height="2" Canvas.Left="39" Source="StatsScreen_Images/Path.png" Canvas.Top="67" Width="409"/>
-        			<TextBlock x:Name="KMTravelled" Canvas.Left="320" TextWrapping="Wrap" Canvas.Top="312.5" FontSize="36.667" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" Text="12km"/>
-        			<TextBlock x:Name="ETime" Canvas.Left="250" TextWrapping="Wrap" Canvas.Top="352" FontSize="36.667" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" Text="1h32min"/>
+                    <TextBlock x:Name="KMTravelled" Foreground="#FFFFFFFF" Canvas.Left="320" TextWrapping="Wrap" Canvas.Top="312.5" FontSize="36.667" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" Text="12km"/>
+                    <TextBlock x:Name="ETime" Foreground="#FFFFFFFF" Canvas.Left="250" TextWrapping="Wrap" Canvas.Top="352" FontSize="36.667" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" Text="1h32min"/>
         		</Canvas>
-        		<TextBlock x:Name="NumPlaquesFound" Canvas.Left="346.5" TextWrapping="Wrap" Canvas.Top="75.415" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" FontSize="36" Text="1 / 100"/>
-        		<TextBlock x:Name="Kilometers_Travelled" Canvas.Left="37.997" TextWrapping="Wrap" Canvas.Top="312.5" Text="Distance Travelled:" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" FontSize="36.667"/>
-        		<TextBlock x:Name="Arts1" Canvas.Left="78.845" TextWrapping="Wrap" Canvas.Top="122" Text="Arts" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" FontSize="36.667"/>
-        		<TextBlock x:Name="NumArts" Canvas.Left="321.5" TextWrapping="Wrap" Canvas.Top="123.59" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" Text="3 / 25" FontSize="36"/>
-        		<TextBlock x:Name="Politics1" Canvas.Left="79.845" TextWrapping="Wrap" Canvas.Top="163" Text="Politics" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" FontSize="36.667"/>
-        		<TextBlock x:Name="Science1" Canvas.Left="80.845" TextWrapping="Wrap" Canvas.Top="205" Text="Science" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" FontSize="36.667"/>
-        		<TextBlock x:Name="Exploration1" Canvas.Left="82.845" TextWrapping="Wrap" Canvas.Top="246" Text="Exploration" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" FontSize="36.667"/>
-        		<TextBlock x:Name="NumPolitics" Canvas.Left="321.5" TextWrapping="Wrap" Canvas.Top="163.59" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" Text="3 / 25" FontSize="36"/>
-        		<TextBlock x:Name="NumScience" Canvas.Left="321.5" TextWrapping="Wrap" Canvas.Top="203.59" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" Text="3 / 25" FontSize="36"/>
-        		<TextBlock x:Name="NumExploration" Canvas.Left="320.5" TextWrapping="Wrap" Canvas.Top="241.59" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" Text="3 / 25" FontSize="36" RenderTransformOrigin="0.511,1.252"/>
-        		<TextBlock x:Name="ElapsedTime" Canvas.Left="37.997" TextWrapping="Wrap" Canvas.Top="353.5" Text="Elapsed Time:" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" FontSize="36.667"/>
+                <TextBlock x:Name="NumPlaquesFound" Foreground="#FFFFFFFF" Canvas.Left="346.5" TextWrapping="Wrap" Canvas.Top="75.415" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" FontSize="36" Text="1 / 100"/>
+                <TextBlock x:Name="Kilometers_Travelled" Foreground="#FFFFFFFF" Canvas.Left="37.997" TextWrapping="Wrap" Canvas.Top="312.5" Text="Distance Travelled:" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" FontSize="36.667"/>
+                <TextBlock x:Name="Arts1" Foreground="#FFFFFFFF" Canvas.Left="78.845" TextWrapping="Wrap" Canvas.Top="122" Text="Arts" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" FontSize="36.667"/>
+                <TextBlock x:Name="NumArts" Foreground="#FFFFFFFF" Canvas.Left="321.5" TextWrapping="Wrap" Canvas.Top="123.59" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" Text="3 / 25" FontSize="36"/>
+                <TextBlock x:Name="Politics1" Foreground="#FFFFFFFF" Canvas.Left="79.845" TextWrapping="Wrap" Canvas.Top="163" Text="Politics" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" FontSize="36.667"/>
+                <TextBlock x:Name="Science1" Foreground="#FFFFFFFF" Canvas.Left="80.845" TextWrapping="Wrap" Canvas.Top="205" Text="Science" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" FontSize="36.667"/>
+                <TextBlock x:Name="Exploration1" Foreground="#FFFFFFFF" Canvas.Left="82.845" TextWrapping="Wrap" Canvas.Top="246" Text="Exploration" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" FontSize="36.667"/>
+                <TextBlock x:Name="NumPolitics" Foreground="#FFFFFFFF" Canvas.Left="321.5" TextWrapping="Wrap" Canvas.Top="163.59" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" Text="3 / 25" FontSize="36"/>
+                <TextBlock x:Name="NumScience" Foreground="#FFFFFFFF" Canvas.Left="321.5" TextWrapping="Wrap" Canvas.Top="203.59" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" Text="3 / 25" FontSize="36"/>
+                <TextBlock x:Name="NumExploration" Foreground="#FFFFFFFF" Canvas.Left="320.5" TextWrapping="Wrap" Canvas.Top="241.59" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" Text="3 / 25" FontSize="36" RenderTransformOrigin="0.511,1.252"/>
+                <TextBlock x:Name="ElapsedTime" Foreground="#FFFFFFFF" Canvas.Left="37.997" TextWrapping="Wrap" Canvas.Top="353.5" Text="Elapsed Time:" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" FontSize="36.667"/>
         	</Canvas>
-        	<Button x:Name="StatsScreenDoneButton" Content="Button" Canvas.Left="344" Canvas.Top="540" Opacity="0" Click="StatsScreenDone_Click"/>
+        	<Button x:Name="StatsScreenDoneButton" Content="Button" Canvas.Left="352.75" Canvas.Top="555.75" Click="StatsScreenDone_Click" Style="{StaticResource DoneButton}" Height="51" Width="112"/>
         </Canvas>
         <Canvas x:Name="Options" HorizontalAlignment="Left" Height="298" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" Canvas.Top="769.5" RenderTransformOrigin="0.5,0.5" d:IsHidden="True">
         	<Canvas.RenderTransform>
@@ -884,12 +1505,11 @@
         			<TextBlock x:Name="HelpText" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Help" Canvas.Top="79.94"/>
         			<TextBlock x:Name="FilterText" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Filter" Canvas.Top="127.94"/>
         			<TextBlock x:Name="Stats_Text" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Stats" Canvas.Top="176.94"/>
-        			<TextBlock x:Name="OptionsDone" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="355" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Done" Canvas.Top="224.94"/>
         			<Image x:Name="___Path_13" Height="2" Canvas.Left="36" Source="Filter_Images1/Path.png" Canvas.Top="68" Width="408"/>
         			<Button x:Name="OptionsHelpButton" Content="Button" Canvas.Left="36" Canvas.Top="70.5" Height="46.193" Width="90.8" Opacity="0" Click="OptionsHelpButton_Click"/>
                     <Button x:Name="OptionsFilterButton" Content="Button" Canvas.Left="36" Canvas.Top="124.5" Height="38.693" Width="90.8" Opacity="0" Click="OptionsFilterButton_Click"/>
                     <Button x:Name="OptionsStatsButton" Content="Button" Canvas.Left="34.5" Canvas.Top="174" Height="38.693" Width="90.8" Opacity="0" Click="StatsButton_Click"/>
-                    <Button x:Name="OptionsDoneButton" Content="Button" Canvas.Left="328.5" Canvas.Top="211" Height="62.693" Width="136.8" Opacity="0" Click="OptionsDoneButton_Click"/>
+                    <Button x:Name="OptionsDoneButton" Content="Button" Canvas.Left="342.819" Canvas.Top="217.66" Height="62.693" Width="136.8" Click="OptionsDoneButton_Click" Style="{StaticResource DoneButton}"/>
         		</Canvas>
         	</Canvas>
         </Canvas>
@@ -908,11 +1528,53 @@
         			<ScrollViewer Canvas.Left="37.5" Canvas.Top="78.94" Width="405.603" Height="482">
         				<TextBlock x:Name="Blue_Plaques_is_a_quided__tour_of_an_eclectic__selection_of_London_s_famous_people_and_places__1" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" LineStackingStrategy="BlockLineHeight" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Height="1406" Width="405.603"><Run Text="Quick start"/><LineBreak/><Run Text="Simply select a nearby plaque to visit, then follow the specified route. Simple!"/><LineBreak/><Run/><LineBreak/><Run Text="User selected"/><LineBreak/><Run Text="Select all the plaques you want to visit on that trip including the start and end points. Your route will then be mapped out for you to follow."/><LineBreak/><Run/><LineBreak/><Run Text="App generated"/><LineBreak/><Run Text="Tell Blue Maps where you would like to end up, then select the number of plaques you would like to visit along the way. Blue Maps will then suggest the best route for you to take, visiting Plaques you haven't visited before."/><LineBreak/><Run/><LineBreak/><Run Text="Discovery"/><LineBreak/><Run Text="Be taken on your very own mystery tour! Tell Blue Maps where you would like to end up, then select the number of plaques you would like to visit along the way. Blue Maps will then select the best route for you – but will only reveal your next Plaque.&#xa;"/></TextBlock>
         			</ScrollViewer>
-        			<TextBlock x:Name="Done3" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="364.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Done" Canvas.Top="562.94"/>
         			<Image x:Name="___Path_14" Height="2" Canvas.Left="39" Source="About_Images1/Path.png" Canvas.Top="67" Width="409"/>
         		</Canvas>
         	</Canvas>
-        	<Button x:Name="HelpDoneButton" Content="Button" Canvas.Left="342" Canvas.Top="542" Opacity="0" Click="HelpDoneButton_Click"/>
+        	<Button x:Name="HelpDoneButton" Content="Button" Canvas.Left="352" Canvas.Top="558" Click="HelpDoneButton_Click" Style="{StaticResource DoneButton}" Height="49" Width="114"/>
+        </Canvas>
+        <Canvas x:Name="Debug" HorizontalAlignment="Left" Height="636" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" Canvas.Top="769" RenderTransformOrigin="0.5,0.5" d:IsHidden="True">
+        	<Canvas.RenderTransform>
+        		<CompositeTransform/>
+        	</Canvas.RenderTransform>
+        	<Canvas x:Name="Layer_7" Height="636" Canvas.Left="0" Canvas.Top="0" Width="480">
+        		<Canvas x:Name="___Group_1" Height="636" Canvas.Left="0" Canvas.Top="0" Width="480">
+        			<Canvas x:Name="___Group_5" Height="636" Canvas.Left="0" Canvas.Top="0" Width="480">
+        				<Canvas x:Name="___Group_7" Height="636" Canvas.Left="0" Opacity="0.929" Canvas.Top="0" Width="480">
+        					<Image x:Name="___Group_8" Height="636" Canvas.Left="0" Source="StatsScreen_Images/Group.png" Canvas.Top="0" Width="480"/>
+        				</Canvas>
+        			</Canvas>
+        			<TextBlock x:Name="Stats1" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="37.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Debug" Canvas.Top="30.94"/>
+        			<TextBlock x:Name="No__Plaques_Found__1" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" LineStackingStrategy="BlockLineHeight" Canvas.Left="37.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Fix Location" Canvas.Top="78.94"/>
+        			<Image x:Name="___Path_7" Height="2" Canvas.Left="39" Source="StatsScreen_Images/Path.png" Canvas.Top="67" Width="409"/>
+        			<Button x:Name="DebugFixLocationButton" Content="Off" RenderTransformOrigin="2.557,1.437" Canvas.Left="343.7" Canvas.Top="63.306" Click="DebugFixLocation_Click"/>
+        			<TextBlock x:Name="No__Plaques_Found__1_Copy" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" LineStackingStrategy="BlockLineHeight" Canvas.Left="40" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Simulate Walking" Canvas.Top="151"/>
+                    <Button x:Name="DebugSimulateWalkingButton" Content="Off" RenderTransformOrigin="2.557,1.437" Canvas.Left="344" Canvas.Top="127.306" Click="DebugSimulateWalking_Click"/>
+        		</Canvas>
+        	</Canvas>
+        	<Button x:Name="DebugScreenDone" Content="Button" Canvas.Left="352.75" Canvas.Top="387.75" Click="StatsScreenDone_Click" Style="{StaticResource DoneButton}" Height="51" Width="112" RenderTransformOrigin="0.5,0.5">
+        		<Button.RenderTransform>
+        			<CompositeTransform/>
+        		</Button.RenderTransform>
+        	</Button>
+        </Canvas>
+        <Canvas x:Name="NoInternet" HorizontalAlignment="Left" Height="298" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" Canvas.Top="769.5" RenderTransformOrigin="0.5,0.5">
+        	<Canvas.RenderTransform>
+        		<CompositeTransform/>
+        	</Canvas.RenderTransform>
+        	<Canvas x:Name="Layer_23" Height="298" Canvas.Left="0" Canvas.Top="0" Width="480">
+        		<Canvas x:Name="___Group_9" Height="298" Canvas.Left="0" Canvas.Top="0" Width="480">
+        			<Canvas x:Name="___Group_33" Height="298" Canvas.Left="0" Canvas.Top="0" Width="480">
+        				<Canvas x:Name="___Group_37" Height="298" Canvas.Left="0" Opacity="0.929" Canvas.Top="0" Width="480">
+        					<Image x:Name="___Group_70" Height="298" Canvas.Left="0" Source="Filter_Images1/Group.png" Canvas.Top="0" Width="480"/>
+        				</Canvas>
+        			</Canvas>
+        			<TextBlock x:Name="OptionsText1" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Network Required" Canvas.Top="31.94"/>
+        			<TextBlock x:Name="HelpText1" Foreground="#FFFFFFFF" FontSize="37" FontFamily="/Maps;component/Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Blue Maps requires an active internet connection." Canvas.Top="79.94" Height="134.56" Width="404.5"/>
+        			<Image x:Name="___Path_15" Height="2" Canvas.Left="36" Source="Filter_Images1/Path.png" Canvas.Top="68" Width="408"/>
+        			<Button x:Name="OptionsDoneButton1" Content="Button" Canvas.Left="342.819" Canvas.Top="217.66" Height="62.693" Width="136.8" Click="OptionsDoneButton_Click" Style="{StaticResource DoneButton}"/>
+        		</Canvas>
+        	</Canvas>
         </Canvas>
     </Canvas>
 </phone:PhoneApplicationPage>

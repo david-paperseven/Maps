@@ -74,13 +74,20 @@ namespace Maps
         // This code will not execute when the application is first launched
         private void Application_Activated(object sender, ActivatedEventArgs e)
         {
-            SaveState.Init();
-            PersistentStorage.Init();
-            Tombstone.Init();
+            if (SaveState.Instance == null) // looks like the app was terminated
+            {
+                SaveState.Init();
+                PersistentStorage.Init();
+                Tombstone.Init();
 
-            LoadPersistentStorage();
-            LoadTombstoneData();
-
+                LoadPersistentStorage();
+                LoadTombstoneData();
+                Tombstone.Instance.WasTombstoned = true;
+            }
+            else
+            {
+                Tombstone.Instance.WasTombstoned = false;
+            }
         }
 
         // Code to execute when the application is deactivated (sent to background)
