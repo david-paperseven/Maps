@@ -567,6 +567,21 @@ namespace Maps
             ClearRouteYesNo.PlaqueExtraInfo.IsHitTestVisible = true;
         }
 
+
+        private void RouteSummaryPauseButton_Click(object sender, RoutedEventArgs e)
+        {
+            RouteSummaryPauseButton.Visibility = System.Windows.Visibility.Collapsed;
+            RouteSummaryUnpauseButton.Visibility = System.Windows.Visibility.Visible;
+            SaveState.Instance.Paused = true;
+        }
+
+        private void RouteSummaryUnpauseButton_Click(object sender, RoutedEventArgs e)
+        {
+            RouteSummaryPauseButton.Visibility = System.Windows.Visibility.Visible;
+            RouteSummaryUnpauseButton.Visibility = System.Windows.Visibility.Collapsed;
+            SaveState.Instance.Paused = false;
+        }
+
         private void RouteSummaryClearRouteButton_Click(object sender, RoutedEventArgs e)
         {
             ClearRouteOption();
@@ -672,7 +687,7 @@ namespace Maps
             waypoints.Add(sp);
 
             SaveState.Instance.route.CalculateRoute(waypoints, SaveState.Instance.summary);
-            //RemoveAllPinsExceptCurrentRoute();
+            RemoveAllPinsExceptCurrentRoute();
             VisualStateManager.GoToState(QuickStartNameInfo, "Start", true);
             VisualStateManager.GoToState(this, "DistanceSummaryState", true);
         }
@@ -1283,11 +1298,14 @@ namespace Maps
                     SaveState.Instance.pinlayer.Children.Add(SaveState.Instance.plaques[i].Pin);
                 }
             }
-            if (SaveState.Instance.routeList.GetStartPoint() != SaveState.Instance.routeList.GetEndPoint())
+            if (SaveState.Instance.routeList.GetEndPoint() != null)
             {
-                if (!route.Contains(SaveState.Instance.routeList.GetEndPoint()))
+                if (SaveState.Instance.routeList.GetStartPoint() != SaveState.Instance.routeList.GetEndPoint())
                 {
-                    SaveState.Instance.pinlayer.Children.Add(SaveState.Instance.routeList.GetEndPoint().Pin);
+                    if (!route.Contains(SaveState.Instance.routeList.GetEndPoint()))
+                    {
+                        SaveState.Instance.pinlayer.Children.Add(SaveState.Instance.routeList.GetEndPoint().Pin);
+                    }
                 }
             }
         }

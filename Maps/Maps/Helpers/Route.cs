@@ -82,7 +82,7 @@ namespace Maps.Helpers
                     uiDispatcher,
                     result =>
                     {
-                        SaveState.Instance.routedrawer.result = result;
+                        SaveState.Instance.routedrawer.result = result.Result;
 
                         mySummary.Distance = result.Result.Summary.Distance;
                         mySummary.Time = result.Result.Summary.TimeInSeconds;
@@ -141,7 +141,7 @@ namespace Maps.Helpers
                 // If the route calculate was a success and contains a route, then draw the route on the map.
                 if ((e.Result.ResponseSummary.StatusCode == RouteService.ResponseStatusCode.Success) & (e.Result.Result.Legs.Count != 0))
                 {
-                    SaveState.Instance.routedrawer.result = e.Result;
+                    SaveState.Instance.routedrawer.result = e.Result.Result;
 
                     mySummary.Distance = e.Result.Result.Summary.Distance;
                     mySummary.Time = e.Result.Result.Summary.TimeInSeconds;

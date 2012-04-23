@@ -635,6 +635,118 @@
 			<Setter Property="FontSize" Value="34.5"/>
 			<Setter Property="Foreground" Value="White"/>
 		</Style>
+		<Style x:Key="PauseButton" TargetType="Button">
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="Button">
+						<Canvas x:Name="BLD_BLUE_MAPS_BUTTON_DONE" UseLayoutRounding="False">
+							<VisualStateManager.VisualStateGroups>
+								<VisualStateGroup x:Name="CommonStates">
+									<VisualState x:Name="Disabled"/>
+									<VisualState x:Name="Normal"/>
+									<VisualState x:Name="MouseOver"/>
+									<VisualState x:Name="Pressed">
+										<Storyboard>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="DoneTextNotPressed">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Collapsed</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="DoneTextPressed">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Visible</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="Overlay">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Collapsed</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="OverlayPressed">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Visible</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+										</Storyboard>
+									</VisualState>
+								</VisualStateGroup>
+							</VisualStateManager.VisualStateGroups>
+							<Image x:Name="Overlay" Height="42" Source="BLD_BLUE-MAPS_BUTTON_PAUSE_Images/PauseOverlay.png" Stretch="Fill" Width="117" Canvas.Left="7.337" Canvas.Top="2.001"/>
+							<Image x:Name="OverlayPressed" Height="42" Source="BLD_BLUE-MAPS_BUTTON_PAUSE_PRESS_Images/PauseOverlayPressed.png" Stretch="Fill" Width="117" Visibility="Collapsed" Canvas.Left="7.337" Canvas.Top="2.001"/>
+							<TextBlock x:Name="DoneTextNotPressed" TextWrapping="Wrap" Text="Pause" Canvas.Left="22.436" Canvas.Top="-0.19" Foreground="#FFFBF6F6" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" FontSize="34.667"/>
+							<TextBlock x:Name="DoneTextPressed" TextWrapping="Wrap" Text="Pause" Canvas.Left="22.436" Canvas.Top="-0.19" Foreground="#FF124191" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" FontSize="34.667" Visibility="Collapsed"/>
+						</Canvas>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+			<Setter Property="FontFamily" Value="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline"/>
+			<Setter Property="FontSize" Value="34.5"/>
+			<Setter Property="Foreground" Value="White"/>
+		</Style>
+		<Style x:Key="UnpauseButton" TargetType="Button">
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="Button">
+						<Canvas x:Name="BLD_BLUE_MAPS_BUTTON_DONE" UseLayoutRounding="False">
+							<VisualStateManager.VisualStateGroups>
+								<VisualStateGroup x:Name="CommonStates">
+									<VisualState x:Name="Disabled"/>
+									<VisualState x:Name="Normal"/>
+									<VisualState x:Name="MouseOver"/>
+									<VisualState x:Name="Pressed">
+										<Storyboard>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="DoneTextNotPressed">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Collapsed</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="DoneTextPressed">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Visible</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="UnpauseOverlay">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Collapsed</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="UnpauseOverlayPressed">
+												<DiscreteObjectKeyFrame KeyTime="0">
+													<DiscreteObjectKeyFrame.Value>
+														<Visibility>Visible</Visibility>
+													</DiscreteObjectKeyFrame.Value>
+												</DiscreteObjectKeyFrame>
+											</ObjectAnimationUsingKeyFrames>
+										</Storyboard>
+									</VisualState>
+								</VisualStateGroup>
+							</VisualStateManager.VisualStateGroups>
+							<Image x:Name="UnpauseOverlay" Height="42" Source="BLD_BLUE-MAPS_BUTTON_UNPAUSE_Images/UnpauseOverlay.png" Stretch="Fill" Width="156"/>
+							<Image x:Name="UnpauseOverlayPressed" Height="42" Source="BLD_BLUE-MAPS_BUTTON_UNPAUSE_PRESS_Images/UnpauseOverlayPressed.png" Stretch="Fill" Width="156" Visibility="Collapsed"/>
+							<TextBlock x:Name="DoneTextNotPressed" TextWrapping="Wrap" Text="Unpause" Canvas.Left="11.936" Canvas.Top="-1.69" Foreground="#FFFBF6F6" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" FontSize="34.667"/>
+							<TextBlock x:Name="DoneTextPressed" TextWrapping="Wrap" Text="Unpause" Canvas.Left="11.936" Canvas.Top="-1.69" Foreground="#FF124191" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" FontSize="34.667" Visibility="Collapsed"/>
+						</Canvas>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+			<Setter Property="FontFamily" Value="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline"/>
+			<Setter Property="FontSize" Value="34.5"/>
+			<Setter Property="Foreground" Value="White"/>
+		</Style>
 	</phone:PhoneApplicationPage.Resources>
     
 	<phone:PhoneApplicationPage.FontFamily>
@@ -1186,7 +1298,7 @@
         	<Button x:Name="DoneEndPointButton" Content="Done" Canvas.Left="38.31" Canvas.Top="121" Opacity="0" Click="DoneEndPointButton_Click" Width="105.69" Height="40"/>
         	<Button x:Name="OptionsButton2" Content="Button" Canvas.Left="168.7" Canvas.Top="118.307" Opacity="0" Height="42.693" Width="95.3" Click="MainMenuOptionsButton_Click"/>
         </Canvas>
-        <Canvas x:Name="RouteSummary" HorizontalAlignment="Left" Height="305" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" Canvas.Top="769.5" Canvas.ZIndex="10" RenderTransformOrigin="0.5,0.5" d:IsHidden="True">
+        <Canvas x:Name="RouteSummary" HorizontalAlignment="Left" Height="305" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" Canvas.Top="769.5" Canvas.ZIndex="10" RenderTransformOrigin="0.5,0.5">
         	<Canvas.RenderTransform>
         		<CompositeTransform/>
         	</Canvas.RenderTransform>
@@ -1265,6 +1377,8 @@
         		</Canvas>
         		<Button x:Name="RouteSummaryGoButton" Content="Button" RenderTransformOrigin="0.704,2.522" Canvas.Left="1" Width="481.01" Opacity="0" Click="RouteSummaryGoButton_Click" Canvas.ZIndex="20" Height="363.9" Canvas.Top="-2.5"/>
         		<Button x:Name="RouteSummaryClearRouteButton" Content="Button" RenderTransformOrigin="0.704,2.522" Canvas.Left="30" Canvas.Top="241.5" Click="RouteSummaryClearRouteButton_Click" Canvas.ZIndex="20" Width="182.5" Height="50.4" Style="{StaticResource ExitButton}"/>
+        		<Button x:Name="RouteSummaryPauseButton" Content="Button" RenderTransformOrigin="0.704,2.522" Canvas.Left="332" Canvas.Top="241.5" Click="RouteSummaryPauseButton_Click" Canvas.ZIndex="20" Width="114" Height="50.4" Style="{StaticResource PauseButton}"/>
+        		<Button x:Name="RouteSummaryUnpauseButton" Content="Button" RenderTransformOrigin="0.704,2.522" Canvas.Left="300.5" Canvas.Top="243" Click="RouteSummaryUnpauseButton_Click" Canvas.ZIndex="20" Width="114" Height="50.4" Style="{StaticResource UnpauseButton}" Visibility="Collapsed"/>
         	</Canvas>
         </Canvas>
         <Canvas x:Name="SplashScreen" HorizontalAlignment="Left" Height="800" UseLayoutRounding="False" VerticalAlignment="Top" Width="481" Visibility="Collapsed" d:IsHidden="True">
@@ -1558,7 +1672,7 @@
         		</Button.RenderTransform>
         	</Button>
         </Canvas>
-        <Canvas x:Name="NoInternet" HorizontalAlignment="Left" Height="298" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" Canvas.Top="769.5" RenderTransformOrigin="0.5,0.5">
+        <Canvas x:Name="NoInternet" HorizontalAlignment="Left" Height="298" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" Canvas.Top="769.5" RenderTransformOrigin="0.5,0.5" d:IsHidden="True">
         	<Canvas.RenderTransform>
         		<CompositeTransform/>
         	</Canvas.RenderTransform>

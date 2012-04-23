@@ -186,6 +186,8 @@
     <Resource Include="BLD_BLUE-MAPS_BUTTON_HELP_PRESS_Images\Vector Smart Object copy.png" />
     <Resource Include="BLD_BLUE-MAPS_BUTTON_OPTIONS_Images\OptionsOutline.png" />
     <Resource Include="BLD_BLUE-MAPS_BUTTON_OPTIONS_PRESS_Images\OptionsOutlinePressed.png" />
+    <Resource Include="BLD_BLUE-MAPS_BUTTON_PAUSE_Images\PauseOverlay.png" />
+    <Resource Include="BLD_BLUE-MAPS_BUTTON_PAUSE_PRESS_Images\PauseOverlayPressed.png" />
     <Resource Include="BLD_BLUE-MAPS_BUTTON_PLOT-ROUTE_Images\PlotRouteOutlineNotPressed.png" />
     <Resource Include="BLD_BLUE-MAPS_BUTTON_PLOT-ROUTE_PRESS_Images\PlotRouteOutlinePressed.png" />
     <Resource Include="BLD_BLUE-MAPS_BUTTON_REMOVE-PLAQUE_Images\RemovePlaqueOutline.png" />
@@ -193,6 +195,8 @@
     <Resource Include="BLD_BLUE-MAPS_BUTTON_REMOVE-PLAQUE_PRESS_Images\RemovePlaqueOutlinePressed.png" />
     <Resource Include="BLD_BLUE-MAPS_BUTTON_REVISIT-PLAQUE_Images\RevisitPlaqueOutline.png" />
     <Resource Include="BLD_BLUE-MAPS_BUTTON_REVISIT-PLAQUE_PRESS_Images\RevisitPlaqueOutlinePressed.png" />
+    <Resource Include="BLD_BLUE-MAPS_BUTTON_UNPAUSE_Images\UnpauseOverlay.png" />
+    <Resource Include="BLD_BLUE-MAPS_BUTTON_UNPAUSE_PRESS_Images\UnpauseOverlayPressed.png" />
     <Resource Include="BLD_NK_BLUE-PLAQUE-MAIN-MENU_01_Images\Group.png" />
     <Resource Include="BLD_NK_BLUE-PLAQUE-MAIN-MENU_01_Images\Group1.png" />
     <Resource Include="BottomBar_Images\Group.png" />
