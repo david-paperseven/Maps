@@ -78,6 +78,7 @@
     <Compile Include="Helpers\Bounds.cs" />
     <Compile Include="Helpers\DebugClass.cs" />
     <Compile Include="Helpers\JourneySaver.cs" />
+    <Compile Include="Helpers\LittleWatson.cs" />
     <Compile Include="Helpers\PersistentStorage.cs" />
     <Compile Include="Helpers\PlaqueDistance.cs" />
     <Compile Include="Helpers\RouteCalculationError.cs" />
@@ -195,6 +196,8 @@
     <Resource Include="BLD_BLUE-MAPS_BUTTON_REMOVE-PLAQUE_PRESS_Images\RemovePlaqueOutlinePressed.png" />
     <Resource Include="BLD_BLUE-MAPS_BUTTON_REVISIT-PLAQUE_Images\RevisitPlaqueOutline.png" />
     <Resource Include="BLD_BLUE-MAPS_BUTTON_REVISIT-PLAQUE_PRESS_Images\RevisitPlaqueOutlinePressed.png" />
+    <Resource Include="BLD_BLUE-MAPS_BUTTON_UNLOCK-THIS-PLAQUE_Images\UnlockOutline.png" />
+    <Resource Include="BLD_BLUE-MAPS_BUTTON_UNLOCK-THIS-PLAQUE_PRESS_Images\UnlockPressedOutline.png" />
     <Resource Include="BLD_BLUE-MAPS_BUTTON_UNPAUSE_Images\UnpauseOverlay.png" />
     <Resource Include="BLD_BLUE-MAPS_BUTTON_UNPAUSE_PRESS_Images\UnpauseOverlayPressed.png" />
     <Resource Include="BLD_NK_BLUE-PLAQUE-MAIN-MENU_01_Images\Group.png" />

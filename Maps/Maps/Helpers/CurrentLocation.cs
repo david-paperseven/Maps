@@ -65,6 +65,9 @@ namespace Maps.Helpers
             circle = Circle;
             myMap.Children.Add(Circle);
             CircleDispatcherTimer();
+
+            GeoCoordinate defaultlocation = new GeoCoordinate(51.511397, -0.128263);
+            SetLocation(defaultlocation);
         }
 
         private void CircleDispatcherTimer()
@@ -74,20 +77,23 @@ namespace Maps.Helpers
             timer.Tick +=
                 delegate(object s, EventArgs args)
                 {
-                    double currentSize = circle.Width;
-                    currentSize += step * growshrink;
-                    if (currentSize > maxsize)
+                    if (SaveState.Instance.Paused == false)
                     {
-                        currentSize = maxsize;
-                        growshrink *= -1.0;
+                        double currentSize = circle.Width;
+                        currentSize += step * growshrink;
+                        if (currentSize > maxsize)
+                        {
+                            currentSize = maxsize;
+                            growshrink *= -1.0;
+                        }
+                        if (currentSize < minsize)
+                        {
+                            currentSize = minsize;
+                            growshrink *= -1.0;
+                        }
+                        circle.Width = currentSize;
+                        circle.Height = currentSize;
                     }
-                    if (currentSize < minsize)
-                    {
-                        currentSize = minsize;
-                        growshrink *= -1.0;
-                    }
-                    circle.Width = currentSize;
-                    circle.Height = currentSize;
                 };
 
             timer.Interval = new TimeSpan(0, 0, 0);

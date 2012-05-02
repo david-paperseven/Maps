@@ -38,7 +38,8 @@ namespace Maps
             SelectEndPoint,
             SelectParameters,
             DistanceSummary,
-            Travelling
+            Travelling,
+            Browsing
         }
 
         public enum RouteMode
@@ -51,8 +52,11 @@ namespace Maps
         }
 
         bool onMainMenu = true;
+        GeoPositionStatus geopositionstatus;
 
         public FrameworkElement element;
+
+        public bool RequestUnlock { get; set; }
 
         public MainPage()
         {
@@ -84,16 +88,23 @@ namespace Maps
 
             //PersistentStorage.Instance.Reset();
             //PersistentStorage.Instance.SetVisited(22);
-            //PersistentStorage.Instance.SetNumberVisited(200);
+            //PersistentStorage.Instance.SetNumberVisited(10);
 
             // Visual States are always on the first child of the control template  
             element = VisualTreeHelper.GetChild(MainPageElement, 0) as FrameworkElement;
             VisualStateGroup group = FindVisualState(element, "UserSelectedRoutesMenu");
             group.CurrentStateChanged += new EventHandler<VisualStateChangedEventArgs>(CurrentStateChanged);
+            group.CurrentStateChanging += new EventHandler<VisualStateChangedEventArgs>(CurrentStateChanging);
 
 //            RouteSummaryGoButton.IsHitTestVisible = false;
 
             PhoneApplicationService.Current.ApplicationIdleDetectionMode = IdleDetectionMode.Disabled;
+
+            GeoCoordinate location = new GeoCoordinate(51.511397, -0.128263);
+            ChangedLocation(location);
+
+            LittleWatson.CheckForPreviousException();
+
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -167,6 +178,7 @@ namespace Maps
 
         void watcher_StatusChanged(object sender, GeoPositionStatusChangedEventArgs e)
         {
+            geopositionstatus = e.Status;
             
             switch (e.Status)
             {
@@ -251,6 +263,12 @@ namespace Maps
         {
             DebugClass.Instance.SimulateWalkingClick();
         }
+
+        private void DebugScreenDone_Click(object sender, RoutedEventArgs e)
+        {
+            VisualStateManager.GoToState(this, "MainMenuState", true);
+        }
+        
         
 
         void watcher_PositionChanged(object sender, GeoPositionChangedEventArgs<GeoCoordinate> e)
@@ -398,6 +416,13 @@ namespace Maps
             }
             else
             {
+                Plaque next = SaveState.Instance.journey.NextPlaqueOnTrip();
+                if (next != null)
+                {
+                    LocationRect rect = Bounds.GetRect(next.GetLocation(), SaveState.Instance.currentLocation.Location);
+                    // Set the map view using the rectangle which bounds the rendered route.
+                    myMap.SetView(rect);
+                }
                 VisualStateManager.GoToState(this, "MapOnlyState", true);
             }
         }
@@ -427,8 +452,8 @@ namespace Maps
                 SaveState.Instance.routeList.GetList().Remove(pl);
                 pl.ClearSelection();
                 pl.ResetSize();
-                SaveState.Instance.flashplaque = pl;
-                SaveState.Instance.flashtimer = DateTime.Now;
+                //SaveState.Instance.flashplaque = pl;
+                //SaveState.Instance.flashtimer = DateTime.Now;
             }
             else
             {
@@ -454,8 +479,17 @@ namespace Maps
             VisualStateManager.GoToState(this, "FilterState", true);
         }
 
+        /*int plaquecount = 0;*/
         private void DoneSelectingRouteStartPoint(object sender, RoutedEventArgs e)
-        {
+        {/*
+            Plaque p = SaveState.Instance.plaques[plaquecount];
+            p.ShowQuickInfo();
+            plaquecount++;
+            if (plaquecount == SaveState.Instance.plaques.Count)
+            {
+                plaquecount = 0;
+            }
+            */
             VisualStateManager.GoToState(StartPlaqueNameInfo, "Start", true);
             VisualStateManager.GoToState(this, "SelectRouteState", true);
         }
@@ -567,6 +601,11 @@ namespace Maps
             ClearRouteYesNo.PlaqueExtraInfo.IsHitTestVisible = true;
         }
 
+        private void RouteSummaryUnlockButton_Click(object sender, RoutedEventArgs e)
+        {
+            RequestUnlock = true;
+        }
+        
 
         private void RouteSummaryPauseButton_Click(object sender, RoutedEventArgs e)
         {
@@ -646,6 +685,12 @@ namespace Maps
             VisualStateManager.GoToState(this, "OptionsState", true);
         }
 
+        private void BrowsingModeDoneButton_Click(object sender, RoutedEventArgs e)
+        {
+            VisualStateManager.GoToState(BrowsingModeNameInfo, "Start", true);
+            VisualStateManager.GoToState(this, "MainMenuState", true);
+        }
+
         private void StatsButton_Click(object sender, RoutedEventArgs e)
         {
             int num,arts,science,politics,exploration,totalarts,totalscience,totalpolitics,totalexploration;
@@ -662,7 +707,7 @@ namespace Maps
 
         private void StatsScreenDone_Click(object sender, RoutedEventArgs e)
         {
-            VisualStateManager.GoToState(this, "MainMenuState", true);
+            VisualStateManager.GoToState(this, "OptionsState", true);
         }
 
 
@@ -770,9 +815,9 @@ namespace Maps
 
             SaveState.Instance.routeList.GetList().Clear();
 
-            if (SaveState.Instance.summary.NumPlaques >= 1)
+            if (SaveState.Instance.summary.NumPlaques > 1)
             {
-                int count = 0;
+                int count = 1;// starts at one because endpoint included
                 foreach (PD pd in SaveState.Instance.plaquedistance.GetList())
                 {
                     if (pd.plaque != SaveState.Instance.routeList.GetEndPoint())
@@ -846,12 +891,32 @@ namespace Maps
             DebugButton.Visibility = System.Windows.Visibility.Visible;
         }
 
+        bool LocationStatusReady()
+        {
+            if (geopositionstatus == GeoPositionStatus.NoData || geopositionstatus == GeoPositionStatus.Disabled)
+            {
+                SaveState.Instance.routeState = RouteState.Browsing;
+                VisualStateManager.GoToState(this, "BrowsingState", true);
+                return false;
+            }
+            return true;
+        }
+
+        private void CompletedSplashScreen(object sender, EventArgs e)
+        {
+            //LocationStatusReady();
+        }
+
+        void CurrentStateChanging(object sender, VisualStateChangedEventArgs e)
+        {
+        }
+
         void CurrentStateChanged(object sender, VisualStateChangedEventArgs e)
         {
             onMainMenu = false;
             if (e.OldState != null)
             {
-                if (e.OldState.Name != "HelpState" && e.OldState.Name != "StatsState" && e.OldState.Name != "FilterState" && e.OldState.Name != "OptionsState")
+                if (e.OldState.Name != "HelpState" && e.OldState.Name != "StatsScreenState" && e.OldState.Name != "FilterState" && e.OldState.Name != "OptionsState")
                 {
                     if (e.OldState.Name == "SplashScreenState") // special case because state is not changed between splash and main menu
                     {
@@ -865,6 +930,9 @@ namespace Maps
             }
             SaveState.Instance.CurrentVisualState = e.NewState.Name;
 
+            //if (!LocationStatusReady())
+            //    return;
+
             switch (e.NewState.Name)
             {
                 case "FullInfoState":
@@ -873,7 +941,9 @@ namespace Maps
                     }
                 case "OptionsState":
                     {
-
+                        VisualStateManager.GoToState(EndPlaqueNameInfo, "Start", true);
+                        VisualStateManager.GoToState(AppGenEndPlaqueNameInfo, "Start", true);
+                        VisualStateManager.GoToState(StartPlaqueNameInfo, "Start", true);
                         break;
                     }
                 case "UnlockedPlaqueState":
@@ -1079,6 +1149,27 @@ namespace Maps
 
             e.Cancel = true;
 
+            if (SaveState.Instance.CurrentVisualState == "HelpState" || SaveState.Instance.CurrentVisualState =="FilterState"  || SaveState.Instance.CurrentVisualState =="StatsScreenState")
+            {
+                VisualStateManager.GoToState(this, "OptionsState", true);
+            }
+            else
+            if (SaveState.Instance.CurrentVisualState == "OptionsState")
+            {
+                VisualStateManager.GoToState(this, SaveState.Instance.OldVisualState, true);
+            }
+            else
+            if (SaveState.Instance.CurrentVisualState == "CompletedRouteState")
+            {
+                VisualStateManager.GoToState(this, "MainMenuState", true);
+            }
+            else
+            if (SaveState.Instance.CurrentVisualState == "BrowsingState")
+            {
+                VisualStateManager.GoToState(BrowsingModeNameInfo, "Start", true);
+                VisualStateManager.GoToState(this, "MainMenuState", true);
+            }
+            else
             if (SaveState.Instance.CurrentVisualState == "FullInfoState")
             {
                 ExitFullInfoState();
@@ -1280,7 +1371,7 @@ namespace Maps
             }
         }
 
-        private void RemoveAllPinsExceptCurrentRoute()
+        public void RemoveAllPinsExceptCurrentRoute()
         {
             // remove old pins
             SaveState.Instance.pinlayer.Children.Clear();

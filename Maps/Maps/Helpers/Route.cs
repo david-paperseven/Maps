@@ -93,6 +93,8 @@ namespace Maps.Helpers
                         }
                         else
                         {
+//                            SaveState.Instance.routedrawer.DrawPointRoute();
+                            
                             SaveState.Instance.routedrawer.DrawEntireRoute();
                         }
 

@@ -122,9 +122,21 @@ namespace Maps.Helpers
                 }
             }
 
-            Waypoint ep = new Waypoint();
-            ep.Location = endPoint.Info.location;
-            waypoints.Add(ep);
+            if (endPoint != startPoint)
+            {
+                Waypoint ep = new Waypoint();
+                ep.Location = endPoint.Info.location;
+                waypoints.Add(ep);
+            }
+
+            // now that we've finalised the list we can remove the endpoint if its in the routelist
+            if (endPoint != null)
+            {
+                if (routeList.Contains(endPoint))
+                {
+                    routeList.Remove(endPoint);
+                }
+            }
             return waypoints;
         }
 

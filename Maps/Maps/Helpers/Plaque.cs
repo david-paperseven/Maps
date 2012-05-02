@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
+using System.Windows.Media.Effects;
 using System.Windows.Shapes;
 using System.Device.Location;
 
@@ -71,6 +72,7 @@ namespace Maps.Helpers
             BitmapImage bi4 = new BitmapImage();
             bi4.UriSource = new Uri("Marker/MARKER_OUTLINE_GREEN-S.png", UriKind.Relative);
             brushStartOfRouteMarker.ImageSource = bi4;
+
         }
 
         static double pinwidth = 41*1.2;
@@ -106,13 +108,17 @@ namespace Maps.Helpers
         void Pin_Tap(object sender, GestureEventArgs e)
         {
 
-            /*
-            if (SaveState.Instance.routeState == MainPage.RouteState.Normal)
+            
+            if (SaveState.Instance.routeState == MainPage.RouteState.Browsing)
             {
-                myMainPage.ClearSelectedPins();
-                SetSelection();
+                Pin.Width = selectedpinwidth;
+                Pin.Height = selectedpinheight;
+
+                VisualStateManager.GoToState(myMainPage.BrowsingModeNameInfo, "SlideUp", true);
+                myMainPage.BrowsingModeNameInfo.SelectRoutePlaqueName.Text = Info.GetName();
+                myMainPage.BrowsingModeNameInfo.SelectRoutePlaqueDateAndCategory.Text = "(" + Info.date + ") " + Info.info1;
             }
-            */
+            
             if (SaveState.Instance.routeState == MainPage.RouteState.SelectStartPoint)
             {
                 if (SaveState.Instance.routeList.GetStartPoint() != null)
@@ -211,20 +217,8 @@ namespace Maps.Helpers
                     SaveState.Instance.routeList.SetEndPoint(this);
                 }
             }
-            /*
-            if (myMainPage.routeState == MainPage.RouteState.Travelling)
-            {
-                myMainPage.FullInfoName.Text = Info.GetName() +"\n";
-                myMainPage.FullInfoDateAndCategory.Text = "(" + Info.date + ") " + Info.info1 + "\n\n";
-                myMainPage.FullInfoPlaqueInfo.Text = Info.fullinfo + "\n\n";
-                myMainPage.FullInfoPlaqueFullInfo.Text = Info.fulltext;
-
-                myMainPage.ShowFullInfoButton.Opacity = 1;
-                myMainPage.ShowFullInfoButton.IsHitTestVisible = true;
-                //VisualStateManager.GoToState(myMainPage, "FullInfoState", true);
-            }
-             * */
         }
+
 
         public void ShowFullInfo()
         {
@@ -334,10 +328,6 @@ namespace Maps.Helpers
 
             myMainPage.FullInfoRichTextBox.Blocks.Add(p1);
 
-//            Rect tp = p1.ContentEnd.GetCharacterRect(LogicalDirection.Backward);
- //           myMainPage.FullInfoRichTextBox.Height = tp.Bottom - 600.0;
-  //          myMainPage.FullInfo1.Height = tp.Bottom - 600.0;
-
             VisualStateManager.GoToState(myMainPage, "FullInfoState", true);
         }
 
@@ -405,6 +395,15 @@ namespace Maps.Helpers
         public PlaqueInfo Info { get; set; }
         public bool Visible { get; set; }
         public bool Found { get; set; }
+        
+        public void SetPlaqueFound()
+        {
+            Found = true;
+            ShowFullInfo();
+            PersistentStorage.Instance.SetVisited(Info.number);
+            ClearSelection();
+        }
+        
         public void ClearSelection()
         {
             if (PersistentStorage.Instance.Visited(Info.number))
@@ -420,6 +419,7 @@ namespace Maps.Helpers
             Selected = false;
             //UnshowQuickInfo();
         }
+
         public void SetSelection()
         {
             Pin.Fill = brushSelectedMarker;
