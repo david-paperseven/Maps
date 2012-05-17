@@ -21,12 +21,17 @@ namespace Maps.Helpers
     public class CurrentLocation
     {
         public GeoCoordinate Location;
+        GeoCoordinate newLocation;
         Map myMap;
         Ellipse circle;
+        GeoCoordinate defaultlocation;
+        public bool notInLondon;
 
-        double maxsize = 85;
-        double minsize = 70.0;
+        double maxsize = 10;
+        double minsize = -10.0;
         double growshrink = 1.0;
+        double currentSize = -10;
+        double circlesize=200;
         double step = 0.3;
 
         public CurrentLocation(Map map)
@@ -60,13 +65,15 @@ namespace Maps.Helpers
             Circle.Fill = new SolidColorBrush(fillcolor);
             Circle.HorizontalAlignment = HorizontalAlignment.Left;
             Circle.VerticalAlignment = VerticalAlignment.Center;
-            Circle.Width = 75;
-            Circle.Height = 75;
+            Circle.Width = circlesize;
+            Circle.Height = circlesize;
             circle = Circle;
             myMap.Children.Add(Circle);
             CircleDispatcherTimer();
 
-            GeoCoordinate defaultlocation = new GeoCoordinate(51.511397, -0.128263);
+            notInLondon = false;
+            defaultlocation = new GeoCoordinate(51.511397, -0.128263);
+            defaultlocation.HorizontalAccuracy = 30.0;
             SetLocation(defaultlocation);
         }
 
@@ -79,7 +86,6 @@ namespace Maps.Helpers
                 {
                     if (SaveState.Instance.Paused == false)
                     {
-                        double currentSize = circle.Width;
                         currentSize += step * growshrink;
                         if (currentSize > maxsize)
                         {
@@ -91,8 +97,39 @@ namespace Maps.Helpers
                             currentSize = minsize;
                             growshrink *= -1.0;
                         }
-                        circle.Width = currentSize;
-                        circle.Height = currentSize;
+
+                        double pixelAccuracy = TileSystem.GroundResolution(Location.Latitude, (int)myMap.ZoomLevel);
+                        double newsize = (Location.HorizontalAccuracy / pixelAccuracy);
+                        if (newsize < 30)
+                            newsize = 30;
+
+                        circlesize = circlesize + (newsize - circlesize) * 0.1;
+                        if (!(circlesize > 0 && circlesize < 1000))
+                        {
+                            circlesize = circlesize;
+                        }
+
+                        double pixelsize = circlesize + currentSize;
+                        if (pixelsize < 0)
+                        {
+                            pixelsize = 0.0;
+                        }
+                        circle.Width = pixelsize;
+                        circle.Height = pixelsize;
+
+                        // position interp
+                        Location.Latitude = Location.Latitude + (newLocation.Latitude - Location.Latitude) * 0.2;
+                        Location.Longitude = Location.Longitude + (newLocation.Longitude - Location.Longitude) * 0.2;
+                        /*
+                    //    MapLayer.SetPosition(Pin, Location);
+                    //    MapLayer.SetPositionOrigin(Pin, PositionOrigin.Center);
+                        
+                        //Pin.InvalidateMeasure();
+                        MapLayer.SetPosition(Circle, Location);
+                        MapLayer.SetPositionOrigin(Circle, PositionOrigin.Center);
+                        Circle.Width = Circle.Width;
+                        */
+
                     }
                 };
 
@@ -100,16 +137,52 @@ namespace Maps.Helpers
             timer.Start();
         }
 
-        public void SetLocation(GeoCoordinate location)
+        public bool SetLocation(GeoCoordinate location)
         {
-            MapLayer.SetPosition(Pin, location);
+            
+            double distance = location.GetDistanceTo(defaultlocation);
+            /*
+            if (distance > 30000) // 30km
+            {
+                if (myMap.Children.Contains(Circle))
+                {
+                    myMap.Children.Remove(Circle);
+                    myMap.Children.Remove(Pin);
+                }
+                notInLondon = true;
+                return false;
+            }
+            */
+            notInLondon = false;
+
+            if (!myMap.Children.Contains(Circle))
+            {
+                myMap.Children.Add(Circle);
+                myMap.Children.Add(Pin);
+            }
+
+            if (Location != null)
+            {
+                distance = location.GetDistanceTo(Location);
+                newLocation = location;
+            }
+            else
+            {
+                Location = location;
+            }
+
+            if (!(location.HorizontalAccuracy > 0 && location.HorizontalAccuracy < 1000))
+            {
+                location.HorizontalAccuracy = location.HorizontalAccuracy;
+            }
+
+            MapLayer.SetPosition(Pin, Location);
             MapLayer.SetPositionOrigin(Pin, PositionOrigin.Center);
 
-            MapLayer.SetPosition(Circle, location);
+            MapLayer.SetPosition(Circle, Location);
             MapLayer.SetPositionOrigin(Circle, PositionOrigin.Center);
 
-            Location = location;
-
+            return true;
         }
 
         public GeoCoordinate GetLocation() { return Location; }

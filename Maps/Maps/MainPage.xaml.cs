@@ -85,6 +85,7 @@ namespace Maps
             Initializeplaques();
             //DebugPlaquePosTimer();
             PlaqueFlashTimer();
+            SMSTimer();
 
             //PersistentStorage.Instance.Reset();
             //PersistentStorage.Instance.SetVisited(22);
@@ -101,7 +102,8 @@ namespace Maps
             PhoneApplicationService.Current.ApplicationIdleDetectionMode = IdleDetectionMode.Disabled;
 
             GeoCoordinate location = new GeoCoordinate(51.511397, -0.128263);
-            ChangedLocation(location);
+            location.HorizontalAccuracy = 30.0;
+            ChangedLocation(location,false);
 
             LittleWatson.CheckForPreviousException();
 
@@ -115,6 +117,9 @@ namespace Maps
                 Tombstone.Instance.RestoringFromTombstone();
             }
             VisualStateManager.GoToState(this, SaveState.Instance.CurrentVisualState, true);
+
+            SaveState.Instance.watcher.Stop();
+            SaveState.Instance.watcher.Start();
         }
 
         VisualStateGroup FindVisualState(FrameworkElement element, string name)
@@ -168,10 +173,8 @@ namespace Maps
             SaveState.Instance.watcher = new GeoCoordinateWatcher(GeoPositionAccuracy.High); // using high accuracy;
             SaveState.Instance.watcher.MovementThreshold = 1.0f; // meters of change before "PositionChanged"
             // wire up event handlers
-            SaveState.Instance.watcher.StatusChanged += new
-            EventHandler<GeoPositionStatusChangedEventArgs>(watcher_StatusChanged);
-            SaveState.Instance.watcher.PositionChanged += new
-            EventHandler<GeoPositionChangedEventArgs<GeoCoordinate>>(watcher_PositionChanged);
+            SaveState.Instance.watcher.StatusChanged += new EventHandler<GeoPositionStatusChangedEventArgs>(watcher_StatusChanged);
+            SaveState.Instance.watcher.PositionChanged += new EventHandler<GeoPositionChangedEventArgs<GeoCoordinate>>(watcher_PositionChanged);
             // start up LocServ in bg; watcher_StatusChanged will be called when complete.
             new Thread(startLocServInBackground).Start();
         }
@@ -209,6 +212,20 @@ namespace Maps
                     break;
             }
             
+        }
+
+        private void SMSTimer()
+        {
+            DispatcherTimer timer = new DispatcherTimer();
+
+            timer.Tick +=
+                delegate(object s, EventArgs args)
+                {
+                    Thread.Sleep(4);
+                };
+
+            timer.Interval = new TimeSpan(0, 0, 1);
+            timer.Start();
         }
 
         int counter = 0;
@@ -278,16 +295,16 @@ namespace Maps
                 if (!DebugClass.Instance.SimulateWalking)
                 {
                     GeoCoordinate location = new GeoCoordinate(51.511397, -0.128263);
-                    ChangedLocation(location);
+                    ChangedLocation(location,true);
                 }
             }
             else
             {
-                ChangedLocation(e.Position.Location);
+                ChangedLocation(e.Position.Location, true);
             }
         }
 
-        public void ChangedLocation(GeoCoordinate location)
+        public void ChangedLocation(GeoCoordinate location, bool stopCentering)
         {
             if (SaveState.Instance.routeState == RouteState.Travelling)
             {
@@ -297,7 +314,12 @@ namespace Maps
                 PersistentStorage.Instance.km += distance / 1000.0; 
             }
 
-            SaveState.Instance.currentLocation.SetLocation(location);
+            if (SaveState.Instance.currentLocation.SetLocation(location) == false)
+            {
+                SaveState.Instance.routeState = RouteState.Browsing;
+                VisualStateManager.GoToState(this, "NotInLondonState", true);
+                onMainMenu = false;
+            }
             //SaveState.Instance.journeysaver.Add(location); not recording right now
 
             if (SaveState.Instance.routeState == RouteState.Travelling)
@@ -308,7 +330,10 @@ namespace Maps
 
             if (SaveState.Instance.HaveWeCentred == false)
             {
-                SaveState.Instance.HaveWeCentred = true;
+                if (stopCentering)
+                {
+                    SaveState.Instance.HaveWeCentred = true;
+                }
                 myMap.Center = Bounds.GetCentreWithOffset(SaveState.Instance.currentLocation.GetLocation(),(int)myMap.ZoomLevel);
             }
         }
@@ -680,6 +705,11 @@ namespace Maps
             VisualStateManager.GoToState(this, SaveState.Instance.OldVisualState, true);
         }
 
+        private void NoInternetDoneButton_Click(object sender, RoutedEventArgs e)
+        {
+            VisualStateManager.GoToState(this, "MainMenuState", true);
+        }
+
         private void HelpDoneButton_Click(object sender, RoutedEventArgs e)
         {
             VisualStateManager.GoToState(this, "OptionsState", true);
@@ -688,6 +718,8 @@ namespace Maps
         private void BrowsingModeDoneButton_Click(object sender, RoutedEventArgs e)
         {
             VisualStateManager.GoToState(BrowsingModeNameInfo, "Start", true);
+            VisualStateManager.GoToState(BrowsingModeNameInfo1, "Start", true);
+            VisualStateManager.GoToState(BrowsingModeNameInfo2, "Start", true);
             VisualStateManager.GoToState(this, "MainMenuState", true);
         }
 
@@ -893,10 +925,24 @@ namespace Maps
 
         bool LocationStatusReady()
         {
-            if (geopositionstatus == GeoPositionStatus.NoData || geopositionstatus == GeoPositionStatus.Disabled)
+            /*
+            if (geopositionstatus == GeoPositionStatus.NoData)
             {
                 SaveState.Instance.routeState = RouteState.Browsing;
                 VisualStateManager.GoToState(this, "BrowsingState", true);
+                return false;
+            }
+             */
+            if (geopositionstatus == GeoPositionStatus.Disabled)
+            {
+                SaveState.Instance.routeState = RouteState.Browsing;
+                VisualStateManager.GoToState(this, "LocationServicesDisabledState", true);
+                return false;
+            }
+            if (SaveState.Instance.currentLocation.notInLondon)
+            {
+                SaveState.Instance.routeState = RouteState.Browsing;
+                VisualStateManager.GoToState(this, "NotInLondonState", true);
                 return false;
             }
             return true;
@@ -904,7 +950,7 @@ namespace Maps
 
         private void CompletedSplashScreen(object sender, EventArgs e)
         {
-            //LocationStatusReady();
+            LocationStatusReady();
         }
 
         void CurrentStateChanging(object sender, VisualStateChangedEventArgs e)
@@ -930,8 +976,23 @@ namespace Maps
             }
             SaveState.Instance.CurrentVisualState = e.NewState.Name;
 
-            //if (!LocationStatusReady())
-            //    return;
+            if (e.NewState.Name != "MainMenuState")
+            {
+                if (e.NewState.Name != "DebugState" && e.NewState.Name != "HelpState" && e.NewState.Name != "StatsScreenState" && e.NewState.Name != "FilterState" && e.NewState.Name != "OptionsState")
+                {
+                    if (!LocationStatusReady())
+                        return;
+                }
+            }
+            if (e.OldState != null)
+            {
+                if (e.OldState.Name == "LocationServicesDisabledState" || e.OldState.Name == "BrowsingState")
+                {
+                    VisualStateManager.GoToState(BrowsingModeNameInfo, "Start", true);
+                    VisualStateManager.GoToState(BrowsingModeNameInfo1, "Start", true);
+                    VisualStateManager.GoToState(BrowsingModeNameInfo2, "Start", true);
+                }
+            }
 
             switch (e.NewState.Name)
             {
@@ -1149,6 +1210,14 @@ namespace Maps
 
             e.Cancel = true;
 
+            if (SaveState.Instance.CurrentVisualState == "LocationServicesDisabledState" || SaveState.Instance.CurrentVisualState == "BrowsingState" || SaveState.Instance.CurrentVisualState == "NotInLondonState")
+            {
+                VisualStateManager.GoToState(BrowsingModeNameInfo, "Start", true);
+                VisualStateManager.GoToState(BrowsingModeNameInfo1, "Start", true);
+                VisualStateManager.GoToState(BrowsingModeNameInfo2, "Start", true);
+                VisualStateManager.GoToState(this, "MainMenuState", true);
+            }
+            else
             if (SaveState.Instance.CurrentVisualState == "HelpState" || SaveState.Instance.CurrentVisualState =="FilterState"  || SaveState.Instance.CurrentVisualState =="StatsScreenState")
             {
                 VisualStateManager.GoToState(this, "OptionsState", true);
@@ -1160,6 +1229,11 @@ namespace Maps
             }
             else
             if (SaveState.Instance.CurrentVisualState == "CompletedRouteState")
+            {
+                VisualStateManager.GoToState(this, "MainMenuState", true);
+            }
+            else
+            if (SaveState.Instance.CurrentVisualState == "NotInLondonState")
             {
                 VisualStateManager.GoToState(this, "MainMenuState", true);
             }

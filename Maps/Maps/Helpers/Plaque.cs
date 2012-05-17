@@ -114,9 +114,32 @@ namespace Maps.Helpers
                 Pin.Width = selectedpinwidth;
                 Pin.Height = selectedpinheight;
 
-                VisualStateManager.GoToState(myMainPage.BrowsingModeNameInfo, "SlideUp", true);
-                myMainPage.BrowsingModeNameInfo.SelectRoutePlaqueName.Text = Info.GetName();
-                myMainPage.BrowsingModeNameInfo.SelectRoutePlaqueDateAndCategory.Text = "(" + Info.date + ") " + Info.info1;
+                if (SaveState.Instance.routeList.GetCurrentPoint() != null)
+                {
+                    SaveState.Instance.routeList.GetCurrentPoint().Pin.Width = pinwidth;
+                    SaveState.Instance.routeList.GetCurrentPoint().Pin.Height = pinheight;
+                }
+                SaveState.Instance.routeList.SetCurrentPoint(this);
+
+                if (SaveState.Instance.CurrentVisualState == "LocationServicesDisabledState")
+                {
+                    VisualStateManager.GoToState(myMainPage.BrowsingModeNameInfo1, "SlideUp", true);
+                    myMainPage.BrowsingModeNameInfo1.SelectRoutePlaqueName.Text = Info.GetName();
+                    myMainPage.BrowsingModeNameInfo1.SelectRoutePlaqueDateAndCategory.Text = "(" + Info.date + ") " + Info.info1;
+                }
+                else
+                if (SaveState.Instance.CurrentVisualState == "NotInLondonState")
+                {
+                    VisualStateManager.GoToState(myMainPage.BrowsingModeNameInfo2, "SlideUp", true);
+                    myMainPage.BrowsingModeNameInfo2.SelectRoutePlaqueName.Text = Info.GetName();
+                    myMainPage.BrowsingModeNameInfo2.SelectRoutePlaqueDateAndCategory.Text = "(" + Info.date + ") " + Info.info1;
+                }
+                else
+                {
+                    VisualStateManager.GoToState(myMainPage.BrowsingModeNameInfo, "SlideUp", true);
+                    myMainPage.BrowsingModeNameInfo.SelectRoutePlaqueName.Text = Info.GetName();
+                    myMainPage.BrowsingModeNameInfo.SelectRoutePlaqueDateAndCategory.Text = "(" + Info.date + ") " + Info.info1;
+                }
             }
             
             if (SaveState.Instance.routeState == MainPage.RouteState.SelectStartPoint)
@@ -195,6 +218,12 @@ namespace Maps.Helpers
                         ClearSelection();
                     }
                     SaveState.Instance.routeList.SetEndPoint(null);
+                    myMainPage.Done.Opacity = 0.50;
+                    myMainPage.DoneEndPointButton.IsHitTestVisible = false;
+                    myMainPage.AppGenRouteEndPointDonButton.Opacity = 0.5;
+                    myMainPage.AppGenRouteEndPointDonButton.IsHitTestVisible = false;
+                    UnshowQuickInfo();
+
                 }
                 else
                 {
@@ -234,6 +263,7 @@ namespace Maps.Helpers
             Run unlockedRun = new Run();
             Run nameRun = new Run();
             Run dateRun = new Run();
+            Run addressRun = new Run();
             Run infoRun = new Run();
             Run fullInfoRun = new Run();
             Run exitRun = new Run();
@@ -254,6 +284,10 @@ namespace Maps.Helpers
             dateRun.FontFamily = light;
             dateRun.FontSize = 37;
             dateRun.Foreground = white;
+            addressRun.Text = Info.address1 + "\n" + Info.address2 + "\n";
+            addressRun.FontFamily = light;
+            addressRun.FontSize = 37;
+            addressRun.Foreground = white;
             infoRun.Text = Info.fullinfo + "\n";
             infoRun.FontFamily = headline;
             infoRun.FontSize = 30;
@@ -290,6 +324,13 @@ namespace Maps.Helpers
             InlineUIContainer LBUI3 = new InlineUIContainer();
             LBUI3.Child = LineBreak3;
 
+            Image LineBreak4 = new Image();
+            LineBreak4.Source = new BitmapImage(new Uri("QuickInfo_Images/LINE BREAK copy.png", UriKind.RelativeOrAbsolute));
+            LineBreak4.Height = 8;
+            LineBreak4.Width = 388;
+            InlineUIContainer LBUI4 = new InlineUIContainer();
+            LBUI4.Child = LineBreak4;
+
             Hyperlink link = new Hyperlink();
             link.FontFamily = light;
             link.FontSize = 30;
@@ -318,7 +359,9 @@ namespace Maps.Helpers
             p1.Inlines.Add(LBUI3);
             p1.Inlines.Add(nameRun);
             p1.Inlines.Add(dateRun);
-            p1.Inlines.Add(LBUI);
+            //p1.Inlines.Add(LBUI);
+            p1.Inlines.Add(addressRun);
+            p1.Inlines.Add(LBUI4);
             p1.Inlines.Add(infoRun);
             p1.Inlines.Add(LBUI2);
             p1.Inlines.Add(fullInfoRun);
@@ -386,6 +429,8 @@ namespace Maps.Helpers
 
         public void UnshowQuickInfo()
         {
+            VisualStateManager.GoToState(myMainPage.EndPlaqueNameInfo, "Start", true);
+            VisualStateManager.GoToState(myMainPage.AppGenEndPlaqueNameInfo, "Start", true);
         }
 
         public GeoCoordinate GetLocation() { return Info.location; }
