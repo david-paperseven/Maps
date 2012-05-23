@@ -19,6 +19,7 @@ using System.Windows.Threading;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Controls.Maps;
 using Microsoft.Phone.Controls.Maps.Core;
+using Microsoft.Phone.Tasks;
 
 using Microsoft.Phone.Shell;
 
@@ -48,7 +49,8 @@ namespace Maps
             QuickStart,
             UserSelected,
             AppGenRoute,
-            Discovery
+            Discovery,
+            BrowsingMode
         }
 
         bool onMainMenu = true;
@@ -82,14 +84,17 @@ namespace Maps
             DebugClass.Instance.mainpage = this;
             DebugClass.Instance.Reset();
 
+            //Memory.Init();
+            //Memory.Instance.Start();
+
             Initializeplaques();
             //DebugPlaquePosTimer();
             PlaqueFlashTimer();
             SMSTimer();
 
             //PersistentStorage.Instance.Reset();
-            //PersistentStorage.Instance.SetVisited(22);
-            //PersistentStorage.Instance.SetNumberVisited(10);
+            //PersistentStorage.Instance.SetVisited(99);
+            //PersistentStorage.Instance.SetNumberVisited(99);
 
             // Visual States are always on the first child of the control template  
             element = VisualTreeHelper.GetChild(MainPageElement, 0) as FrameworkElement;
@@ -197,6 +202,7 @@ namespace Maps
                     {
                         System.Diagnostics.Debug.WriteLine("Location Service is not functioning on this device.");
                     }
+                    LocationStatusReady();
                     break;
                 case GeoPositionStatus.Initializing:
                     System.Diagnostics.Debug.WriteLine("Location Service is retrieving data...");
@@ -205,10 +211,12 @@ namespace Maps
                 case GeoPositionStatus.NoData:
                     // The Location Service is working, but it cannot get location data.
                     System.Diagnostics.Debug.WriteLine("Location data is not available.");
+                    LocationStatusReady();
                     break;
                 case GeoPositionStatus.Ready:
                     // The Location Service is working and is receiving location data.
                     System.Diagnostics.Debug.WriteLine("Location data is available.");
+                    LocationStatusReady();
                     break;
             }
             
@@ -324,8 +332,11 @@ namespace Maps
 
             if (SaveState.Instance.routeState == RouteState.Travelling)
             {
-                SaveState.Instance.journey.PlaqueUnlock();
-                SaveState.Instance.journey.FillInDetails();
+                if (SaveState.Instance.CurrentVisualState != "FullInfoState")
+                {    
+                    SaveState.Instance.journey.PlaqueUnlock();
+                    SaveState.Instance.journey.FillInDetails();
+                }
             }
 
             if (SaveState.Instance.HaveWeCentred == false)
@@ -437,7 +448,21 @@ namespace Maps
             if (SaveState.Instance.journey.Completed)
             {
                 PersistentStorage.Instance.ticks += SaveState.Instance.journey.GetElapsedTime().Ticks;
-                VisualStateManager.GoToState(this, "CompletedRouteState", true);
+
+                int num, arts, science, politics, exploration, totalarts, totalscience, totalpolitics, totalexploration;
+                int total = SaveState.Instance.plaques.Count;
+                PersistentStorage.Instance.GetFoundPlaques(out num, out arts, out science, out politics, out exploration, out totalarts, out totalscience, out totalpolitics, out totalexploration);
+
+                if ((PersistentStorage.Instance.completedApp == false) && (num == total))
+                {
+                    VisualStateManager.GoToState(this, "CongratulationsState", true);
+                    PersistentStorage.Instance.completedApp = true;
+                }
+                else
+                {
+                    VisualStateManager.GoToState(this, "CongratulationsState", true);
+                    //VisualStateManager.GoToState(this, "CompletedRouteState", true);
+                }
             }
             else
             {
@@ -569,6 +594,8 @@ namespace Maps
             {
                 clearrouteoption = false;
                 VisualStateManager.GoToState(ClearRouteYesNo, "Start", true);
+                VisualStateManager.GoToState(TravellingNameInfo, "Start", true);
+
 
                 ClearRoute();
 
@@ -606,6 +633,7 @@ namespace Maps
         {
             clearrouteoption = false;
             VisualStateManager.GoToState(ClearRouteYesNo, "Start", true);
+            VisualStateManager.GoToState(TravellingNameInfo, "Start", true);
             //RouteSummaryGoButton.IsHitTestVisible = true;
         }
 
@@ -617,13 +645,21 @@ namespace Maps
 
         void ClearRouteOption()
         {
-            clearrouteoption = true;
-            //RouteSummaryGoButton.IsHitTestVisible = false;
-            ClearRouteYesNo.SelectRoutePlaqueName.Text = "Are you sure?";
-            ClearRouteYesNo.SelectRoutePlaqueDateAndCategory.Text = "Yes / No";
+            if (clearrouteoption == false)
+            {
+                clearrouteoption = true;
+                //RouteSummaryGoButton.IsHitTestVisible = false;
+                ClearRouteYesNo.SelectRoutePlaqueName.Text = "Are you sure?";
+                ClearRouteYesNo.SelectRoutePlaqueDateAndCategory.Text = "Yes / No";
 
-            VisualStateManager.GoToState(ClearRouteYesNo, "SlideUp", true);
-            ClearRouteYesNo.PlaqueExtraInfo.IsHitTestVisible = true;
+                VisualStateManager.GoToState(ClearRouteYesNo, "SlideUp", true);
+                VisualStateManager.GoToState(TravellingNameInfo, "Start", true);
+                ClearRouteYesNo.PlaqueExtraInfo.IsHitTestVisible = true;
+            }
+            else
+            {
+                ClearRouteNo();
+            }
         }
 
         private void RouteSummaryUnlockButton_Click(object sender, RoutedEventArgs e)
@@ -722,6 +758,85 @@ namespace Maps
             VisualStateManager.GoToState(BrowsingModeNameInfo2, "Start", true);
             VisualStateManager.GoToState(this, "MainMenuState", true);
         }
+
+        private void SettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            VisualStateManager.GoToState(this, "SettingsState", true);
+        }
+
+        private void SettingsDoneButton_Click(object sender, RoutedEventArgs e)
+        {
+            VisualStateManager.GoToState(this, "OptionsState", true);
+            //VisualStateManager.GoToState(this, "CongratulationsState", true);
+        }
+
+        private string UniqueCode()
+        {
+            string code;
+            TimeSpan elapsedtime = new TimeSpan(PersistentStorage.Instance.ticks);
+            code = "BT";
+            code += PersistentStorage.Instance.km.ToString();
+            code += PersistentStorage.Instance.GetNumFoundPlaques().ToString();
+            code += elapsedtime.Minutes.ToString();
+            return code;
+        }
+
+        private void FindOutButton_Click(object sender, RoutedEventArgs e)
+        {
+            EmailComposeTask emailComposeTask = new EmailComposeTask();
+            emailComposeTask.To = "david@paperseven.com";
+            emailComposeTask.Subject = "I've completed Nokia Blue Trails!";
+            emailComposeTask.Body = "Do I win anything?\n\nMy unique code is "+UniqueCode()+"\n(don't delete this code from your email!)";
+            emailComposeTask.Show();
+        }
+        
+
+        private void LocationServicesButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (SaveState.Instance.LocationServices == true)
+            {
+                SaveState.Instance.LocationServices = false;
+                LocationServicesOnOff.Text = "Off";
+                EnableBrowsingMode();
+            }
+            else
+            {
+                SaveState.Instance.LocationServices = true;
+                LocationServicesOnOff.Text = "On";
+                DisableBrowsingMode();
+            }
+
+
+        }
+
+        private void EnableBrowsingMode()
+        {
+            Quick_Start_Mode.Opacity = 0.5;
+            App_Generated_Mode.Opacity = 0.5;
+            User_Selected_Mode.Opacity = 0.5;
+            Discovery_Mode.Opacity = 0.5;
+
+            SaveState.Instance.routeMode = RouteMode.BrowsingMode;
+            SaveState.Instance.watcher.Stop();
+
+            ActivateMainMenuButtons();
+
+        }
+
+        private void DisableBrowsingMode()
+        {
+            Quick_Start_Mode.Opacity = 1.0;
+            App_Generated_Mode.Opacity = 1.0;
+            User_Selected_Mode.Opacity = 1.0;
+            Discovery_Mode.Opacity = 1.0;
+
+            SaveState.Instance.routeMode = RouteMode.None;
+            SaveState.Instance.watcher.Start();
+
+            ActivateMainMenuButtons();
+
+        }
+
 
         private void StatsButton_Click(object sender, RoutedEventArgs e)
         {
@@ -914,13 +1029,25 @@ namespace Maps
         void ActivateMainMenuButtons()
         {
             AboutButton.Visibility = System.Windows.Visibility.Visible;
-            UserSelectedRouteButton.Visibility = System.Windows.Visibility.Visible;
             MainMenuOptionsButton.Visibility = System.Windows.Visibility.Visible;
-            QuickStartButton.Visibility = System.Windows.Visibility.Visible;
-            AppGeneratedRouteButton.Visibility = System.Windows.Visibility.Visible;
-            DiscoveryModeButton.Visibility = System.Windows.Visibility.Visible;
             MainMenuHelpButton.Visibility = System.Windows.Visibility.Visible;
             DebugButton.Visibility = System.Windows.Visibility.Visible;
+
+            if (SaveState.Instance.routeMode == RouteMode.BrowsingMode)
+            {
+                UserSelectedRouteButton.Visibility = System.Windows.Visibility.Collapsed;
+                QuickStartButton.Visibility = System.Windows.Visibility.Collapsed;
+                AppGeneratedRouteButton.Visibility = System.Windows.Visibility.Collapsed;
+                DiscoveryModeButton.Visibility = System.Windows.Visibility.Collapsed;
+            }
+            else
+            {
+                UserSelectedRouteButton.Visibility = System.Windows.Visibility.Visible;
+                QuickStartButton.Visibility = System.Windows.Visibility.Visible;
+                AppGeneratedRouteButton.Visibility = System.Windows.Visibility.Visible;
+                DiscoveryModeButton.Visibility = System.Windows.Visibility.Visible;
+            }
+
         }
 
         bool LocationStatusReady()
@@ -935,15 +1062,27 @@ namespace Maps
              */
             if (geopositionstatus == GeoPositionStatus.Disabled)
             {
-                SaveState.Instance.routeState = RouteState.Browsing;
-                VisualStateManager.GoToState(this, "LocationServicesDisabledState", true);
+                if (SaveState.Instance.routeMode != RouteMode.BrowsingMode)
+                {
+                    SaveState.Instance.routeState = RouteState.Browsing;
+                    VisualStateManager.GoToState(this, "LocationServicesDisabledState", true);
+                    EnableBrowsingMode();
+                }
                 return false;
             }
             if (SaveState.Instance.currentLocation.notInLondon)
             {
-                SaveState.Instance.routeState = RouteState.Browsing;
-                VisualStateManager.GoToState(this, "NotInLondonState", true);
+                if (SaveState.Instance.routeMode != RouteMode.BrowsingMode)
+                {
+                    SaveState.Instance.routeState = RouteState.Browsing;
+                    VisualStateManager.GoToState(this, "NotInLondonState", true);
+                    EnableBrowsingMode();
+                }
                 return false;
+            }
+            if (SaveState.Instance.routeMode == RouteMode.BrowsingMode)
+            {
+                DisableBrowsingMode();
             }
             return true;
         }
@@ -962,7 +1101,7 @@ namespace Maps
             onMainMenu = false;
             if (e.OldState != null)
             {
-                if (e.OldState.Name != "HelpState" && e.OldState.Name != "StatsScreenState" && e.OldState.Name != "FilterState" && e.OldState.Name != "OptionsState")
+                if (e.OldState.Name != "HelpState" && e.OldState.Name != "StatsScreenState" && e.OldState.Name != "FilterState" && e.OldState.Name != "OptionsState" && e.OldState.Name != "SettingsState")
                 {
                     if (e.OldState.Name == "SplashScreenState") // special case because state is not changed between splash and main menu
                     {
@@ -976,21 +1115,20 @@ namespace Maps
             }
             SaveState.Instance.CurrentVisualState = e.NewState.Name;
 
+            if (e.OldState != null)
+            {
+                if (e.OldState.Name == "MainMenuState")
+                {
+                    VisualStateManager.GoToState(BrowsingModeNameInfo3, "Start", true);
+                }
+            }
+
             if (e.NewState.Name != "MainMenuState")
             {
-                if (e.NewState.Name != "DebugState" && e.NewState.Name != "HelpState" && e.NewState.Name != "StatsScreenState" && e.NewState.Name != "FilterState" && e.NewState.Name != "OptionsState")
+                if (e.NewState.Name != "DebugState" && e.NewState.Name != "HelpState" && e.NewState.Name != "StatsScreenState" && e.NewState.Name != "FilterState" && e.NewState.Name != "OptionsState" && e.NewState.Name != "SettingsState")
                 {
                     if (!LocationStatusReady())
                         return;
-                }
-            }
-            if (e.OldState != null)
-            {
-                if (e.OldState.Name == "LocationServicesDisabledState" || e.OldState.Name == "BrowsingState")
-                {
-                    VisualStateManager.GoToState(BrowsingModeNameInfo, "Start", true);
-                    VisualStateManager.GoToState(BrowsingModeNameInfo1, "Start", true);
-                    VisualStateManager.GoToState(BrowsingModeNameInfo2, "Start", true);
                 }
             }
 
@@ -1212,9 +1350,6 @@ namespace Maps
 
             if (SaveState.Instance.CurrentVisualState == "LocationServicesDisabledState" || SaveState.Instance.CurrentVisualState == "BrowsingState" || SaveState.Instance.CurrentVisualState == "NotInLondonState")
             {
-                VisualStateManager.GoToState(BrowsingModeNameInfo, "Start", true);
-                VisualStateManager.GoToState(BrowsingModeNameInfo1, "Start", true);
-                VisualStateManager.GoToState(BrowsingModeNameInfo2, "Start", true);
                 VisualStateManager.GoToState(this, "MainMenuState", true);
             }
             else

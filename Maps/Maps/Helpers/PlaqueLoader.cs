@@ -18,7 +18,7 @@ namespace Maps.Helpers
 {
     public class PlaqueLoader
     {
-        const int NUM_FIELDS = 17;
+        const int NUM_FIELDS = 16;
         
         public PlaqueLoader()
         {

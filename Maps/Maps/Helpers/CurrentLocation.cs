@@ -149,7 +149,7 @@ namespace Maps.Helpers
                     myMap.Children.Remove(Circle);
                     myMap.Children.Remove(Pin);
                 }
-                notInLondon = true;
+                notInLondon = true;10
                 return false;
             }
             */

@@ -92,6 +92,7 @@ namespace Maps.Helpers
             Pin = new Rectangle();
             Pin.Width = pinwidth;
             Pin.Height = pinheight;
+            Pin.CacheMode = new BitmapCache();
 
             ClearSelection();
 
@@ -108,19 +109,37 @@ namespace Maps.Helpers
         void Pin_Tap(object sender, GestureEventArgs e)
         {
 
-            
-            if (SaveState.Instance.routeState == MainPage.RouteState.Browsing)
+            if (SaveState.Instance.routeState == MainPage.RouteState.Travelling)
             {
-                Pin.Width = selectedpinwidth;
-                Pin.Height = selectedpinheight;
+                if (myMainPage.TravellingNameInfo.SelectRoutePlaqueName.Text == Info.GetName())
+                {
+                    VisualStateManager.GoToState(myMainPage.TravellingNameInfo, "Start", true);
+                }
+                else
+                {
+                    VisualStateManager.GoToState(myMainPage.TravellingNameInfo, "SlideUp", true);
+                    myMainPage.TravellingNameInfo.SelectRoutePlaqueName.Text = Info.GetName();
+                    myMainPage.TravellingNameInfo.SelectRoutePlaqueDateAndCategory.Text = "(" + Info.date + ") " + Info.info1;
+                }
+
+            }
+            
+            if (SaveState.Instance.routeMode == MainPage.RouteMode.BrowsingMode)
+            {
+                //Pin.Width = selectedpinwidth;
+                //Pin.Height = selectedpinheight;
 
                 if (SaveState.Instance.routeList.GetCurrentPoint() != null)
                 {
-                    SaveState.Instance.routeList.GetCurrentPoint().Pin.Width = pinwidth;
-                    SaveState.Instance.routeList.GetCurrentPoint().Pin.Height = pinheight;
+                    //SaveState.Instance.routeList.GetCurrentPoint().Pin.Width = pinwidth;
+                    //SaveState.Instance.routeList.GetCurrentPoint().Pin.Height = pinheight;
                 }
                 SaveState.Instance.routeList.SetCurrentPoint(this);
 
+                VisualStateManager.GoToState(myMainPage.BrowsingModeNameInfo3, "SlideUp", true);
+                myMainPage.BrowsingModeNameInfo3.SelectRoutePlaqueName.Text = Info.GetName();
+                myMainPage.BrowsingModeNameInfo3.SelectRoutePlaqueDateAndCategory.Text = "(" + Info.date + ") " + Info.info1;
+                /*
                 if (SaveState.Instance.CurrentVisualState == "LocationServicesDisabledState")
                 {
                     VisualStateManager.GoToState(myMainPage.BrowsingModeNameInfo1, "SlideUp", true);
@@ -140,6 +159,7 @@ namespace Maps.Helpers
                     myMainPage.BrowsingModeNameInfo.SelectRoutePlaqueName.Text = Info.GetName();
                     myMainPage.BrowsingModeNameInfo.SelectRoutePlaqueDateAndCategory.Text = "(" + Info.date + ") " + Info.info1;
                 }
+ */
             }
             
             if (SaveState.Instance.routeState == MainPage.RouteState.SelectStartPoint)
@@ -255,8 +275,8 @@ namespace Maps.Helpers
 
             myMainPage.FullInfoRichTextBox.Blocks.Clear();
             myMainPage.FullInfoScrollViewer.ScrollToVerticalOffset(150);
-            myMainPage.FullInfoRichTextBox.Height = 1700.0;
-            myMainPage.FullInfo1.Height = 1700.0;
+            myMainPage.FullInfoRichTextBox.Height = 1900.0;
+            myMainPage.FullInfo1.Height = 1900.0;
 
             Brush white = new SolidColorBrush(Colors.White);
 
@@ -342,14 +362,14 @@ namespace Maps.Helpers
             //p1.Inlines.Add(exitRun);
 
             Button button = new Button();
-            button.Width = 128;
+            button.Width = 280;
             button.Height = 128;
             button.Click += exitFullInfoClick;
             button.FontFamily = headline;
             button.FontSize = 37;
             button.Content = "Exit";
             button.BorderBrush = null;
-            button.Style = (Style)FrameworkElementExtensions.TryFindResource(myMainPage.element, "ExitButton");
+            button.Style = (Style)FrameworkElementExtensions.TryFindResource(myMainPage.element, "ContinueRoute");
 
             InlineUIContainer buttonUI = new InlineUIContainer();
             buttonUI.Child = button;

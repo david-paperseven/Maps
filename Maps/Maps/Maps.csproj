@@ -79,6 +79,7 @@
     <Compile Include="Helpers\DebugClass.cs" />
     <Compile Include="Helpers\JourneySaver.cs" />
     <Compile Include="Helpers\LittleWatson.cs" />
+    <Compile Include="Helpers\Memory.cs" />
     <Compile Include="Helpers\PersistentStorage.cs" />
     <Compile Include="Helpers\PlaqueDistance.cs" />
     <Compile Include="Helpers\RouteCalculationError.cs" />
@@ -180,8 +181,12 @@
     <Resource Include="BLD_BLUE-MAPS_BUTTON_ADD-PLAQUE_PRESS_Images\AddPlaquePressedOutline.png" />
     <Resource Include="BLD_BLUE-MAPS_BUTTON_CLEAR-ROUTE_Images\ClearRouteOutline.png" />
     <Resource Include="BLD_BLUE-MAPS_BUTTON_CLEAR-ROUTE_PRESS_Images\ClearRoutePressedOutline.png" />
+    <Resource Include="BLD_BLUE-MAPS_BUTTON_CONTINUE-ROUTE_Images\ContinueRouteDeffoNotPressed.png" />
+    <Resource Include="BLD_BLUE-MAPS_BUTTON_CONTINUE-ROUTE_PRESS_Images\ContinueRouteNotPressed.png" />
     <Resource Include="BLD_BLUE-MAPS_BUTTON_DONE_Images\Vector Smart Object.png" />
     <Resource Include="BLD_BLUE-MAPS_BUTTON_DONE_PRESS_Images\Vector Smart Object.png" />
+    <Resource Include="BLD_BLUE-MAPS_BUTTON_FIND-OUT_Images\FindOutNotPressed.png" />
+    <Resource Include="BLD_BLUE-MAPS_BUTTON_FIND-OUT_PRESS_Images\FindOutPressed.png" />
     <Resource Include="BLD_BLUE-MAPS_BUTTON_HELP_Images\HelpOutline.png" />
     <Resource Include="BLD_BLUE-MAPS_BUTTON_HELP_PRESS_Images\HelpOutlinePressed.png" />
     <Resource Include="BLD_BLUE-MAPS_BUTTON_HELP_PRESS_Images\Vector Smart Object copy.png" />
@@ -200,6 +205,11 @@
     <Resource Include="BLD_BLUE-MAPS_BUTTON_UNLOCK-THIS-PLAQUE_PRESS_Images\UnlockPressedOutline.png" />
     <Resource Include="BLD_BLUE-MAPS_BUTTON_UNPAUSE_Images\UnpauseOverlay.png" />
     <Resource Include="BLD_BLUE-MAPS_BUTTON_UNPAUSE_PRESS_Images\UnpauseOverlayPressed.png" />
+    <Resource Include="BLD_CONGRATUALTIONS_SCREEN_02_Images\Layer 1.png" />
+    <Resource Include="BLD_MENU-CONGRATULATIONS-SCREEN_01_Images\Compound Path + Compound Path.png" />
+    <Resource Include="BLD_MENU-CONGRATULATIONS-SCREEN_01_Images\Group.png" />
+    <Resource Include="BLD_MENU-CONGRATULATIONS-SCREEN_01_Images\Group1.png" />
+    <Resource Include="BLD_MENU-CONGRATULATIONS-SCREEN_01_Images\Path + Path.png" />
     <Resource Include="BLD_NK_BLUE-PLAQUE-MAIN-MENU_01_Images\Group.png" />
     <Resource Include="BLD_NK_BLUE-PLAQUE-MAIN-MENU_01_Images\Group1.png" />
     <Resource Include="BottomBar_Images\Group.png" />
@@ -270,6 +280,7 @@
     <Resource Include="StartPlaqueWithInfo_Images\Path.png" />
     <Resource Include="StatsScreen_Images\Group.png" />
     <Resource Include="StatsScreen_Images\Path.png" />
+    <Resource Include="trails.png" />
     <Resource Include="UnlockedPlaque_Images\Group.png" />
     <Resource Include="UnlockedPlaque_Images\Path.png" />
     <Resource Include="USER-SEL-EndPlaque_Images\Compound Path.png" />
