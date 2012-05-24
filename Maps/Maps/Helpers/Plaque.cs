@@ -108,20 +108,26 @@ namespace Maps.Helpers
 
         void Pin_Tap(object sender, GestureEventArgs e)
         {
+            if (SaveState.Instance.CurrentVisualState == "OptionsState")
+            {
+                return;
+            }
 
             if (SaveState.Instance.routeState == MainPage.RouteState.Travelling)
             {
-                if (myMainPage.TravellingNameInfo.SelectRoutePlaqueName.Text == Info.GetName())
+                if (SaveState.Instance.CurrentVisualState != "MapOnlyState")
                 {
-                    VisualStateManager.GoToState(myMainPage.TravellingNameInfo, "Start", true);
+                    if (myMainPage.TravellingNameInfo.SelectRoutePlaqueName.Text == Info.GetName())
+                    {
+                        VisualStateManager.GoToState(myMainPage.TravellingNameInfo, "Start", true);
+                    }
+                    else
+                    {
+                        VisualStateManager.GoToState(myMainPage.TravellingNameInfo, "SlideUp", true);
+                        myMainPage.TravellingNameInfo.SelectRoutePlaqueName.Text = Info.GetName();
+                        myMainPage.TravellingNameInfo.SelectRoutePlaqueDateAndCategory.Text = "(" + Info.date + ") " + Info.info1;
+                    }
                 }
-                else
-                {
-                    VisualStateManager.GoToState(myMainPage.TravellingNameInfo, "SlideUp", true);
-                    myMainPage.TravellingNameInfo.SelectRoutePlaqueName.Text = Info.GetName();
-                    myMainPage.TravellingNameInfo.SelectRoutePlaqueDateAndCategory.Text = "(" + Info.date + ") " + Info.info1;
-                }
-
             }
             
             if (SaveState.Instance.routeMode == MainPage.RouteMode.BrowsingMode)
@@ -136,9 +142,12 @@ namespace Maps.Helpers
                 }
                 SaveState.Instance.routeList.SetCurrentPoint(this);
 
-                VisualStateManager.GoToState(myMainPage.BrowsingModeNameInfo3, "SlideUp", true);
-                myMainPage.BrowsingModeNameInfo3.SelectRoutePlaqueName.Text = Info.GetName();
-                myMainPage.BrowsingModeNameInfo3.SelectRoutePlaqueDateAndCategory.Text = "(" + Info.date + ") " + Info.info1;
+                if (SaveState.Instance.CurrentVisualState != "SplashScreenState")
+                {
+                    VisualStateManager.GoToState(myMainPage.BrowsingModeNameInfo3, "SlideUp", true);
+                    myMainPage.BrowsingModeNameInfo3.SelectRoutePlaqueName.Text = Info.GetName();
+                    myMainPage.BrowsingModeNameInfo3.SelectRoutePlaqueDateAndCategory.Text = "(" + Info.date + ") " + Info.info1;
+                }
                 /*
                 if (SaveState.Instance.CurrentVisualState == "LocationServicesDisabledState")
                 {
@@ -275,8 +284,8 @@ namespace Maps.Helpers
 
             myMainPage.FullInfoRichTextBox.Blocks.Clear();
             myMainPage.FullInfoScrollViewer.ScrollToVerticalOffset(150);
-            myMainPage.FullInfoRichTextBox.Height = 1900.0;
-            myMainPage.FullInfo1.Height = 1900.0;
+            myMainPage.FullInfoRichTextBox.Height = 2000.0;
+            myMainPage.FullInfo1.Height = 2000.0;
 
             Brush white = new SolidColorBrush(Colors.White);
 

@@ -185,7 +185,9 @@
     <Resource Include="BLD_BLUE-MAPS_BUTTON_CONTINUE-ROUTE_PRESS_Images\ContinueRouteNotPressed.png" />
     <Resource Include="BLD_BLUE-MAPS_BUTTON_DONE_Images\Vector Smart Object.png" />
     <Resource Include="BLD_BLUE-MAPS_BUTTON_DONE_PRESS_Images\Vector Smart Object.png" />
+    <Resource Include="BLD_BLUE-MAPS_BUTTON_FIND-OUT_02_Images\FindOutNotPressed2.png" />
     <Resource Include="BLD_BLUE-MAPS_BUTTON_FIND-OUT_Images\FindOutNotPressed.png" />
+    <Resource Include="BLD_BLUE-MAPS_BUTTON_FIND-OUT_PRESS_02_Images\FindOutPressed2.png" />
     <Resource Include="BLD_BLUE-MAPS_BUTTON_FIND-OUT_PRESS_Images\FindOutPressed.png" />
     <Resource Include="BLD_BLUE-MAPS_BUTTON_HELP_Images\HelpOutline.png" />
     <Resource Include="BLD_BLUE-MAPS_BUTTON_HELP_PRESS_Images\HelpOutlinePressed.png" />

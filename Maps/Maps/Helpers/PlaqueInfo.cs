@@ -30,7 +30,6 @@ namespace Maps.Helpers
         public PlaqueInfo(List<string> s)
         {
             number = Convert.ToInt32(s[0]);
-            System.Diagnostics.Debug.WriteLine(number);
             title = s[1];
             forenames = s[2];
             surname = s[3];

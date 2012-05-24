@@ -860,28 +860,28 @@
 											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="DoneTextNotPressed">
 												<DiscreteObjectKeyFrame KeyTime="0">
 													<DiscreteObjectKeyFrame.Value>
-														<Visibility>Visible</Visibility>
+														<Visibility>Collapsed</Visibility>
 													</DiscreteObjectKeyFrame.Value>
 												</DiscreteObjectKeyFrame>
 											</ObjectAnimationUsingKeyFrames>
 											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="DoneTextPressed">
 												<DiscreteObjectKeyFrame KeyTime="0">
 													<DiscreteObjectKeyFrame.Value>
-														<Visibility>Collapsed</Visibility>
+														<Visibility>Visible</Visibility>
 													</DiscreteObjectKeyFrame.Value>
 												</DiscreteObjectKeyFrame>
 											</ObjectAnimationUsingKeyFrames>
 											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="FindOutNotPressed">
 												<DiscreteObjectKeyFrame KeyTime="0">
 													<DiscreteObjectKeyFrame.Value>
-														<Visibility>Visible</Visibility>
+														<Visibility>Collapsed</Visibility>
 													</DiscreteObjectKeyFrame.Value>
 												</DiscreteObjectKeyFrame>
 											</ObjectAnimationUsingKeyFrames>
-											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="FindOutPressed">
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="FindOutPressed2">
 												<DiscreteObjectKeyFrame KeyTime="0">
 													<DiscreteObjectKeyFrame.Value>
-														<Visibility>Collapsed</Visibility>
+														<Visibility>Visible</Visibility>
 													</DiscreteObjectKeyFrame.Value>
 												</DiscreteObjectKeyFrame>
 											</ObjectAnimationUsingKeyFrames>
@@ -889,10 +889,10 @@
 									</VisualState>
 								</VisualStateGroup>
 							</VisualStateManager.VisualStateGroups>
-							<Image x:Name="FindOutNotPressed" Height="42" Source="BLD_BLUE-MAPS_BUTTON_FIND-OUT_Images/FindOutNotPressed.png" Stretch="Fill" Width="155" Visibility="Collapsed"/>
-							<Image x:Name="FindOutPressed" Height="42" Source="BLD_BLUE-MAPS_BUTTON_FIND-OUT_PRESS_Images/FindOutPressed.png" Stretch="Fill" Width="155"/>
-							<TextBlock x:Name="DoneTextNotPressed" TextWrapping="Wrap" Text="Find Out" Canvas.Left="15.776" Canvas.Top="-0.19" Foreground="#FFFBF6F6" FontFamily="Fonts/NokiaPureHeadlineRg.ttf#Nokia Pure Headline" FontSize="34.667"/>
-							<TextBlock x:Name="DoneTextPressed" TextWrapping="Wrap" Text="Find Out" Canvas.Left="15.776" Canvas.Top="-0.19" Foreground="#FF124191" FontFamily="Fonts/NokiaPureHeadlineRg.ttf#Nokia Pure Headline" FontSize="34.667" Visibility="Collapsed"/>
+							<Image x:Name="FindOutNotPressed" Height="42" Source="BLD_BLUE-MAPS_BUTTON_FIND-OUT_02_Images/FindOutNotPressed2.png" Stretch="Fill" Width="155"/>
+							<Image x:Name="FindOutPressed2" Height="42" Source="BLD_BLUE-MAPS_BUTTON_FIND-OUT_PRESS_02_Images/FindOutPressed2.png" Stretch="Fill" Width="155" Visibility="Collapsed"/>
+							<TextBlock x:Name="DoneTextNotPressed" TextWrapping="Wrap" Text="Find Out" Canvas.Left="15.776" Canvas.Top="-1.19" Foreground="#FFFBF6F6" FontFamily="Fonts/NokiaPureHeadlineRg.ttf#Nokia Pure Headline" FontSize="34.667"/>
+							<TextBlock x:Name="DoneTextPressed" TextWrapping="Wrap" Text="Find Out" Canvas.Left="15.776" Canvas.Top="-1.19" Foreground="#FF124191" FontFamily="Fonts/NokiaPureHeadlineRg.ttf#Nokia Pure Headline" FontSize="34.667" Visibility="Collapsed"/>
 						</Canvas>
 					</ControlTemplate>
 				</Setter.Value>
@@ -1565,7 +1565,7 @@
         		<TextBlock x:Name="NamesOnPlaques" Foreground="#FFFFFFFF" FontSize="24" FontFamily="Fonts/NokiaPureHeadlineRg.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="44" LineHeight="24" TextAlignment="Left" TextWrapping="Wrap" Text="Names on plaques: On" Canvas.Top="154.88" d:IsHidden="True"/>
         	</Canvas>
         </Canvas>
-        <Canvas x:Name="MainMenuButton" Height="56" Canvas.Top="717" Width="486" d:IsHidden="True">
+        <Canvas x:Name="MainMenuButton" Height="56" Canvas.Top="717" Width="486">
         	<Button Canvas.Left="1" Content="Menu" Height="55" x:Name="button1" Width="481" Click="button1_Click_1" Canvas.ZIndex="20" RenderTransformOrigin="0.5,0.5" BorderBrush="#FF23518D" Foreground="#FF2B54A3" Background="#00565878" Opacity="0" Canvas.Top="56" >
         		<Button.RenderTransform>
         			<CompositeTransform/>
@@ -1580,7 +1580,7 @@
         				<CompositeTransform/>
         			</Image.RenderTransform>
         		</Image>
-                <TextBlock Foreground="#FFFFFFFF" TextWrapping="Wrap" Text="Route Information" Canvas.Left="40" Canvas.Top="10.5" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" FontSize="36.667"/>
+                <TextBlock Foreground="#FFFFFFFF" TextWrapping="Wrap" Text="Route Information" Canvas.Left="23" Canvas.Top="15.5" FontFamily="/Maps;component/Fonts/NokiaPureText.ttf#Nokia Pure Text" FontSize="36.667"/>
         	</Canvas>
         </Canvas>
         <Canvas x:Name="FullInfo" HorizontalAlignment="Left" Height="1172.167" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" Canvas.Top="768.833" RenderTransformOrigin="0.5,0.5" d:IsHidden="True">
@@ -1919,14 +1919,14 @@
         			</Canvas>
         			<TextBlock x:Name="About_Blue_Plaques" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="37.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="About" Canvas.Top="30.94"/>
         			<ScrollViewer Height="449" Canvas.Left="39.5" Canvas.Top="78.94" Width="403.97">
-        				<TextBlock x:Name="Blue_Plaques_is_a_quided__tour_of_an_eclectic__selection_of_London_s_famous_people_and_places__" Foreground="#FFFFFFFF" FontSize="33.333" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" LineStackingStrategy="BlockLineHeight" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Height="1647" Width="403.97"><Run Text="Blue Trails is a playful use of Nokia maps to  find the way between 100 Blue Plaques around London, exploring and unearthing amazing stories, finding and discovering new places, or seeing old places in new ways. The 100 inspiring people we chose were were carefully selected for their contributions to the world, their brilliant sense of adventure, or simply their maverick spirit."/><LineBreak/><Run/><LineBreak/><Run Text="In following the paths set by you, or the app itself (how adventurous are you feeling?), you follow the trails from plaque to plaque, as far (or near) as you want to go. You can choose to visit places of long-admired characters, or let the app show you a new path around familiar streets, never knowing who you are going to find around the corner. There are four settings to choose from, and within each you can set details like the number of plaques to visit, or the distances you want to cover."/><LineBreak/><Run/><LineBreak/><Run Text="Blue Trails designed by Build."/><LineBreak/><Run Text="App development by PaperSeven."/><LineBreak/><Run Text="© Nokia 2012"/></TextBlock>
+        				<TextBlock x:Name="Blue_Plaques_is_a_quided__tour_of_an_eclectic__selection_of_London_s_famous_people_and_places__" Foreground="#FFFFFFFF" FontSize="33.333" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" LineStackingStrategy="BlockLineHeight" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Height="1647" Width="403.97"><Run Text="Blue Trails is a playful use of Nokia maps to  find the way between 100 Blue Plaques around London, exploring and unearthing amazing stories, finding and discovering new places, or seeing old places in new ways. The 100 inspiring people we chose were carefully selected for their contributions to the world, their brilliant sense of adventure, or simply their maverick spirit."/><LineBreak/><Run/><LineBreak/><Run Text="In following the paths set by you, or the app itself (how adventurous are you feeling?), you follow the trails from plaque to plaque, as far (or near) as you want to go. You can choose to visit places of long-admired characters, or let the app show you a new path around familiar streets, never knowing who you are going to find around the corner. There are four settings to choose from, and within each you can set details like the number of plaques to visit, or the distances you want to cover."/><LineBreak/><Run/><LineBreak/><Run Text="Blue Trails designed by Build."/><LineBreak/><Run Text="App development by PaperSeven."/><LineBreak/><Run Text="© Nokia 2012"/></TextBlock>
         			</ScrollViewer>
         			<Image x:Name="___Path_11" Height="2" Canvas.Left="39" Source="About_Images/Path.png" Canvas.Top="67" Width="409"/>
         		</Canvas>
         	</Canvas>
             <Button x:Name="AboutDoneButton" Content="Button" Canvas.Left="351.324" Canvas.Top="547.657" Click="AboutButtonDone_Click" Style="{StaticResource DoneButton}" Height="46.676" Width="110"/>
         </Canvas>
-        <Canvas x:Name="StatsScreen" HorizontalAlignment="Left" Height="636" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" Canvas.Top="769" RenderTransformOrigin="0.5,0.5" d:IsHidden="True">
+        <Canvas x:Name="StatsScreen" HorizontalAlignment="Left" Height="636" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" Canvas.Top="769" RenderTransformOrigin="0.5,0.5">
         	<Canvas.RenderTransform>
         		<CompositeTransform/>
         	</Canvas.RenderTransform>
@@ -1943,7 +1943,7 @@
                     <TextBlock x:Name="KMTravelled" Foreground="#FFFFFFFF" Canvas.Left="320" TextWrapping="Wrap" Canvas.Top="312.5" FontSize="36.667" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" Text="12km"/>
                     <TextBlock x:Name="ETime" Foreground="#FFFFFFFF" Canvas.Left="250" TextWrapping="Wrap" Canvas.Top="352" FontSize="36.667" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" Text="1h32min"/>
         		</Canvas>
-                <TextBlock x:Name="NumPlaquesFound" Foreground="#FFFFFFFF" Canvas.Left="346.5" TextWrapping="Wrap" Canvas.Top="75.415" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" FontSize="36" Text="1 / 100"/>
+                <TextBlock x:Name="NumPlaquesFound" Foreground="#FFFFFFFF" Canvas.Left="322.25" TextWrapping="Wrap" Canvas.Top="75.415" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" FontSize="36" Text="1 / 100"/>
                 <TextBlock x:Name="Kilometers_Travelled" Foreground="#FFFFFFFF" Canvas.Left="37.997" TextWrapping="Wrap" Canvas.Top="312.5" Text="Distance Travelled:" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" FontSize="36.667"/>
                 <TextBlock x:Name="Arts1" Foreground="#FFFFFFFF" Canvas.Left="78.845" TextWrapping="Wrap" Canvas.Top="122" Text="Arts" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" FontSize="36.667"/>
                 <TextBlock x:Name="NumArts" Foreground="#FFFFFFFF" Canvas.Left="321.5" TextWrapping="Wrap" Canvas.Top="123.59" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" Text="3 / 25" FontSize="36"/>
@@ -1995,7 +1995,7 @@
         			</Canvas>
         			<TextBlock x:Name="Help_Text" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="37.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Help" Canvas.Top="30.94"/>
         			<ScrollViewer Canvas.Left="37.5" Canvas.Top="78.94" Width="405.603" Height="482">
-        				<TextBlock x:Name="Blue_Plaques_is_a_quided__tour_of_an_eclectic__selection_of_London_s_famous_people_and_places__1" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" LineStackingStrategy="BlockLineHeight" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Height="1406" Width="405.603"><Run Text="Quick start"/><LineBreak/><Run Text="Simply select a nearby plaque to visit, then follow the specified route. Simple!"/><LineBreak/><Run/><LineBreak/><Run Text="User selected"/><LineBreak/><Run Text="Select all the plaques you want to visit on that trip including the start and end points. Your route will then be mapped out for you to follow."/><LineBreak/><Run/><LineBreak/><Run Text="App generated"/><LineBreak/><Run Text="Tell Blue Maps where you would like to end up, then select the number of plaques you would like to visit along the way. Blue Maps will then suggest the best route for you to take, visiting Plaques you haven't visited before."/><LineBreak/><Run/><LineBreak/><Run Text="Discovery"/><LineBreak/><Run Text="Be taken on your very own mystery tour! Tell Blue Maps where you would like to end up, then select the number of plaques you would like to visit along the way. Blue Maps will then select the best route for you – but will only reveal your next Plaque.&#xa;"/></TextBlock>
+        				<TextBlock x:Name="Blue_Plaques_is_a_quided__tour_of_an_eclectic__selection_of_London_s_famous_people_and_places__1" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" LineStackingStrategy="BlockLineHeight" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Height="1406" Width="405.603"><Run Text="Quick start"/><LineBreak/><Run Text="Simply select a nearby plaque to visit, then follow the specified route. Simple!"/><LineBreak/><Run/><LineBreak/><Run Text="User selected"/><LineBreak/><Run Text="Select all the plaques you want to visit on that trip including the start and end points. Your route will then be mapped out for you to follow."/><LineBreak/><Run/><LineBreak/><Run Text="App generated"/><LineBreak/><Run Text="Tell Blue Trails where you would like to end up, then select the number of plaques you would like to visit along the way. Blue Trails will then suggest the best route for you to take, visiting Plaques you haven't visited before."/><LineBreak/><Run/><LineBreak/><Run Text="Discovery"/><LineBreak/><Run Text="Be taken on your very own mystery tour! Tell Blue Trails where you would like to end up, then select the number of plaques you would like to visit along the way. Blue Trails will then select the best route for you – but will only reveal your next Plaque.&#xa;"/></TextBlock>
         			</ScrollViewer>
         			<Image x:Name="___Path_14" Height="2" Canvas.Left="39" Source="About_Images1/Path.png" Canvas.Top="67" Width="409"/>
         		</Canvas>
@@ -2039,7 +2039,7 @@
         				</Canvas>
         			</Canvas>
         			<TextBlock x:Name="OptionsText1" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Network Required" Canvas.Top="31.94"/>
-        			<TextBlock x:Name="HelpText1" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Blue Maps requires an active internet connection." Canvas.Top="79.94" Height="134.56" Width="404.5"/>
+        			<TextBlock x:Name="HelpText1" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Blue Trails requires an active internet connection." Canvas.Top="79.94" Height="134.56" Width="404.5"/>
         			<Image x:Name="___Path_15" Height="2" Canvas.Left="36" Source="Filter_Images1/Path.png" Canvas.Top="68" Width="408"/>
         			<Button x:Name="OptionsDoneButton1" Content="Button" Canvas.Left="342.819" Canvas.Top="217.66" Height="62.693" Width="136.8" Click="NoInternetDoneButton_Click" Style="{StaticResource DoneButton}"/>
         		</Canvas>
@@ -2058,7 +2058,7 @@
         				</Canvas>
         			</Canvas>
         			<TextBlock x:Name="OptionsText2" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Browsing Mode" Canvas.Top="31.94"/>
-        			<TextBlock x:Name="HelpText2" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Blue Maps can't determine your location" Canvas.Top="79.94" Height="134.56" Width="404.5"/>
+        			<TextBlock x:Name="HelpText2" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Blue Trails can't determine your location" Canvas.Top="79.94" Height="134.56" Width="404.5"/>
         			<Image x:Name="___Path_17" Height="2" Canvas.Left="36" Source="Filter_Images1/Path.png" Canvas.Top="68" Width="408"/>
         			<Button x:Name="OptionsDoneButton2" Content="Button" Canvas.Left="342.819" Canvas.Top="217.66" Height="62.693" Width="136.8" Click="BrowsingModeDoneButton_Click" Style="{StaticResource DoneButton}"/>
         		</Canvas>
@@ -2096,7 +2096,7 @@
         				</Canvas>
         			</Canvas>
         			<TextBlock x:Name="OptionsText4" Foreground="#FFFFFFFF" FontSize="37" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="Browsing Mode" Canvas.Top="31.94"/>
-        			<TextBlock x:Name="HelpText4" Foreground="#FFFFFFFF" FontSize="26.667" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Text="You're not currently in London." Canvas.Top="79.94" Height="150.56" Width="404.5"/>
+        			<TextBlock x:Name="HelpText4" Foreground="#FFFFFFFF" FontSize="26.667" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="37" TextAlignment="Left" TextWrapping="Wrap" Canvas.Top="79.94" Height="150.56" Width="404.5" Text="Blue Trails is a London-based app. Outside of London, there is limited functionality. To experience it for real, get yourself there! "/>
         			<Image x:Name="___Path_19" Height="2" Canvas.Left="36" Source="Filter_Images1/Path.png" Canvas.Top="68" Width="408"/>
         			<Button x:Name="OptionsDoneButton4" Content="Button" Canvas.Left="342.819" Canvas.Top="217.66" Height="62.693" Width="136.8" Click="BrowsingModeDoneButton_Click" Style="{StaticResource DoneButton}"/>
         		</Canvas>
@@ -2128,7 +2128,7 @@
         		</Canvas>
         	</Canvas>
         </Canvas>
-        <Canvas x:Name="Congratulations" HorizontalAlignment="Left" Height="800" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" d:IsHidden="True" Visibility="Collapsed">
+        <Canvas x:Name="Congratulations" HorizontalAlignment="Left" Height="800" UseLayoutRounding="False" VerticalAlignment="Top" Width="480" Visibility="Collapsed" d:IsHidden="True">
         	<Canvas x:Name="BLD_MENU_CONGRATULATIONS_SCREEN_01" HorizontalAlignment="Left" Height="800" UseLayoutRounding="False" VerticalAlignment="Top" Width="480">
         		<Canvas x:Name="Layer_29" Height="800" Canvas.Left="0" Canvas.Top="0" Width="480">
         			<Canvas x:Name="___Group_92" Height="800" Canvas.Left="0" Canvas.Top="0" Width="480">
@@ -2139,22 +2139,21 @@
         				</Canvas>
         				<Image x:Name="___Path_____Path_1" Height="195" Canvas.Left="34" Source="BLD_MENU-CONGRATULATIONS-SCREEN_01_Images/Path + Path.png" Canvas.Top="58" Width="409"/>
         				<TextBlock x:Name="Congratulations_" Foreground="#FFFFFFFF" FontSize="34.5" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="34.5" TextAlignment="Left" TextWrapping="Wrap" Text="Congratulations!" Canvas.Top="21.64"/>
-        				<TextBlock x:Name="You_have_unlocked_all_100_" Foreground="#FFFFFFFF" FontSize="30" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="30" TextAlignment="Left" TextWrapping="Wrap" Text="You have unlocked all 100 " Canvas.Top="67.1"/>
-        				<TextBlock x:Name="plaques__send_us_an_email_to_see_" Foreground="#FFFFFFFF" FontSize="30" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="30" TextAlignment="Left" TextWrapping="Wrap" Text="plaques, send us an email to see " Canvas.Top="103.1"/>
+        				<TextBlock x:Name="You_have_unlocked_all_100_" Foreground="#FFFFFFFF" FontSize="30" FontFamily="Fonts/NokiaPureText.ttf#Nokia Pure Text" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="30" TextAlignment="Left" TextWrapping="Wrap" Text="You have unlocked all 100 " Canvas.Top="67.1"/>
+        				<TextBlock x:Name="plaques__send_us_an_email_to_see_" Foreground="#FFFFFFFF" FontSize="30" FontFamily="Fonts/NokiaPureText.ttf#Nokia Pure Text" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="30" TextAlignment="Left" TextWrapping="Wrap" Text="plaques, send us an email to see " Canvas.Top="103.1"/>
         				<Image x:Name="___Compound_Path_____Compound_Path_" Height="67" Canvas.Left="37" Source="BLD_MENU-CONGRATULATIONS-SCREEN_01_Images/Compound Path + Compound Path.png" Canvas.Top="138" Width="359"/>
-        				<TextBlock x:Name="and_claim_a_special_prize_" Foreground="#FFFFFFFF" FontSize="30" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="30" TextAlignment="Left" TextWrapping="Wrap" Text="and claim a special prize." Canvas.Top="211.1"/>
+        				<TextBlock x:Name="and_claim_a_special_prize_" Foreground="#FFFFFFFF" FontSize="30" FontFamily="Fonts/NokiaPureText.ttf#Nokia Pure Text" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="30" TextAlignment="Left" TextWrapping="Wrap" Text="and claim a special prize." Canvas.Top="211.1"/>
         				<TextBlock x:Name="We_hope_you_enjoyed_the_using_" Foreground="#FFFFFFFF" FontSize="30" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="30" TextAlignment="Left" TextWrapping="Wrap" Text="We hope you enjoyed the using " Canvas.Top="267.1"/>
         				<TextBlock x:Name="the_app_and_unearthing_some_" Foreground="#FFFFFFFF" FontSize="30" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="30" TextAlignment="Left" TextWrapping="Wrap" Text="the app and unearthing some " Canvas.Top="303.1"/>
         				<TextBlock x:Name="of_the_amazing_and_inspiring_" Foreground="#FFFFFFFF" FontSize="30" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="30" TextAlignment="Left" TextWrapping="Wrap" Text="of the amazing and inspiring " Canvas.Top="339.1"/>
         				<TextBlock x:Name="stories_that_have_taken_place_in_" Foreground="#FFFFFFFF" FontSize="30" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="30" TextAlignment="Left" TextWrapping="Wrap" Text="stories that have taken place in " Canvas.Top="375.1"/>
         				<TextBlock x:Name="this_historical_city_of_London_" Foreground="#FFFFFFFF" FontSize="30" FontFamily="Fonts/NokiaPureHeadlineLt.ttf#Nokia Pure Headline Light" LineStackingStrategy="BlockLineHeight" Canvas.Left="35.5" LineHeight="30" TextAlignment="Left" TextWrapping="Wrap" Text="this historical city of London." Canvas.Top="411.1"/>
-        				<Image x:Name="___Group_93" Height="159" Canvas.Left="35" Source="BLD_MENU-CONGRATULATIONS-SCREEN_01_Images/Group.png" Canvas.Top="459" Width="159"/>
-        				<TextBlock x:Name="Find_Out" Foreground="#FFFFFFFF" FontSize="34.5" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="52.5" LineHeight="34.5" TextAlignment="Left" TextWrapping="Wrap" Text="Find Out" Canvas.Top="465.64"/>
         				<TextBlock x:Name="Exit" Foreground="#FFFFFFFF" FontSize="34.5" FontFamily="Fonts/NokiaPureHeadlineBd.ttf#Nokia Pure Headline" LineStackingStrategy="BlockLineHeight" Canvas.Left="52.5" LineHeight="34.5" TextAlignment="Left" TextWrapping="Wrap" Text="Exit" Canvas.Top="583.64"/>
         			</Canvas>
         		</Canvas>
+        		<Button x:Name="ExitButton" Content="Button" Canvas.Left="31.665" Canvas.Top="573.639" Height="46.693" Width="160" Click="ExitCongratsScreenButton_Click" Style="{StaticResource ExitButton}"/>
         	</Canvas>
-        	<Button x:Name="FindOutButton" Content="Button" Canvas.Left="38" Canvas.Top="459.307" Height="46.693" Width="160" Click="FindOutButton_Click" Style="{StaticResource FindOut}"/>
+        	<Button x:Name="FindOutButton" Content="Button" Canvas.Left="37" Canvas.Top="458.807" Height="46.693" Width="160" Click="FindOutButton_Click" Style="{StaticResource FindOut}"/>
         </Canvas>
     </Canvas>
 </phone:PhoneApplicationPage>

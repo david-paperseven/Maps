@@ -84,8 +84,8 @@ namespace Maps
             DebugClass.Instance.mainpage = this;
             DebugClass.Instance.Reset();
 
-            //Memory.Init();
-            //Memory.Instance.Start();
+            Memory.Init();
+            Memory.Instance.Start();
 
             Initializeplaques();
             //DebugPlaquePosTimer();
@@ -93,8 +93,13 @@ namespace Maps
             SMSTimer();
 
             //PersistentStorage.Instance.Reset();
-            //PersistentStorage.Instance.SetVisited(99);
+            //PersistentStorage.Instance.SetVisited(0);
             //PersistentStorage.Instance.SetNumberVisited(99);
+            //foreach (Plaque p in SaveState.Instance.plaques)
+            //{
+             //   p.ClearSelection();
+            //}
+
 
             // Visual States are always on the first child of the control template  
             element = VisualTreeHelper.GetChild(MainPageElement, 0) as FrameworkElement;
@@ -324,9 +329,12 @@ namespace Maps
 
             if (SaveState.Instance.currentLocation.SetLocation(location) == false)
             {
-                SaveState.Instance.routeState = RouteState.Browsing;
-                VisualStateManager.GoToState(this, "NotInLondonState", true);
-                onMainMenu = false;
+                if (SaveState.Instance.routeState != RouteState.Browsing && completedSplashScreen)
+                {
+                    SaveState.Instance.routeState = RouteState.Browsing;
+                    VisualStateManager.GoToState(this, "NotInLondonState", true);
+                    onMainMenu = false;
+                }
             }
             //SaveState.Instance.journeysaver.Add(location); not recording right now
 
@@ -460,8 +468,8 @@ namespace Maps
                 }
                 else
                 {
-                    VisualStateManager.GoToState(this, "CongratulationsState", true);
-                    //VisualStateManager.GoToState(this, "CompletedRouteState", true);
+                    //VisualStateManager.GoToState(this, "CongratulationsState", true);
+                    VisualStateManager.GoToState(this, "CompletedRouteState", true);
                 }
             }
             else
@@ -502,6 +510,10 @@ namespace Maps
                 SaveState.Instance.routeList.GetList().Remove(pl);
                 pl.ClearSelection();
                 pl.ResetSize();
+                Select_plaques_to_visit.Visibility = Visibility.Visible;
+                RemovePlaque.Visibility = Visibility.Collapsed;
+                RevisitPlaque.Visibility = Visibility.Collapsed;
+                AddPlaque.Visibility = Visibility.Collapsed;
                 //SaveState.Instance.flashplaque = pl;
                 //SaveState.Instance.flashtimer = DateTime.Now;
             }
@@ -766,8 +778,20 @@ namespace Maps
 
         private void SettingsDoneButton_Click(object sender, RoutedEventArgs e)
         {
-            VisualStateManager.GoToState(this, "OptionsState", true);
+            if (SaveState.Instance.LocationServices == false)
+            {
+                VisualStateManager.GoToState(this, "MainMenuState", true);
+            }
+            else
+            {
+                VisualStateManager.GoToState(this, "OptionsState", true);
+            }
             //VisualStateManager.GoToState(this, "CongratulationsState", true);
+        }
+
+        private void ExitCongratsScreenButton_Click(object sender, RoutedEventArgs e)
+        {
+            VisualStateManager.GoToState(this, "MainMenuState", true);
         }
 
         private string UniqueCode()
@@ -775,16 +799,17 @@ namespace Maps
             string code;
             TimeSpan elapsedtime = new TimeSpan(PersistentStorage.Instance.ticks);
             code = "BT";
-            code += PersistentStorage.Instance.km.ToString();
+            int km = (int)(PersistentStorage.Instance.km * 1000);
+            code += km.ToString("D6");
             code += PersistentStorage.Instance.GetNumFoundPlaques().ToString();
-            code += elapsedtime.Minutes.ToString();
+            code += elapsedtime.Minutes.ToString("D6");
             return code;
         }
 
         private void FindOutButton_Click(object sender, RoutedEventArgs e)
         {
             EmailComposeTask emailComposeTask = new EmailComposeTask();
-            emailComposeTask.To = "david@paperseven.com";
+            emailComposeTask.To = "bluetrails@wearebuild.com";
             emailComposeTask.Subject = "I've completed Nokia Blue Trails!";
             emailComposeTask.Body = "Do I win anything?\n\nMy unique code is "+UniqueCode()+"\n(don't delete this code from your email!)";
             emailComposeTask.Show();
@@ -809,7 +834,7 @@ namespace Maps
 
         }
 
-        private void EnableBrowsingMode()
+        public void EnableBrowsingMode()
         {
             Quick_Start_Mode.Opacity = 0.5;
             App_Generated_Mode.Opacity = 0.5;
@@ -823,7 +848,7 @@ namespace Maps
 
         }
 
-        private void DisableBrowsingMode()
+        public void DisableBrowsingMode()
         {
             Quick_Start_Mode.Opacity = 1.0;
             App_Generated_Mode.Opacity = 1.0;
@@ -1052,6 +1077,8 @@ namespace Maps
 
         bool LocationStatusReady()
         {
+            if (!completedSplashScreen)
+                return true;
             /*
             if (geopositionstatus == GeoPositionStatus.NoData)
             {
@@ -1080,15 +1107,17 @@ namespace Maps
                 }
                 return false;
             }
-            if (SaveState.Instance.routeMode == RouteMode.BrowsingMode)
+            if (SaveState.Instance.routeMode == RouteMode.BrowsingMode && SaveState.Instance.LocationServices == true)
             {
                 DisableBrowsingMode();
             }
             return true;
         }
 
+        bool completedSplashScreen = false;
         private void CompletedSplashScreen(object sender, EventArgs e)
         {
+            completedSplashScreen = true;
             LocationStatusReady();
         }
 
@@ -1136,6 +1165,11 @@ namespace Maps
             {
                 case "FullInfoState":
                     {
+                        break;
+                    }
+                case "MapOnlyState":
+                    {
+                        VisualStateManager.GoToState(TravellingNameInfo, "Start", true);
                         break;
                     }
                 case "OptionsState":
@@ -1353,7 +1387,7 @@ namespace Maps
                 VisualStateManager.GoToState(this, "MainMenuState", true);
             }
             else
-            if (SaveState.Instance.CurrentVisualState == "HelpState" || SaveState.Instance.CurrentVisualState =="FilterState"  || SaveState.Instance.CurrentVisualState =="StatsScreenState")
+            if (SaveState.Instance.CurrentVisualState == "HelpState" || SaveState.Instance.CurrentVisualState =="FilterState"  || SaveState.Instance.CurrentVisualState =="StatsScreenState" || SaveState.Instance.CurrentVisualState == "SettingsState")
             {
                 VisualStateManager.GoToState(this, "OptionsState", true);
             }
